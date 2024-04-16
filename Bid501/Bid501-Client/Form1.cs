@@ -16,5 +16,20 @@ namespace Bid501_Client
         {
             InitializeComponent();
         }
+
+        private void tbPassword_TextChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UxLoginBtn_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void tbUserName_TextChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
