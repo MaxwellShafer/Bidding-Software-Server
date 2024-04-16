@@ -5,6 +5,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace Bid501_Server
 { 
@@ -13,6 +14,8 @@ namespace Bid501_Server
     /// </summary>
     public class ServerCommCtrl
     {
+        
+
         /// <summary>
         /// ServerCommCtrl constructor
         /// </summary>
