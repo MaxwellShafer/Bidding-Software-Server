@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using WebSocketSharp;
 
 namespace Bid501_Client
@@ -10,20 +11,35 @@ namespace Bid501_Client
     public class ClientCommCtrl
     {
         private WebSocket ws;
-        
+        LoginForm view;
+
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
-        public ClientCommCtrl()
+        public ClientCommCtrl(LoginForm v)
         { // Connects to the server
+            view = v;
             ws = new WebSocket("ws://127.0.0.1:8001/server");
-            ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
+            //ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
+            ws.OnMessage += OnMessage;
             ws.Connect();
         }
 
-        public bool Login(String username, String password)
+        public void Login(String username, String password)
         {
-            return true;
+            string tosend = username + password;
+            ws.Send(tosend);
+            
         }
+
+        public void OnMessage(object sender, MessageEventArgs e)
+        {
+
+            view.DisplayState(State.SUCCESS);
+
+        }
+
+
+
     }
 }

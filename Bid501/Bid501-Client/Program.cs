@@ -19,7 +19,7 @@ namespace Bid501_Client
 
             LoginForm view = new LoginForm();
 
-            ClientCommCtrl controller = new ClientCommCtrl();
+            ClientCommCtrl controller = new ClientCommCtrl(view);
             view.SetController(controller);
 
             Application.Run(view);
