@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using WebSocketSharp;
 
 namespace Bid501_Server
 { 
