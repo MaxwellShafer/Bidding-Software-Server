@@ -18,7 +18,7 @@ namespace Bid501_Client
         public ClientCommCtrl(LoginForm v)
         { // Connects to the server
             view = v;
-            ws = new WebSocket("ws://127.0.0.1:8001/server");
+            ws = new WebSocket("ws://127.0.0.1:8002/server");
             //ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
             ws.OnMessage += OnMessage;
             ws.Connect();

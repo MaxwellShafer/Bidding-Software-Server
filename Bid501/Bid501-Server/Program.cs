@@ -17,7 +17,7 @@ namespace Bid501_Server
         [STAThread]
         static void Main()
         {
-            WebSocketServer socket = new WebSocketServer(8001);
+            WebSocketServer socket = new WebSocketServer(8002);
             socket.AddWebSocketService<ServerCommCtrl>("/server", () => new ServerCommCtrl());
             socket.Start();
             Application.EnableVisualStyles();

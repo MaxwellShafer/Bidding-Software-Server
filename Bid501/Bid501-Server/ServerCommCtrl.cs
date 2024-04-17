@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
@@ -29,7 +30,7 @@ namespace Bid501_Server
         /// <param name="e"></param>
         protected override void OnMessage(MessageEventArgs e)
         {
-            Console.Write(e.Data);
+            MessageBox.Show(e.Data);
             Send($"The following message was receieved: {e.Data}");
             Sessions.Broadcast($"Session call: {e.Data}");
         }
