@@ -12,7 +12,7 @@ using static System.Windows.Forms.AxHost;
 namespace Bid501_Client
 {
 
-    public enum State
+    public enum LoginState
     {
         NOTINIT = -1,
         START = 0,
@@ -40,23 +40,23 @@ namespace Bid501_Client
         /// right information based on the App's satate.
         /// </summary>
         /// <param name="state"></param>
-        public void DisplayState(State state)
+        public void DisplayState(LoginState state)
         {
             switch (state)
             {
-                case State.START:
+                case LoginState.START:
                     lbStateMessage.Text = "Please Enter Username";
                     tbPassword.Enabled = false;
                     uxLoginBtn.Enabled = false;
                     break;
-                case State.GOTUSERNAME:
+                case LoginState.GOTUSERNAME:
                     lbStateMessage.Text = "Please Enter Password";
                     tbPassword.Enabled = true;
                     break;
-                case State.GOTPASSWORD:
+                case LoginState.GOTPASSWORD:
                     lbStateMessage.Text = "Validating Credentials...";
                     break;
-                case State.DECLINED:
+                case LoginState.DECLINED:
                     //Invoke this code since it will only ever be run on a separate thread.
                     this.Invoke(new Action(() =>
                     {
@@ -65,7 +65,7 @@ namespace Bid501_Client
                         lbStateMessage.Text = "Sorry, Invalid Credentials";
                     }));
                     break;
-                case State.SUCCESS:
+                case LoginState.SUCCESS:
 
                     //Invoke this code since it will only ever be run on a separate thread.
                     this.Invoke(new Action(() =>

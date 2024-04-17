@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace Bid501_Client
 {
-    internal class ClientLoginController
+    public delegate void CheckLoginDEL(string loginModel);
+    public delegate void FetchStateDEL(LoginState LoginDEL);
+
+
+
+    public class ClientLoginController
     {
+        public ClientLoginModel loginAttempt;
+
+        public ClientLoginController(ClientLoginModel loginAttempt)
+        {
+            this.loginAttempt = loginAttempt;
+        }
+
+        public void handleEvents(LoginState state)
+        {
+
+        }
+
     }
 }

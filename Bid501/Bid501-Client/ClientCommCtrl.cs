@@ -32,7 +32,7 @@ namespace Bid501_Client
 
         public void OnMessage(object sender, MessageEventArgs e)
         {
-            view.DisplayState(Bid501_Client.State.SUCCESS);
+            view.DisplayState(Bid501_Client.LoginState.SUCCESS);
         }
     }
 }
