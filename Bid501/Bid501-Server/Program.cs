@@ -17,11 +17,13 @@ namespace Bid501_Server
         [STAThread]
         static void Main()
         {
-            WebSocketServer serverSocket = new WebSocketServer(8001);
-            
+            WebSocketServer socket = new WebSocketServer(8001);
+            socket.AddWebSocketService<ServerCommCtrl>("/server", () => new ServerCommCtrl());
+            socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            socket.Stop();
         }
     }
 }
