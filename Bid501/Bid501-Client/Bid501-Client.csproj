@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientCommCtrl.cs" />
+    <Compile Include="ClientLoginController.cs" />
+    <Compile Include="ClientLoginModel.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
