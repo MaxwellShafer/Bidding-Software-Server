@@ -1,14 +1,13 @@
 ﻿
 using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
     public delegate bool Message(string message);
 
-    public class ClientCommCtrl
+    public class ClientCommCtrl : WebSocketBehavior
     {
         private WebSocket ws;
         LoginForm view;
@@ -29,17 +28,11 @@ namespace Bid501_Client
         {
             string tosend = username + password;
             ws.Send(tosend);
-            
         }
 
         public void OnMessage(object sender, MessageEventArgs e)
         {
-
-            view.DisplayState(State.SUCCESS);
-
+            view.DisplayState(Bid501_Client.State.SUCCESS);
         }
-
-
-
     }
 }

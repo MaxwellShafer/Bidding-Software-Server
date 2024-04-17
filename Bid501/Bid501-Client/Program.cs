@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
@@ -21,8 +22,17 @@ namespace Bid501_Client
 
             ClientCommCtrl controller = new ClientCommCtrl(view);
             view.SetController(controller);
+            WebSocketServer wss = new WebSocketServer(8001);
+
+            wss.AddWebSocketService<ClientCommCtrl>("/client", () => {
+                ClientCommCtrl clientCommCtrl = new ClientCommCtrl(view);
+                view.SetController(clientCommCtrl);
+                return clientCommCtrl;
+            });
+            wss.Start();
 
             Application.Run(view);
+            wss.Stop();
         }
     }
 }
