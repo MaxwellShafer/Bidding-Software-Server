@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
+
 namespace Bid501_Server
 { 
     /// <summary>
     /// Handles the communication incoming from websocket
     /// </summary>
-    public class ServerCommCtrl
+    public class ServerCommCtrl : WebSocketBehavior
     {
-        
-
         /// <summary>
         /// ServerCommCtrl constructor
         /// </summary>
@@ -24,6 +23,15 @@ namespace Bid501_Server
 
         }
 
-        
+        /// <summary>
+        /// Receive message event handler
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMessage(MessageEventArgs e)
+        {
+            Console.Write(e.Data);
+            Send($"The following message was receieved: {e.Data}");
+            Sessions.Broadcast($"Session call: {e.Data}");
+        }
     }
 }
