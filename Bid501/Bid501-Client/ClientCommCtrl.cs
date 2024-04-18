@@ -6,7 +6,7 @@ using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
-    public delegate void LoginReturnDEL(ClientLoginModel model);
+    public delegate void LoginReturnDEL(string IDB);
     public delegate bool NewBidDEL(decimal price, string id);
 
     public class ClientCommCtrl : WebSocketBehavior
