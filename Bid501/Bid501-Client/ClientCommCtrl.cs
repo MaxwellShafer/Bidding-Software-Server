@@ -1,7 +1,8 @@
 ﻿
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using WebSocketSharp;
+using System.Text.Json;
 using WebSocketSharp.Server;
 
 namespace Bid501_Client
@@ -31,17 +32,31 @@ namespace Bid501_Client
             ws.Send(tosend);
         }*/
 
-        public void SendLoginInfo(ClientLoginModel model)
+        public void SendLoginInfo(LoginDTO model)
         {
             string body = model.Serialize();
             ws.Send(body);
         }
-        
-        
+
+        public void SendBid(decimal price, string id)
+        {
+            // Currently manually creating the JSON string, if we create a model for this move that logic over
+            var dto = new PlaceBidDTO
+            {
+                Bid = price,
+                Id = id
+            };
+            ws.Send(dto.Serialize());
+        }
+
 
         public void OnMessage(object sender, MessageEventArgs e)
         {
-            //view.DisplayState(LoginState.SUCCESS);
+            var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
+            switch (response["Type"])
+            {
+                
+            }
         }
     }
 }

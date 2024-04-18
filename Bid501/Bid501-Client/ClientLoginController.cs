@@ -9,16 +9,16 @@ using System.Windows.Forms;
 namespace Bid501_Client
 {
     public delegate void FetchStateDEL(LoginState LoginDEL);
-    public delegate void CheckLoginDEL(ClientLoginModel loginAttempt);
+    public delegate void CheckLoginDEL(LoginDTO loginAttempt);
 
 
     public class ClientLoginController
     {
-        public ClientLoginModel loginAttempt;
+        public LoginDTO loginAttempt;
         public FetchStateDEL fetchState;
         public CheckLoginDEL checkLogin;
 
-        public ClientLoginController(ClientLoginModel loginAttempt)
+        public ClientLoginController(LoginDTO loginAttempt)
         {
             this.loginAttempt = loginAttempt;
         }
@@ -61,7 +61,6 @@ namespace Bid501_Client
 
        public void handleLoginReturn (string IDB)
         {
-
         }
 
     }
