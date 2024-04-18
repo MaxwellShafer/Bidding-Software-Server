@@ -12,16 +12,15 @@ namespace Bid501_Client
 
     public class ClientLoginController
     {
-        public ClientLoginModel loginAttempt;
+        public LoginDTO loginAttempt;
 
-        public ClientLoginController(ClientLoginModel loginAttempt)
+        public ClientLoginController(LoginDTO loginAttempt)
         {
             this.loginAttempt = loginAttempt;
         }
 
         public void handleEvents(LoginState state)
         {
-
         }
 
     }
