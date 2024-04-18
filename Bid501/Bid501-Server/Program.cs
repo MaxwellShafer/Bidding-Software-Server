@@ -9,6 +9,38 @@ using WebSocketSharp.Server;
 
 namespace Bid501_Server
 {
+    /// <summary>
+    /// Delegate for when the bid is being updated
+    /// </summary>
+    /// <param name="bid">The amount being bid</param>
+    /// <param name="id">The id of the bid being updated</param>
+    public delegate void BidUpdateDEL(double bid, string id);
+
+    /// <summary>
+    /// Delegate for when a new bid arrives to the server.
+    /// </summary>
+    /// <param name="bid">The amount being bid</param>
+    /// <param name="id">The id of the product</param>
+    public delegate void NewBidDEL(double bid, string id);
+
+    /// <summary>
+    /// Delegate for when the login is returned to the client
+    /// </summary>
+    /// <param name="status">Whether or not the client successfully logged in</param>
+    public delegate void LoginReturnDEL(bool status);
+
+    /// <summary>
+    /// Delegate for receiving a login attempt from the client
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="password"></param>
+    public delegate void LoginAttemptDEL(string user, string password);
+
+    public delegate void SendProductDEL()
+
+    /// <summary>
+    /// Program class
+    /// </summary>
     internal static class Program
     {
         /// <summary>
