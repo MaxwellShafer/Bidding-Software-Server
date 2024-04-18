@@ -1,4 +1,5 @@
-﻿using Microsoft.CSharp;
+﻿using Bid501_Shared;
+using Microsoft.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,11 @@ namespace Bid501_Server
     /// <param name="password"></param>
     public delegate void LoginAttemptDEL(string user, string password);
 
-    public delegate void SendProductDEL()
+    /// <summary>
+    /// Delegate for 
+    /// </summary>
+    /// <param name="product"></param>
+    public delegate void SendProductDEL(IProduct product);
 
     /// <summary>
     /// Program class
