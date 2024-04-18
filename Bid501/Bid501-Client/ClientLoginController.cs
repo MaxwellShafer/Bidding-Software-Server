@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Bid501_Client
 {
-    public delegate void CheckLoginDEL(string loginModel);
     public delegate void FetchStateDEL(LoginState LoginDEL);
 
 
