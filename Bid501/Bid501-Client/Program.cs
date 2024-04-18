@@ -18,7 +18,11 @@ namespace Bid501_Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            LoginForm view = new LoginForm();
+            
+            ClientLoginModel login = new ClientLoginModel();
+            ClientLoginController loginController = new ClientLoginController(login);
+            LoginForm view = new LoginForm(loginController.handleEvents);
+            loginController.SetupDels(view.DisplayState);
 
             ClientCommCtrl controller = new ClientCommCtrl(view);
             view.SetController(controller);
