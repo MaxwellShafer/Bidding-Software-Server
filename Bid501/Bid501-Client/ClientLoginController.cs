@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Bid501_Client
 {
     public delegate void FetchStateDEL(LoginState LoginDEL);
-    public delegate void CheckLoginDEL(ClientLoginModel loginAttempt);
+    public delegate void CheckLoginDEL(LoginDTO loginAttempt);
 
 
     public class ClientLoginController
