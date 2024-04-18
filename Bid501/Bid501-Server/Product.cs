@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bid501_Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
@@ -10,7 +11,7 @@ namespace Bid501_Server
     /// <summary>
     /// The model class, build to hold the information of one bidding item
     /// </summary>
-    public class Product
+    public class Product : IProduct
     {
         /// <summary>
         /// Eye-Dentifyer
