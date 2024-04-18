@@ -1,25 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace Bid501_Client
 {
     public class ClientLoginModel
     {
-        public string username; 
-        private string password;
+        public string Type = "LoginRequest";
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public ClientLoginModel()
+        public string Serialize()
         {
-            
-        }
-
-        public void newLoginInAttempt(string un, string pw)
-        {
-            username = un; 
-            password = pw; 
+            return JsonSerializer.Serialize(this);
         }
     }
 }
