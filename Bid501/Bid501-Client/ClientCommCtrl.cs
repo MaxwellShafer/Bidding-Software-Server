@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
@@ -6,32 +7,30 @@ using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
-    public delegate void CheckLoginDEL(LoginDTO model);
-
-    public delegate void NewBidDEL(decimal price, string id);
+    public delegate void LoginReturnDEL(string IDB);
+    public delegate bool NewBidDEL(decimal price, string id);
 
     public class ClientCommCtrl : WebSocketBehavior
     {
         private WebSocket ws;
-
+        public LoginReturnDEL loginReturn;
+        
         // Event for when a message is received from the server
 
-        public ClientCommCtrl(LoginForm v)
-        {
-            // Connects to the server
-            //view = v;
+        public ClientCommCtrl(LoginReturnDEL lr)
+        { // Connects to the server
+            loginReturn = lr;
             ws = new WebSocket("ws://192.168.0.108:8002/server");
             //ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
             ws.OnMessage += OnMessage;
             ws.Connect();
         }
 
-        [Obsolete("Use SendLoginInfo instead of Login.")]
-        public void Login(String username, String password)
-        {
+        /*public void Login(String username, String password)
+        {   
             string tosend = username + password;
             ws.Send(tosend);
-        }
+        }*/
 
         public void SendLoginInfo(LoginDTO model)
         {
