@@ -43,6 +43,8 @@ namespace Bid501_Server
     /// <param name="product"></param>
     public delegate void SendProductDEL(IProduct product);
 
+    public delegate void UpdateStateDEL()
+
     /// <summary>
     /// Program class
     /// </summary>
