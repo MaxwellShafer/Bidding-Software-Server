@@ -24,15 +24,15 @@ namespace Bid501_Client
             LoginForm view = new LoginForm(loginController.handleEvents);
             
 
-            ClientCommCtrl ComController = new ClientCommCtrl(loginController.handleLoginReturn);
-            loginController.SetupDels(view.DisplayState , ComController.SendLoginInfo);
+            ClientCommCtrl commCtrl = new ClientCommCtrl(loginController.handleLoginReturn);
+            loginController.SetupDels(view.DisplayState , commCtrl.SendLoginInfo);
             
 
             WebSocketServer wss = new WebSocketServer(8001);
 
             wss.AddWebSocketService<ClientCommCtrl>("/client", () => {
-                ClientCommCtrl clientCommCtrl = new ClientCommCtrl(view.DisplayState);
-                view.SetController(clientCommCtrl);
+                ClientCommCtrl clientCommCtrl = new ClientCommCtrl(loginController.handleLoginReturn);
+                loginController.SetupDels(view.DisplayState, clientCommCtrl.SendLoginInfo);
                 return clientCommCtrl;
             });
             wss.Start();
