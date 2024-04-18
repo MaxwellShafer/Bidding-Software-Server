@@ -30,7 +30,7 @@ namespace Bid501_Shared
         /// <summary>
         /// The number of times the product has been bid on
         /// </summary>
-        int BidsCount { get; set; }
+        int BidCount { get; set; }
 
         /// <summary>
         /// Whether or not the bid window has expired

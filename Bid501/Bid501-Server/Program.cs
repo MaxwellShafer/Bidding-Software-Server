@@ -38,6 +38,8 @@ namespace Bid501_Server
 
     public delegate void SendProductDEL()
 
+    public delegate void UpdateStateDEL()
+
     /// <summary>
     /// Program class
     /// </summary>

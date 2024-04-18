@@ -23,12 +23,16 @@ namespace Bid501_Client
         EXIT
     }
 
+    public delegate void LoginClickDEL(LoginState state, string args);
+
     public partial class LoginForm : Form
     {
-        ClientCommCtrl controller;
+        public LoginClickDEL loginClick;
 
-        public LoginForm()
+        public LoginForm(LoginClickDEL del)
         {
+            loginClick = del;
+
             InitializeComponent();
 
         }
@@ -55,6 +59,7 @@ namespace Bid501_Client
                     break;
                 case LoginState.GOTPASSWORD:
                     lbStateMessage.Text = "Validating Credentials...";
+
                     break;
                 case LoginState.DECLINED:
                     //Invoke this code since it will only ever be run on a separate thread.
@@ -93,21 +98,12 @@ namespace Bid501_Client
         {
             String un = tbUserName.Text;
             String up = tbPassword.Text;
-            Console.WriteLine(un + " " + up);
-            //controller.handleEvents(State.GOTPASSWORD, un + ":" + up);
-            controller.Login(un, up);
+            
+            loginClick(LoginState.GOTPASSWORD, un + ":" + up);
+           
 
         }
         
-        /// <summary>
-        /// Links the View to the controller.
-        /// </summary>
-        /// <param name="c">The App's main controller object. Later
-        /// this shold be a delegate.</param>
-        public void SetController(ClientCommCtrl c)
-        {
-            controller = c;
-        }
         
 
         /// <summary>
@@ -117,7 +113,7 @@ namespace Bid501_Client
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            //controller.handleEvents(State.START, "");
+            loginClick(LoginState.START, "");
         }
 
         /// <summary>
@@ -128,7 +124,7 @@ namespace Bid501_Client
         /// <param name="e"></param>
         private void tbUserName_TextChanged(object sender, EventArgs e)
         {
-            //controller.handleEvents(State.GOTUSERNAME, "");
+            loginClick(LoginState.GOTUSERNAME, "");
         }
 
 

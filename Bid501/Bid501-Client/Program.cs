@@ -18,10 +18,16 @@ namespace Bid501_Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            LoginForm view = new LoginForm();
+            
+            ClientLoginModel login = new ClientLoginModel();
+            ClientLoginController loginController = new ClientLoginController(login);
+            LoginForm view = new LoginForm(loginController.handleEvents);
+            
 
-            ClientCommCtrl controller = new ClientCommCtrl(view);
-            view.SetController(controller);
+            ClientCommCtrl ComController = new ClientCommCtrl(loginController.handleLoginReturn);
+            loginController.SetupDels(view.DisplayState , ComController.SendLoginInfo);
+            
+
             WebSocketServer wss = new WebSocketServer(8001);
 
             wss.AddWebSocketService<ClientCommCtrl>("/client", () => {
