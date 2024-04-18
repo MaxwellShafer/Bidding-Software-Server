@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Bid501_Client
 {
     public delegate void FetchStateDEL(LoginState LoginDEL);
-
+    public delegate void CheckLoginDEL(ClientLoginModel loginAttempt);
 
 
     public class ClientLoginController
@@ -23,9 +23,10 @@ namespace Bid501_Client
             this.loginAttempt = loginAttempt;
         }
 
-        public void SetupDels(FetchStateDEL fs)
+        public void SetupDels(FetchStateDEL fs, CheckLoginDEL cl)
         {
             fetchState = fs;
+            checkLogin = cl;
         }
 
         public void handleEvents(LoginState state , string args)
@@ -38,17 +39,27 @@ namespace Bid501_Client
                     break;
                 case LoginState.GOTUSERNAME:
                     fetchState(LoginState.GOTUSERNAME);
+                    loginAttempt.Username = args;
                     break;
                 case LoginState.GOTPASSWORD:
                     fetchState(LoginState.GOTPASSWORD);
-                    //validateCredentials(args);
+                    
+                    string[] parts = args.Split(':');
+
+                    if (parts.Length == 2)
+                    {
+                        loginAttempt.Username = parts[0];
+                        loginAttempt.Password = parts[1];
+
+                    }
+                    checkLogin(loginAttempt);
                     break;
                 default:
                     break;
             }
         }
 
-        public void newLoginAttempt(string un , string pw)
+       public void handleLoginReturn (string IDB)
         {
 
         }

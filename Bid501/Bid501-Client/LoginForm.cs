@@ -98,21 +98,12 @@ namespace Bid501_Client
         {
             String un = tbUserName.Text;
             String up = tbPassword.Text;
-            //Console.WriteLine(un + " " + up);
+            
             loginClick(LoginState.GOTPASSWORD, un + ":" + up);
-            //controller.Login(un, up);
+           
 
         }
         
-        /*/// <summary>
-        /// Links the View to the controller.
-        /// </summary>
-        /// <param name="c">The App's main controller object. Later
-        /// this shold be a delegate.</param>
-        public void SetController(ClientCommCtrl c)
-        {
-            controller = c;
-        }*/
         
 
         /// <summary>
