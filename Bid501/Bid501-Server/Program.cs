@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using Bid501_Shared;
 
 namespace Bid501_Server
 {
@@ -39,9 +40,13 @@ namespace Bid501_Server
     /// <summary>
     /// Sends a product to the clients
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="product">The product being sent</param>
     public delegate void SendProductDEL(IProduct product);
 
+    /// <summary>
+    /// Updates the state of the admin view
+    /// </summary>
+    /// <param name="state">The AdminState</param>
     public delegate void UpdateStateDEL(AdminState state);
 
     /// <summary>
