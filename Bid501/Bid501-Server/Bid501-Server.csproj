@@ -51,12 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminState.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ServerLoginView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ServerLoginView.Designer.cs">
+      <DependentUpon>ServerLoginView.cs</DependentUpon>
     </Compile>
+    <Compile Include="LogInAttempt.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
