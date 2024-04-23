@@ -58,6 +58,7 @@
       <DependentUpon>ServerLoginView.cs</DependentUpon>
     </Compile>
     <Compile Include="LogInAttempt.cs" />
+    <Compile Include="LoginState.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
