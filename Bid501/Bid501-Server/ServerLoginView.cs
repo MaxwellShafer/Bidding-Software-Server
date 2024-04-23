@@ -15,7 +15,7 @@ namespace Bid501_Server
         /// <summary>
         /// The current State of the Login View
         /// </summary>
-        public LoginState state { get; set; }
+        internal LoginState State { get; set; }
 
         /// <summary>
         /// A property to hold each login attempt
