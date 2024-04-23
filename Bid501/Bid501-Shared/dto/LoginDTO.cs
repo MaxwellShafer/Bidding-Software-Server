@@ -2,7 +2,7 @@
 {
     public class LoginDTO : DTO<LoginDTO>
     {
-        public string Type = "LoginRequest";
+        public static string Type = "LoginRequest";
         public string Username { get; set; }
         public string Password { get; set; }
     }

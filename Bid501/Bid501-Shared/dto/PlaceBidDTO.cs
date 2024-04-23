@@ -2,7 +2,7 @@
 {
     public class PlaceBidDTO : DTO<PlaceBidDTO>
     {
-        public string Type = "PlaceBidRequest";
+        public static string Type = "PlaceBidRequest";
         public string Id { get; set; }
         public decimal Bid { get; set; }
     }

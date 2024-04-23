@@ -44,7 +44,7 @@ namespace Bid501_Client
             var dto = new PlaceBidDTO
             {
                 Bid = price,
-                Id = id
+                Id = id,
             };
             ws.Send(dto.Serialize());
         }

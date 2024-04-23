@@ -36,9 +36,9 @@ namespace Bid501_Server
     /// <param name="password"></param>
     public delegate void LoginAttemptDEL(string user, string password);
 
-    public delegate void SendProductDEL()
+    public delegate void SendProductDEL();
 
-    public delegate void UpdateStateDEL()
+    public delegate void UpdateStateDEL();
 
     /// <summary>
     /// Program class
