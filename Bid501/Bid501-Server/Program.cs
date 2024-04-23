@@ -49,6 +49,7 @@ namespace Bid501_Server
     /// <param name="state">The AdminState</param>
     public delegate void UpdateStateDEL(AdminState state);
 
+
     /// <summary>
     /// Program class
     /// </summary>
