@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bid501_Client
+namespace Bid501_Shared
 {
     public class IDB : DTO<IDB>
     {

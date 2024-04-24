@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.AxHost;
 using System.Windows.Forms;
+using Bid501_Shared;
 
 namespace Bid501_Client
 {
@@ -59,9 +60,13 @@ namespace Bid501_Client
             }
         }
 
-       public void handleLoginReturn (IDB idb)
-        {
-        }
-
+       public void handleLoginReturn(IDB idb)
+       {
+           var controller = new BidClientController(idb);
+           var bidView = new ClientBidView(controller);
+           Application.Run(bidView);
+           // maybe use this instead...
+           //bidView.Show();
+       }
     }
 }

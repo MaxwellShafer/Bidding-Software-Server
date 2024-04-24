@@ -50,6 +50,25 @@ namespace Bid501_Server
     public delegate void UpdateStateDEL(AdminState state);
 
     /// <summary>
+    /// Add a product to the database
+    /// </summary>
+    /// <param name="product">The product to be added</param>
+    public delegate void AddProductDEL(IProduct product);
+
+    /// <summary>
+    /// Delegate for when the login display needs to be updated
+    /// </summary>
+    /// <param name="state">The current state of the login system</param>
+    internal delegate void FetchStateDEL(LoginState state);
+
+    /// <summary>
+    /// Handles the admin login attempt
+    /// </summary>
+    /// <param name="un">The username</param>
+    /// <param name="pw">The password</param>
+    internal delegate void LoginClickDEL(string un, string pw);
+
+    /// <summary>
     /// Program class
     /// </summary>
     internal static class Program
@@ -65,7 +84,7 @@ namespace Bid501_Server
             socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new ServerLoginView());
             socket.Stop();
         }
     }

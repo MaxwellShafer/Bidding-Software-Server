@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
+using Bid501_Shared;
 using WebSocketSharp.Server;
 
 namespace Bid501_Client
