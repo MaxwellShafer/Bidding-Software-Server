@@ -59,7 +59,7 @@ namespace Bid501_Client
             }
         }
 
-       public void handleLoginReturn (string IDB)
+       public void handleLoginReturn (IDB idb)
         {
         }
 

@@ -7,7 +7,7 @@ using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
-    public delegate void LoginReturnDEL(string IDB);
+    public delegate void LoginReturnDEL(IDB idb);
     public delegate bool NewBidDEL(decimal price, string id);
 
     public class ClientCommCtrl : WebSocketBehavior
@@ -49,7 +49,10 @@ namespace Bid501_Client
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
             switch (response["Type"])
             {
-                
+                case IDB.Type:
+                    IDB idb = IDB.Deserialize(e.Data);
+                    loginReturn(idb);
+                    break;
             }
         }
     }

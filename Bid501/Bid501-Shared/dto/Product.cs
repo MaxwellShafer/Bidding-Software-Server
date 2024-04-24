@@ -2,7 +2,7 @@
 {
     public class Product : DTO<Product>
     {
-        public static string Type = "Product";
+        public const string Type = "Product";
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal MinBid { get; set; }
