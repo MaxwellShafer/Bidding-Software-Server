@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminState.cs" />
+    <Compile Include="AdminViewController.cs" />
     <Compile Include="ServerLoginController.cs" />
     <Compile Include="AdminView.cs">
       <SubType>Form</SubType>
@@ -65,7 +66,7 @@
     <Compile Include="ServerLoginView.Designer.cs">
       <DependentUpon>ServerLoginView.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogInAttempt.cs" />
+    <Compile Include="LoginAttempt.cs" />
     <Compile Include="LoginState.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />

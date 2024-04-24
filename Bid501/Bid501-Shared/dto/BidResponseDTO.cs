@@ -8,8 +8,19 @@ namespace Bid501_Shared.dto
 {
     public class BidResponseDTO : DTO<BidResponseDTO>
     {
-        public const string Type = "PlaceBidRequest";
+        /// <summary>
+        /// The type string for data processing
+        /// </summary>
+        public const string Type = "BidResponse";
 
+        /// <summary>
+        /// The unique identifier for the product
+        /// </summary>
+        public string Id { get; set; }
 
+        /// <summary>
+        /// The amount that the new object is being bid on
+        /// </summary>
+        public decimal Bid { get; set; }
     }
 }

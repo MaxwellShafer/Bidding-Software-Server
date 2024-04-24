@@ -9,7 +9,7 @@ namespace Bid501_Server
     /// <summary>
     /// A Data class to format and hold the information for each log in.
     /// </summary>
-    public class LogInAttempt
+    public class LoginAttempt
     {
         /// <summary>
         /// Property for the username 
