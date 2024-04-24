@@ -11,6 +11,12 @@ namespace Bid501_Server
     /// </summary>
     internal class AdminViewController
     {
+        /// <summary>
+        /// a private field to hold the database
+        /// </summary>
+        private ProductDB productDB;
+
+
         
     }
 }
