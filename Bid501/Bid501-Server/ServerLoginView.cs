@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Bid501_Server
 {
+    /// <summary>
+    /// The backing class for the Server Login View
+    /// </summary>
     public partial class ServerLoginView : Form
     {
         /// <summary>
@@ -20,18 +23,25 @@ namespace Bid501_Server
         /// <summary>
         /// A property to hold each login attempt
         /// </summary>
-        public LogInAttempt LogInAttempt { get; set; }
+        public LoginAttempt LoginAttempt { get; set; }
 
         /// <summary>
         /// A delgate that is called when the user attempts to log in
         /// </summary>
         internal LoginClickDEL LoginClickDEL { get; set; }
 
+        /// <summary>
+        /// Constructor for the LoginView
+        /// </summary>
         public ServerLoginView()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// A method to be called when the state of the display need to be changed
+        /// </summary>
+        /// <param name="state"> The state the view will update to</param>
         internal void DisplayState(LoginState state)
         {
             // to be implemented
