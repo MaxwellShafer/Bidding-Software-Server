@@ -59,9 +59,13 @@ namespace Bid501_Client
             }
         }
 
-       public void handleLoginReturn (IDB idb)
-        {
-        }
-
+       public void handleLoginReturn(IDB idb)
+       {
+           var controller = new BidClientController(idb);
+           var bidView = new ClientBidView(controller);
+           Application.Run(bidView);
+           // maybe use this instead...
+           //bidView.Show();
+       }
     }
 }
