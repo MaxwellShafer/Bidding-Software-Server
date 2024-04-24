@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminState.cs" />
+    <Compile Include="ServerLoginController.cs" />
     <Compile Include="ServerLoginView.cs">
       <SubType>Form</SubType>
     </Compile>

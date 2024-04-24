@@ -20,13 +20,27 @@ namespace Bid501_Server
         /// <summary>
         /// A property to hold each login attempt
         /// </summary>
-        public LogInAttempt logInAttempt { get; set; }
+        public LogInAttempt LogInAttempt { get; set; }
 
-
+        /// <summary>
+        /// A delgate that is called when the user attempts to log in
+        /// </summary>
+        internal LoginClickDEL LoginClickDEL { get; set; }
 
         public ServerLoginView()
         {
             InitializeComponent();
         }
+
+        internal void DisplayState(LoginState state)
+        {
+            // to be implemented
+        }
+
+        // method for usrname changed 
+
+        // method for password changed
+
+        // method to handle button click
     }
 }
