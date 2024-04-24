@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Bid501_Client
+namespace Bid501_Shared
 {
     public class DTO<T>
     {

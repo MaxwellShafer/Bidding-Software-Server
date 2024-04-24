@@ -1,6 +1,6 @@
 ﻿namespace Bid501_Server
 {
-    partial class Form1
+    partial class ServerLoginView
     {
         /// <summary>
         /// Required designer variable.

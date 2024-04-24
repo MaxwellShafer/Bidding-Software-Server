@@ -10,9 +10,13 @@ using System.Windows.Forms;
 
 namespace Bid501_Server
 {
-    public partial class Form1 : Form
+    public partial class AdminView : Form
     {
-        public Form1()
+        private ProductDB database;
+
+        private AddProductDEL addProductDEL;
+
+        public AdminView()
         {
             InitializeComponent();
         }
