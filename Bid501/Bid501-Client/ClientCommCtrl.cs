@@ -7,13 +7,14 @@ using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
-    public delegate void LoginReturnDEL(string IDB);
+    public delegate void LoginReturnDEL(IDB idb);
     public delegate bool NewBidDEL(decimal price, string id);
 
     public class ClientCommCtrl : WebSocketBehavior
     {
         private WebSocket ws;
         public LoginReturnDEL loginReturn;
+        public NewBidDEL newBid;
         
         // Event for when a message is received from the server
 
@@ -21,16 +22,9 @@ namespace Bid501_Client
         { // Connects to the server
             loginReturn = lr;
             ws = new WebSocket("ws://192.168.0.108:8002/server");
-            //ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
             ws.OnMessage += OnMessage;
             ws.Connect();
         }
-
-        /*public void Login(String username, String password)
-        {   
-            string tosend = username + password;
-            ws.Send(tosend);
-        }*/
 
         public void SendLoginInfo(LoginDTO model)
         {
@@ -44,18 +38,21 @@ namespace Bid501_Client
             var dto = new PlaceBidDTO
             {
                 Bid = price,
-                Id = id
+                Id = id,
             };
             ws.Send(dto.Serialize());
         }
 
 
-        public void OnMessage(object sender, MessageEventArgs e)
+        private void OnMessage(object sender, MessageEventArgs e)
         {
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
             switch (response["Type"])
             {
-                
+                case IDB.Type:
+                    IDB idb = IDB.Deserialize(e.Data);
+                    loginReturn(idb);
+                    break;
             }
         }
     }
