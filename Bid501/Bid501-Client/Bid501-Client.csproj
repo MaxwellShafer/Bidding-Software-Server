@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BidClientController.cs" />
     <Compile Include="ClientBidView.cs">
       <SubType>Form</SubType>
     </Compile>
