@@ -1,4 +1,4 @@
-﻿namespace Bid501_Client
+﻿namespace Bid501_Shared
 {
     public class LoginDTO : DTO<LoginDTO>
     {
