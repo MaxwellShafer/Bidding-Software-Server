@@ -22,10 +22,16 @@ namespace Bid501_Client
 
     public class BidClientController
     {
+        public IDB database;
+
+        //public 
 
         public BidClientController(IDB idb)
         {
-
+            database = idb;
         }
+
+
+
     }
 }

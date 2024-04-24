@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Bid501_Client
 {
+    public delegate void PlaceBid(double price);
+
+
     public partial class ClientBidView : Form
     {
         public ClientBidView()

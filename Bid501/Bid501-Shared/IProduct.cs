@@ -1,4 +1,5 @@
-﻿using Json.Net;
+﻿using Bid501_Client;
+using Json.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;

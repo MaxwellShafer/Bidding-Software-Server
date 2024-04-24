@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bid501_Client
 {
-    public class ProductDBProxy
+    public class ProductDBProxy : IDB
     {
 
 
