@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.AxHost;
 using System.Windows.Forms;
+using Bid501_Shared;
 
 namespace Bid501_Client
 {
