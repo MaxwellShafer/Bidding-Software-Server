@@ -19,16 +19,35 @@ namespace Bid501_Client
         EXIT
     }
 
+    public delegate void UpdateBidState(BidState state);
+
 
     public class BidClientController
     {
         private ProductDBProxy productDB;
         private ProductProxy selectedProxy;
+        public UpdateBidState updateBidStateDEL;
 
-        public BidClientController(ProductDBProxy db, ProductProxy selectedProxy)
+        
+        public void fetchNewProduct(ProductProxy product)
+        {
+
+        }
+        
+
+
+        public void handleNewProduct(ProductProxy p)
+        {
+            selectedProxy = p;
+            updateBidStateDEL(BidState.NEWPRODUCT);
+
+        }
+        public BidClientController(ProductDBProxy db, ProductProxy selectedProxy, UpdateBidState updateDEL)
         {
             this.productDB = db;
             this.selectedProxy = selectedProxy;
+            updateBidStateDEL = updateDEL;
+
         }
     }
 }
