@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Bid501_Client
 {
-    public delegate void PlaceBidDEL(double price);
+    public delegate void PlaceBidDEL(decimal price);
     public delegate void FetchBidDEL(ProductProxy product);
 
 
@@ -24,9 +24,9 @@ namespace Bid501_Client
 
         public ProductDBProxy database;
 
-        public double MinimumBid;
+        public decimal MinimumBid;
 
-        public double currentBid;
+        public decimal currentBid;
         
 
         public ClientBidView()
@@ -45,7 +45,7 @@ namespace Bid501_Client
 
         private void PlaceBidClick(object sender, EventArgs e)
         {
-            currentBid = Convert.ToDouble(Bid.Text);
+            currentBid = Convert.ToDecimal(Bid.Text);
 
             if(currentBid > MinimumBid)
             {
@@ -98,11 +98,26 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-           /* MinBid.Text = "Minimum bid: $" + product.minbid.ToString();
-            MinimumBid = product.minbid;
-            NumBids.Text = $"({product.numbid})";
-            Status.Text = "Status: " +  ;
-            name.Text = product.name;*/
+            MinBid.Text = "Minimum bid: $" + product.MinBid.ToString();
+            MinimumBid = product.MinBid;
+            NumBids.Text = $"({product.BidCount})";
+            if (product.IsExpired)
+            {
+                if (product.Winning)
+                {
+                    Status.Text = "won";
+                }
+                else
+                {
+                    Status.Text = "lost";
+                }
+            }
+            else
+            {
+                Status.Text = "Open";
+            }
+            
+            name.Text = product.Name;
 
 
         }
