@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Bid501_Client
 {
@@ -64,7 +65,7 @@ namespace Bid501_Client
             {
                 case BidState.CHANGEPRODUCT:
 
-                    RefreshDisplay();
+                    RefreshList();
                     
                     break;
 
@@ -81,6 +82,7 @@ namespace Bid501_Client
 
 
                 case BidState.BADBID:
+
 
                    
                     break;
@@ -118,10 +120,22 @@ namespace Bid501_Client
             }
             
             name.Text = product.Name;
-
-
         }
 
+
+        public void RefreshList()
+        {
+            productList.Items.Clear();
+
+            // Iterate through the list of products
+            foreach (Product product in database.Products)
+            {
+                
+                ListViewItem item = new ListViewItem(product.Name); 
+
+                productList.Items.Add(item);
+            }
+        }
 
         private void label3_Click(object sender, EventArgs e)
         {
@@ -135,9 +149,9 @@ namespace Bid501_Client
         /// <param name="e"></param>
         private void NewProductClick(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0 && database != null)
+            if (productList.SelectedItems.Count > 0 && database != null)
             {
-                int selectedIndex = listView1.SelectedIndices[0];
+                int selectedIndex = productList.SelectedIndices[0];
 
                 
                 if (selectedIndex >= 0 && selectedIndex < database.Products.Count)

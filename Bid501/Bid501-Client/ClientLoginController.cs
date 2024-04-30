@@ -81,6 +81,7 @@ namespace Bid501_Client
             setBidUpdated(controller.BidUpdated);
             setNewProduct(controller.NewProduct);
             var bidView = new ClientBidView();
+            controller.SetProxy(bidView.handleEvents);
             Application.Run(bidView);
             // maybe use this instead...
             //bidView.Show();
