@@ -41,9 +41,6 @@ namespace Bid501_Client
         public BidClientController(ProductDBProxy db)
         {
             this.productDB = db;
-            this.selectedProxy = selectedProxy;
-            updateBidStateDEL = updateDEL;
-
         }
         
     }
