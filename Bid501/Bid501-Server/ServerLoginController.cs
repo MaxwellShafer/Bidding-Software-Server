@@ -27,11 +27,31 @@ namespace Bid501_Server
         public FetchStateDEL fetchStateDEL { get; set; }
 
         /// <summary>
+        /// dictates what file the user information should be read/writen to
+        /// </summary>
+        private string _userFilepath = "UserLoginInfo";
+
+        /// <summary>
+        /// dictates what file the admin login info is read from
+        /// </summary>
+        private string _adminFilepath = "AdminLoginInfo";
+
+        /// <summary>
         /// a dictionary to load in and check admin logins
         /// </summary>
         private Dictionary<string, string> _adminLoginInfo;
 
+        /// <summary>
+        /// a dictionary to load and check user logins
+        /// </summary>
         private Dictionary<string, string> _userLoginInfo;
+
+        public ServerLoginController()
+        {
+            //load dictionaries from given filepaths
+            _adminLoginInfo = BuildDictonary(_adminFilepath);
+            _userLoginInfo = BuildDictonary(_userFilepath);
+        }
 
         /// <summary>
         /// A method to check if the given username is valid, depending if its an admin login or not
@@ -59,8 +79,8 @@ namespace Bid501_Server
                 //if it does not contain create new and return sucsessfull
                 if ( !(_userLoginInfo.ContainsKey(username)) )
                 {
-                    //json add username and password HERE ************
-                    _userLoginInfo.Add(username, password);
+                    _userLoginInfo.Add(username, password); // add to dict
+                    WriteToJson(_userLoginInfo, "UserLoginInfo"); //overwrite with new dict
                     fetchStateDEL(LoginState.SUCCESS);
                 }
 
@@ -81,10 +101,22 @@ namespace Bid501_Server
         /// </summary>
         /// <param name="dict">the dictionary</param>
         /// <param name="filePath">the filepath</param>
-        private void writeToJson(Dictionary<string, string> dict, string filePath)
+        private void WriteToJson(Dictionary<string, string> dict, string filePath)
         {
             string obj = JsonConvert.SerializeObject(dict);
             File.WriteAllText(filePath, obj);
+        }
+
+        /// <summary>
+        /// reads the dictionary saved at given filepath and returns the built Dictionary
+        /// </summary>
+        /// <param name="filepath">whhat file to read from</param>
+        /// <returns></returns>
+        private Dictionary<string,string> BuildDictonary(string filepath)
+        {
+            string json = File.ReadAllText(filepath);
+            Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            return dict;
         }
         
 
