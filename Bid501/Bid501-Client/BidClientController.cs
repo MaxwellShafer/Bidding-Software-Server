@@ -23,12 +23,23 @@ namespace Bid501_Client
     public class BidClientController
     {
         private ProductDBProxy productDB;
-        private ProductProxy selectedProxy;
 
-        public BidClientController(ProductDBProxy db, ProductProxy selectedProxy)
+        public void BidUpdated(decimal price, string id, bool winning)
         {
-            this.productDB = db;
-            this.selectedProxy = selectedProxy;
+            productDB.handleProductUpdated(price, id, winning);
+            // todo refresh display
         }
+        
+        public void NewProduct(Product product)
+        {
+            productDB.handleNewProduct(product);
+            // todo refresh display
+        }
+        
+        public BidClientController(ProductDBProxy db)
+        {
+            productDB = db;
+        }
+        
     }
 }

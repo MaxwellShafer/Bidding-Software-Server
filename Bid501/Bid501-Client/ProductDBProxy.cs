@@ -9,27 +9,33 @@ namespace Bid501_Client
 {
     public class ProductDBProxy
     {
-        public List<Product> products { get; private set; }
+        public List<ProductProxy> products { get; private set; }
+        private int selectedProductIdx = 0;
+        public Product selectedProduct => products[selectedProductIdx];
 
-        public ProductDBProxy()
+        public ProductDBProxy(List<Product> products)
         {
+            this.products = products.Select(p => new ProductProxy(p)).ToList();
         }
 
-        public void loadInitialProducts(List<Product> products)
+        public void selectProduct(ProductProxy p)
         {
-            this.products = products;
+            selectedProductIdx = products.IndexOf(p);
         }
 
         public void handleNewProduct(Product product)
         {
-            var alreadyHasProduct = products.Any(p => p.Id == product.Id);
-            if (alreadyHasProduct)
+            products.Add(new ProductProxy(product));
+        }
+
+        public void handleProductUpdated(decimal price, string id, bool winning)
+        {
+            ProductProxy product = products.Find(p => p.Id == id);
+            if (product != null)
             {
-                products = products.Select(p => p.Id == product.Id ? product : p).ToList();
-            }
-            else
-            {
-                products.Add(product);
+                product.MinBid = price;
+                product.BidCount++;
+                product.Winning = winning;
             }
         }
     }
