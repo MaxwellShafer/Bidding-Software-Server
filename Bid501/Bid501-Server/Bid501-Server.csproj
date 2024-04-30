@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AdminState.cs" />
     <Compile Include="AdminViewController.cs" />
+    <Compile Include="ServerController.cs" />
     <Compile Include="ServerLoginController.cs" />
     <Compile Include="AdminView.cs">
       <SubType>Form</SubType>
@@ -72,6 +73,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerCommCtrl.cs" />
+    <Compile Include="ServerState.cs" />
+    <EmbeddedResource Include="AdminView.resx">
+      <DependentUpon>AdminView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

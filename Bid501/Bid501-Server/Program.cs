@@ -84,7 +84,7 @@ namespace Bid501_Server
             socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ServerLoginView());
+            Application.Run(new AdminView());
             socket.Stop();
         }
     }

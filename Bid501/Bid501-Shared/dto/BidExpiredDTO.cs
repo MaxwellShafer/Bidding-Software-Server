@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Bid501_Shared.dto
 {
-    public class BidResponseDTO : DTO<BidResponseDTO>
+    /// <summary>
+    /// BidExpiredDTO class definition
+    /// </summary>
+    public class BidExpiredDTO : DTO<BidExpiredDTO>
     {
         /// <summary>
         /// The type string for data processing
         /// </summary>
-        public const string Type = "BidResponse";
+        public const string Type = "BidExpired";
 
         /// <summary>
         /// The unique identifier for the product
