@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bid501_Shared;
+using Bid501_Shared.dto;
 
 namespace Bid501_Client
 {
@@ -26,9 +27,9 @@ namespace Bid501_Client
     {
         private ProductDBProxy productDB;
 
-        public void BidUpdated(decimal price, string id, bool winning)
+        public void BidUpdated(BidResponseDTO bidResponse)
         {
-            productDB.handleProductUpdated(price, id, winning);
+            productDB.handleProductUpdated(bidResponse);
             // todo refresh display
         }
         

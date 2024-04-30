@@ -10,7 +10,7 @@ namespace Bid501_Client
 {
     public delegate void LoginReturnDEL(IDB idb);
 
-    public delegate void BidUpdateDEL(decimal price, string id, bool winning);
+    public delegate void BidUpdateDEL(BidResponseDTO bidResponse);
 
     public delegate void NewProduct(Product p);
 
@@ -80,8 +80,12 @@ namespace Bid501_Client
                     break;
                 case BidResponseDTO.Type:
                     BidResponseDTO bidResponse = BidResponseDTO.Deserialize(e.Data);
-                    // todo: pass winnning to bidresponse
-                    this.bidUpdated(bidResponse.Bid, bidResponse.Id, true);
+                    // todo: pass dto through this delegate
+                    bidUpdated(bidResponse);
+                    break;
+                case BidExpiredDTO.Type:
+                    BidExpiredDTO bidExpired = BidExpiredDTO.Deserialize(e.Data);
+                    // todo: add bid expired delegate
                     break;
             }
         }

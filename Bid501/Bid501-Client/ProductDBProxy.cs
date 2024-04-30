@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bid501_Shared;
+using Bid501_Shared.dto;
 
 namespace Bid501_Client
 {
@@ -28,14 +29,14 @@ namespace Bid501_Client
             Products.Add(new ProductProxy(product));
         }
 
-        public void handleProductUpdated(decimal price, string id, bool winning)
+        public void handleProductUpdated(BidResponseDTO bidResponse)
         {
-            ProductProxy product = Products.Find(p => p.Id == id);
+            ProductProxy product = Products.Find(p => p.Id == bidResponse.Id);
             if (product != null)
             {
-                product.MinBid = price;
+                product.MinBid = bidResponse.Bid;
                 product.BidCount++;
-                product.Winning = winning;
+                product.Winning = bidResponse.IsWinning;
             }
         }
     }
