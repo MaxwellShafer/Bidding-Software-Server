@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace Bid501_Server
 {
-    public class ProductDB : IDB
+    internal class ProductDB
     {
-        public List<Product> Products { get; set; }
-
+        /// <summary>
+        /// The database of products
+        /// </summary>
+        public List<Product> products { get; set; }
     }
 }

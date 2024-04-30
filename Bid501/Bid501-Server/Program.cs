@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using Bid501_Shared;
 
 namespace Bid501_Server
 {
@@ -39,10 +40,33 @@ namespace Bid501_Server
     /// <summary>
     /// Sends a product to the clients
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="product">The product being sent</param>
     public delegate void SendProductDEL(IProduct product);
 
+    /// <summary>
+    /// Updates the state of the admin view
+    /// </summary>
+    /// <param name="state">The AdminState</param>
     public delegate void UpdateStateDEL(AdminState state);
+
+    /// <summary>
+    /// Add a product to the database
+    /// </summary>
+    /// <param name="product">The product to be added</param>
+    public delegate void AddProductDEL(IProduct product);
+
+    /// <summary>
+    /// Delegate for when the login display needs to be updated
+    /// </summary>
+    /// <param name="state">The current state of the login system</param>
+    internal delegate void FetchStateDEL(LoginState state);
+
+    /// <summary>
+    /// Handles the admin login attempt
+    /// </summary>
+    /// <param name="un">The username</param>
+    /// <param name="pw">The password</param>
+    internal delegate void LoginClickDEL(string un, string pw);
 
     /// <summary>
     /// Program class
@@ -60,7 +84,7 @@ namespace Bid501_Server
             socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new AdminView());
             socket.Stop();
         }
     }
