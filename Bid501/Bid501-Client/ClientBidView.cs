@@ -20,6 +20,8 @@ namespace Bid501_Client
     {
         public PlaceBidDEL placeBid;
 
+        public ProductProxy product;
+
         public ClientBidView()
         {
             InitializeComponent();
@@ -39,6 +41,24 @@ namespace Bid501_Client
             double bid = Convert.ToDouble(Bid.Text);
             placeBid(bid);
         }
+
+        public void handleEvents(BidState state)
+        {
+            switch (state)
+            {
+                case BidState.NEWPRODUCT:
+
+                    product = 
+                    
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+
+
+
 
         private void label3_Click(object sender, EventArgs e)
         {

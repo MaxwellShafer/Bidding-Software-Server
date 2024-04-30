@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bid501_Client
 {
-    internal class ProductProxy
+    public class ProductProxy:Product
     {
         
     }
