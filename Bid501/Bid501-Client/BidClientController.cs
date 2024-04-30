@@ -11,6 +11,7 @@ namespace Bid501_Client
     {
         WAIT,
         NEWPRODUCT,
+        CHANGEPRODUCT,
         PRICEUPDATED,
         GOODBID,
         BADBID,

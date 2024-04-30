@@ -62,7 +62,7 @@ namespace Bid501_Client
         {
             switch (state)
             {
-                case BidState.NEWPRODUCT:
+                case BidState.CHANGEPRODUCT:
 
                     RefreshDisplay();
                     
