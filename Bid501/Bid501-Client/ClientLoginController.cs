@@ -10,7 +10,19 @@ using Bid501_Shared;
 namespace Bid501_Client
 {
     public delegate void FetchStateDEL(LoginState LoginDEL);
+
     public delegate void CheckLoginDEL(LoginDTO loginAttempt);
+
+    /// <summary>
+    /// Delegate to connect ClientCommCtrl to ClientBidView
+    /// </summary>
+    public delegate void SetBidUpdated(BidUpdateDEL del);
+
+    
+    /// <summary>
+    /// Delegate to connect ClientCommCtrl to ClientBidView
+    /// </summary>
+    public delegate void SetNewProductDEL(NewProduct del);
 
 
     public class ClientLoginController
@@ -18,19 +30,24 @@ namespace Bid501_Client
         public LoginDTO loginAttempt;
         public FetchStateDEL fetchState;
         public CheckLoginDEL checkLogin;
+        public SetBidUpdated setBidUpdated;
+        public SetNewProductDEL setNewProduct;
 
         public ClientLoginController(LoginDTO loginAttempt)
         {
             this.loginAttempt = loginAttempt;
         }
 
-        public void SetupDels(FetchStateDEL fs, CheckLoginDEL cl)
+        public void SetupDels(FetchStateDEL fs, CheckLoginDEL cl, SetBidUpdated setBidUpdated,
+            SetNewProductDEL setNewProductDel)
         {
             fetchState = fs;
             checkLogin = cl;
+            this.setBidUpdated = setBidUpdated;
+            this.setNewProduct = setNewProduct;
         }
 
-        public void handleEvents(LoginState state, string email, String password)
+        public void HandleEvents(LoginState state, string email, String password)
         {
             switch (state)
             {
@@ -43,13 +60,13 @@ namespace Bid501_Client
                     break;
                 case LoginState.GOTPASSWORD:
                     fetchState(LoginState.GOTPASSWORD);
-                    
+
                     if (password != null)
                     {
                         loginAttempt.Username = email;
                         loginAttempt.Password = password;
-
                     }
+
                     checkLogin(loginAttempt);
                     break;
                 default:
@@ -57,14 +74,16 @@ namespace Bid501_Client
             }
         }
 
-       public void handleLoginReturn(IDB idb)
-       {
+        public void HandleLoginReturn(IDB idb)
+        {
+            var productsProxy = new ProductDBProxy(idb.Products);
+            var controller = new BidClientController(productsProxy);
+            setBidUpdated(controller.BidUpdated);
+            setNewProduct(controller.NewProduct);
             var bidView = new ClientBidView();
-            var controller = new BidClientController(idb,  ,bidView.handleEvents);
-           
-           Application.Run(bidView);
-           // maybe use this instead...
-           //bidView.Show();
-       }
+            Application.Run(bidView);
+            // maybe use this instead...
+            //bidView.Show();
+        }
     }
 }

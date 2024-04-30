@@ -19,21 +19,18 @@ namespace Bid501_Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            
+
             LoginDTO login = new LoginDTO();
             ClientLoginController loginController = new ClientLoginController(login);
-            LoginForm view = new LoginForm(loginController.handleEvents);
-            
-
-            ClientCommCtrl commCtrl = new ClientCommCtrl(loginController.handleLoginReturn);
-            loginController.SetupDels(view.DisplayState , commCtrl.SendLoginInfo);
-            
+            LoginForm view = new LoginForm(loginController.HandleEvents);
 
             WebSocketServer wss = new WebSocketServer(8001);
 
-            wss.AddWebSocketService<ClientCommCtrl>("/client", () => {
-                ClientCommCtrl clientCommCtrl = new ClientCommCtrl(loginController.handleLoginReturn);
-                loginController.SetupDels(view.DisplayState, clientCommCtrl.SendLoginInfo);
+            wss.AddWebSocketService<ClientCommCtrl>("/client", () =>
+            {
+                ClientCommCtrl clientCommCtrl = new ClientCommCtrl(loginController.HandleLoginReturn);
+                loginController.SetupDels(view.DisplayState, clientCommCtrl.SendLoginInfo, clientCommCtrl.SetBidUpdated,
+                    clientCommCtrl.SetNewProduct);
                 return clientCommCtrl;
             });
             wss.Start();

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
@@ -10,18 +9,23 @@ using WebSocketSharp.Server;
 namespace Bid501_Client
 {
     public delegate void LoginReturnDEL(IDB idb);
-    public delegate bool BidUpdateDEL(decimal price, string id);
+
+    public delegate void BidUpdateDEL(decimal price, string id, bool winning);
+
+    public delegate void NewProduct(Product p);
 
     public class ClientCommCtrl : WebSocketBehavior
     {
         private WebSocket ws;
-        public LoginReturnDEL loginReturn;
-        public BidUpdateDEL bidUpdated;
-        
+        private LoginReturnDEL loginReturn;
+        private BidUpdateDEL bidUpdated;
+        private NewProduct newProduct;
+
         // Event for when a message is received from the server
 
         public ClientCommCtrl(LoginReturnDEL lr)
-        { // Connects to the server
+        {
+            // Connects to the server
             loginReturn = lr;
             ws = new WebSocket("ws://192.168.0.108:8002/server");
             ws.OnMessage += OnMessage;
@@ -32,10 +36,15 @@ namespace Bid501_Client
         {
             loginReturn = del;
         }
-        
+
         public void SetBidUpdated(BidUpdateDEL del)
         {
             bidUpdated = del;
+        }
+
+        public void SetNewProduct(NewProduct newProduct)
+        {
+            this.newProduct = newProduct;
         }
 
         public void SendLoginInfo(LoginDTO model)
@@ -65,9 +74,14 @@ namespace Bid501_Client
                     IDB idb = IDB.Deserialize(e.Data);
                     loginReturn(idb);
                     break;
+                case Product.Type:
+                    Product p = Product.Deserialize(e.Data);
+                    newProduct(p);
+                    break;
                 case BidResponseDTO.Type:
                     BidResponseDTO bidResponse = BidResponseDTO.Deserialize(e.Data);
-                    this.bidUpdated(bidResponse.Bid, bidResponse.Id);
+                    // todo: pass winnning to bidresponse
+                    this.bidUpdated(bidResponse.Bid, bidResponse.Id, true);
                     break;
             }
         }
