@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bid501_Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ using System.Windows.Forms;
 namespace Bid501_Client
 {
     public delegate void PlaceBidDEL(double price);
+    public delegate void FetchBidDEL(Product product);
 
 
     public partial class ClientBidView : Form
@@ -36,6 +38,11 @@ namespace Bid501_Client
         {
             double bid = Convert.ToDouble(Bid.Text);
             placeBid(bid);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

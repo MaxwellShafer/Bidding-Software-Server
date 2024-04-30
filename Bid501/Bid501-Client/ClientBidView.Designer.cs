@@ -61,7 +61,7 @@
             // 
             // Bid
             // 
-            this.Bid.Location = new System.Drawing.Point(110, 277);
+            this.Bid.Location = new System.Drawing.Point(102, 276);
             this.Bid.Name = "Bid";
             this.Bid.Size = new System.Drawing.Size(128, 22);
             this.Bid.TabIndex = 2;
@@ -79,21 +79,22 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(143, 318);
+            this.label2.Location = new System.Drawing.Point(107, 318);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
+            this.label2.Size = new System.Drawing.Size(123, 16);
             this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
+            this.label2.Text = "Minimum bid $15.00";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(264, 282);
+            this.label3.Location = new System.Drawing.Point(248, 279);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 16);
+            this.label3.Size = new System.Drawing.Size(51, 16);
             this.label3.TabIndex = 5;
-            this.label3.Text = "label3";
+            this.label3.Text = "(7 bids)";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
