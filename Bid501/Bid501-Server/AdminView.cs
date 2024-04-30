@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bid501_Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,21 @@ namespace Bid501_Server
         /// <param name="state"></param>
         public void DisplayState(AdminState state)
         {
-
+            switch(state)
+            {
+                case AdminState.START:
+                    break;
+                case AdminState.EXPIRE:
+                    break;
+                case AdminState.WAIT:
+                    break;
+                case AdminState.ADDPRODUCT:
+                    break;
+                case AdminState.EXIT:
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -37,7 +52,12 @@ namespace Bid501_Server
         /// <param name="e"></param>
         private void uxAddBtn_Click(object sender, EventArgs e)
         {
-            //if()
+            if (uxNewProductsList.SelectedItem is IProduct p) {
+                AddProduct(p);
+            } else
+            {
+                MessageBox.Show("Error!");
+            }
         }
     }
 }
