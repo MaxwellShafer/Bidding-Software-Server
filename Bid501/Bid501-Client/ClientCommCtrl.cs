@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
 using Bid501_Shared;
+using Bid501_Shared.dto;
 using WebSocketSharp.Server;
 
 namespace Bid501_Client
 {
     public delegate void LoginReturnDEL(IDB idb);
-    public delegate bool NewBidDEL(decimal price, string id);
+    public delegate bool BidUpdateDEL(decimal price, string id);
 
     public class ClientCommCtrl : WebSocketBehavior
     {
         private WebSocket ws;
         public LoginReturnDEL loginReturn;
-        public NewBidDEL newBid;
+        public BidUpdateDEL bidUpdated;
         
         // Event for when a message is received from the server
 
@@ -25,6 +26,16 @@ namespace Bid501_Client
             ws = new WebSocket("ws://192.168.0.108:8002/server");
             ws.OnMessage += OnMessage;
             ws.Connect();
+        }
+
+        public void SetLoginReturn(LoginReturnDEL del)
+        {
+            loginReturn = del;
+        }
+        
+        public void SetBidUpdated(BidUpdateDEL del)
+        {
+            bidUpdated = del;
         }
 
         public void SendLoginInfo(LoginDTO model)
@@ -53,6 +64,10 @@ namespace Bid501_Client
                 case IDB.Type:
                     IDB idb = IDB.Deserialize(e.Data);
                     loginReturn(idb);
+                    break;
+                case BidResponseDTO.Type:
+                    BidResponseDTO bidResponse = BidResponseDTO.Deserialize(e.Data);
+                    this.bidUpdated(bidResponse.Bid, bidResponse.Id);
                     break;
             }
         }
