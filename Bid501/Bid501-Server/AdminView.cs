@@ -15,11 +15,19 @@ namespace Bid501_Server
     {
         private ProductDB _database;
 
+        private List<string> _clients;
+
         public AddProductDEL AddProduct;
 
-        public AdminView()
+        private List<Product> _newItems;
+
+        public AdminView(ProductDB db, List<string> clients, List<Product> newItems)
         {
             InitializeComponent();
+            _newItems = newItems;
+            _database = db;
+            _clients = clients;
+            DisplayState(AdminState.START);
         }
 
         /// <summary>
@@ -31,6 +39,20 @@ namespace Bid501_Server
             switch(state)
             {
                 case AdminState.START:
+                    foreach(Product p in _database.Products)
+                    {
+                        uxCurrentProductsList.Items.Add(p.ToString());
+                    }
+                    foreach(string client in _clients)
+                    {
+                        uxConnectedClientsList.Items.Add(client);
+                    }
+                    foreach(Product item in _newItems)
+                    {
+                        uxNewProductsList.Items.Add(item.ToString());
+                    }
+                    uxNewProductsList.SelectedIndex = -1;
+                    uxAddBtn.Enabled = false;
                     break;
                 case AdminState.EXPIRE:
                     break;
