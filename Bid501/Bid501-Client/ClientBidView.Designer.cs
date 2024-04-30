@@ -32,11 +32,11 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.Bid = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.MinBid = new System.Windows.Forms.Label();
+            this.NumBids = new System.Windows.Forms.Label();
+            this.Status = new System.Windows.Forms.Label();
+            this.TimeLeft = new System.Windows.Forms.Label();
+            this.name = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +58,7 @@
             this.listView1.Size = new System.Drawing.Size(190, 330);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.NewProductClick);
             // 
             // Bid
             // 
@@ -75,65 +75,65 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Place Bid";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.PlaceBidClick);
             // 
-            // label2
+            // MinBid
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(107, 318);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Minimum bid $15.00";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.MinBid.AutoSize = true;
+            this.MinBid.Location = new System.Drawing.Point(107, 318);
+            this.MinBid.Name = "MinBid";
+            this.MinBid.Size = new System.Drawing.Size(123, 16);
+            this.MinBid.TabIndex = 4;
+            this.MinBid.Text = "Minimum bid $15.00";
+            this.MinBid.Click += new System.EventHandler(this.label2_Click);
             // 
-            // label3
+            // NumBids
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 279);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "(7 bids)";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.NumBids.AutoSize = true;
+            this.NumBids.Location = new System.Drawing.Point(248, 279);
+            this.NumBids.Name = "NumBids";
+            this.NumBids.Size = new System.Drawing.Size(51, 16);
+            this.NumBids.TabIndex = 5;
+            this.NumBids.Text = "(7 bids)";
+            this.NumBids.Click += new System.EventHandler(this.label3_Click);
             // 
-            // label4
+            // Status
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(143, 233);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "label4";
+            this.Status.AutoSize = true;
+            this.Status.Location = new System.Drawing.Point(143, 233);
+            this.Status.Name = "Status";
+            this.Status.Size = new System.Drawing.Size(44, 16);
+            this.Status.TabIndex = 6;
+            this.Status.Text = "label4";
             // 
-            // label5
+            // TimeLeft
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(143, 182);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "label5";
+            this.TimeLeft.AutoSize = true;
+            this.TimeLeft.Location = new System.Drawing.Point(143, 182);
+            this.TimeLeft.Name = "TimeLeft";
+            this.TimeLeft.Size = new System.Drawing.Size(44, 16);
+            this.TimeLeft.TabIndex = 7;
+            this.TimeLeft.Text = "label5";
             // 
-            // label6
+            // name
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(143, 125);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 16);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "label6";
+            this.name.AutoSize = true;
+            this.name.Location = new System.Drawing.Point(143, 125);
+            this.name.Name = "name";
+            this.name.Size = new System.Drawing.Size(44, 16);
+            this.name.TabIndex = 8;
+            this.name.Text = "label6";
             // 
             // ClientBidView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 450);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.name);
+            this.Controls.Add(this.TimeLeft);
+            this.Controls.Add(this.Status);
+            this.Controls.Add(this.NumBids);
+            this.Controls.Add(this.MinBid);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Bid);
             this.Controls.Add(this.listView1);
@@ -151,10 +151,10 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.TextBox Bid;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label MinBid;
+        private System.Windows.Forms.Label NumBids;
+        private System.Windows.Forms.Label Status;
+        private System.Windows.Forms.Label TimeLeft;
+        private System.Windows.Forms.Label name;
     }
 }

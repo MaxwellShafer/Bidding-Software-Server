@@ -19,6 +19,8 @@ namespace Bid501_Client
         EXIT
     }
 
+    public delegate void UpdateBidState(BidState state);
+
 
     public class BidClientController
     {
@@ -38,7 +40,10 @@ namespace Bid501_Client
         
         public BidClientController(ProductDBProxy db)
         {
-            productDB = db;
+            this.productDB = db;
+            this.selectedProxy = selectedProxy;
+            updateBidStateDEL = updateDEL;
+
         }
         
     }
