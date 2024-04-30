@@ -22,6 +22,8 @@ namespace Bid501_Client
 
         public ProductProxy product;
 
+        public IDB database;
+
         public ClientBidView()
         {
             InitializeComponent();
@@ -63,6 +65,26 @@ namespace Bid501_Client
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Grabs the product that user selected on this list view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0 && database != null)
+            {
+                int selectedIndex = listView1.SelectedIndices[0];
+
+                
+                if (selectedIndex >= 0 && selectedIndex < database.Products.Count)
+                {
+                    Product selectedProduct = database.Products[selectedIndex];
+                   
+                }
+            }
         }
     }
 }
