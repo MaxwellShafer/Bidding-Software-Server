@@ -22,5 +22,10 @@ namespace Bid501_Shared.dto
         /// The amount that the new object is being bid on
         /// </summary>
         public decimal Bid { get; set; }
+
+        /// <summary>
+        /// Defines whether or not the client is winning their bid.
+        /// </summary>
+        public bool IsWinning { get; set; }
     }
 }
