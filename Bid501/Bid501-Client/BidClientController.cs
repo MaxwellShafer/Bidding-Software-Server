@@ -51,6 +51,11 @@ namespace Bid501_Client
         {
             updatebidState = del;
         }
+
+        public void fetchNewProduct(ProductProxy p)
+        {
+            productDB.selectProduct(p);
+        }
         
     }
 }

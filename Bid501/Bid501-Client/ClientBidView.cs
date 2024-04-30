@@ -14,7 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Bid501_Client
 {
     public delegate void PlaceBidDEL(decimal price);
-    public delegate void FetchBidDEL(ProductProxy product);
+    public delegate void ChangeProdDEL(ProductProxy product);
 
 
     public partial class ClientBidView : Form
@@ -28,10 +28,13 @@ namespace Bid501_Client
         public decimal MinimumBid;
 
         public decimal currentBid;
+
+        public ChangeProdDEL changeproduct;
         
 
-        public ClientBidView()
+        public ClientBidView(ChangeProdDEL cpd)
         {
+            changeproduct = cpd;
             InitializeComponent();
 
         }
@@ -66,7 +69,8 @@ namespace Bid501_Client
                 case BidState.CHANGEPRODUCT:
 
                     RefreshList();
-                    
+                    RefreshDisplay();
+
                     break;
 
 
@@ -149,19 +153,30 @@ namespace Bid501_Client
         /// <param name="e"></param>
         private void NewProductClick(object sender, EventArgs e)
         {
+            
+
+
+
             if (productList.SelectedItems.Count > 0 && database != null)
             {
                 int selectedIndex = productList.SelectedIndices[0];
 
-                
                 if (selectedIndex >= 0 && selectedIndex < database.Products.Count)
                 {
-                    Product selectedProduct = database.Products[selectedIndex];
-
-
-                   
+                    ProductProxy selectedProduct = database.Products[selectedIndex];
+                    
+                    changeproduct(selectedProduct);
                 }
             }
+
+
+
+
+
+
+
+
+
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Bid501_Client
             var controller = new BidClientController(productsProxy);
             setBidUpdated(controller.BidUpdated);
             setNewProduct(controller.NewProduct);
-            var bidView = new ClientBidView();
+            var bidView = new ClientBidView(controller.fetchNewProduct);
             controller.SetProxy(bidView.handleEvents);
             Application.Run(bidView);
             // maybe use this instead...
