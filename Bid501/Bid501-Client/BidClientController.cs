@@ -7,32 +7,28 @@ using Bid501_Shared;
 
 namespace Bid501_Client
 {
-
     public enum BidState
     {
         WAIT,
         NEWPRODUCT,
         PRICEUPDATED,
-        GOODBID, 
+        GOODBID,
         BADBID,
-        WIN, 
-        LOSE, 
+        WIN,
+        LOSE,
         EXIT
     }
 
 
     public class BidClientController
     {
-        public IDB database;
+        private ProductDBProxy productDB;
+        private ProductProxy selectedProxy;
 
-        //public 
-
-        public BidClientController(IDB idb)
+        public BidClientController(ProductDBProxy db, ProductProxy selectedProxy)
         {
-            database = idb;
+            this.productDB = db;
+            this.selectedProxy = selectedProxy;
         }
-
-
-
     }
 }

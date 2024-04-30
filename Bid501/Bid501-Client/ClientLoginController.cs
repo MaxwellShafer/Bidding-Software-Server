@@ -30,27 +30,24 @@ namespace Bid501_Client
             checkLogin = cl;
         }
 
-        public void handleEvents(LoginState state , string args)
+        public void handleEvents(LoginState state, string email, String password)
         {
             switch (state)
             {
                 case LoginState.START:
-
                     fetchState(LoginState.START);
                     break;
                 case LoginState.GOTUSERNAME:
                     fetchState(LoginState.GOTUSERNAME);
-                    loginAttempt.Username = args;
+                    loginAttempt.Username = email;
                     break;
                 case LoginState.GOTPASSWORD:
                     fetchState(LoginState.GOTPASSWORD);
                     
-                    string[] parts = args.Split(':');
-
-                    if (parts.Length == 2)
+                    if (password != null)
                     {
-                        loginAttempt.Username = parts[0];
-                        loginAttempt.Password = parts[1];
+                        loginAttempt.Username = email;
+                        loginAttempt.Password = password;
 
                     }
                     checkLogin(loginAttempt);
