@@ -14,12 +14,17 @@ namespace Bid501_Server
     /// </summary>
     public class ServerCommCtrl : WebSocketBehavior
     {
+        public LoginAttemptDEL loginAttempt { get; set; }
+
+        public NewBidDEL newBid { get; set; }
+
         /// <summary>
         /// ServerCommCtrl constructor
         /// </summary>
-        public ServerCommCtrl()
+        public ServerCommCtrl(LoginAttemptDEL loginAttempt, NewBidDEL newBid)
         {
-
+            this.loginAttempt = loginAttempt;
+            this.newBid = newBid;
         }
 
         /// <summary>
@@ -33,7 +38,7 @@ namespace Bid501_Server
             {
                 case PlaceBidDTO.Type:
                     var bidData = PlaceBidDTO.Deserialize(e.Data);
-
+                    newBid(bidData.Bid, bidData.Id);
                     break;
                 case LoginDTO.Type:
                     var loginData = LoginDTO.Deserialize(e.Data);
