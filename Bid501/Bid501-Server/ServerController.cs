@@ -26,6 +26,11 @@ namespace Bid501_Server
         public LoginReturnDEL LoginReturnDEL { get; set; }
 
         /// <summary>
+        /// A delegate to send changes in the database so i can be reflected in the 
+        /// </summary>
+        public UpdateStateDEL UpdateStateDEL { get; set; }
+
+        /// <summary>
         /// private field to hold the product database
         /// </summary>
         private ProductDB _productDB = new ProductDB();
@@ -105,6 +110,13 @@ namespace Bid501_Server
             File.WriteAllText(filePath, obj);
         }
 
+
+        /// <summary>
+        /// The method Invoked in the com controller, handles a new bid coming in
+        /// </summary>
+        /// <param name="bid">the bid amount</param>
+        /// <param name="productID">The productID</param>
+        /// <param name="clientID"> the clients username</param>
         public void HandleNewBid(decimal bid, string productID, string clientID)
         {
             foreach(Product p in _productDB.Products)
@@ -114,7 +126,8 @@ namespace Bid501_Server
                     if(p.MinBid < bid)
                     {
                         p.MinBid = bid;
-                        BidUpdateDEl(bid, productID, clientID);
+                        BidUpdateDEL(bid, productID, clientID); // comunicating back to the clients
+                        UpdateStateDEL(AdminState.EXPIRE, _productDB);
                     }
                     else
                     {
