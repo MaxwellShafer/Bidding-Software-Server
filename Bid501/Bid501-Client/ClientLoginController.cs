@@ -63,7 +63,10 @@ namespace Bid501_Client
             if (idb == null)
             {
                 _fetchState(LoginState.DECLINED);
+                return;
             }
+
+            _fetchState(LoginState.SUCCESS);
             _launchBidView(idb);
         }
     }
