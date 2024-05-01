@@ -16,6 +16,7 @@ namespace Bid501_Server
         EXPIREDBID,
         SELECTEDNEW,
         ADDEDNEW,
+        UPDATEDBID,
         EXIT
     }
 }

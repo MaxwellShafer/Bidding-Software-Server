@@ -99,6 +99,7 @@
             this.uxCurrentProductsList.Name = "uxCurrentProductsList";
             this.uxCurrentProductsList.Size = new System.Drawing.Size(387, 295);
             this.uxCurrentProductsList.TabIndex = 0;
+            this.uxCurrentProductsList.SelectedIndexChanged += new System.EventHandler(this.uxCurrentProductsList_SelectedIndexChanged);
             // 
             // uxConnectedClientsList
             // 
@@ -184,6 +185,7 @@
             this.uxNewProductsList.Name = "uxNewProductsList";
             this.uxNewProductsList.Size = new System.Drawing.Size(387, 409);
             this.uxNewProductsList.TabIndex = 0;
+            this.uxNewProductsList.SelectedIndexChanged += new System.EventHandler(this.uxNewProductsList_SelectedIndexChanged);
             // 
             // uxAddBtn
             // 

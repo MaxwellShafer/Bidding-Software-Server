@@ -63,6 +63,7 @@ namespace Bid501_Server
                 case AdminState.SELECTEDEXPIRED:
                     uxExpireBtn.Enabled = true;
                     uxNewProductsList.SelectedIndex = -1;
+                    uxAddBtn.Enabled = false;
                     break;
                 case AdminState.EXPIREDBID:
                     uxCurrentProductsList.Items.Clear();
@@ -76,6 +77,7 @@ namespace Bid501_Server
                 case AdminState.SELECTEDNEW:
                     uxAddBtn.Enabled = true;
                     uxCurrentProductsList.SelectedIndex = -1;
+                    uxExpireBtn.Enabled = false;
                     break;
                 case AdminState.ADDEDNEW:
                     uxCurrentProductsList.Items.Clear();
@@ -122,6 +124,26 @@ namespace Bid501_Server
             {
                 MessageBox.Show("Error!");
             }
+        }
+
+        /// <summary>
+        /// Updates view info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxCurrentProductsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisplayState(AdminState.SELECTEDEXPIRED, _database);
+        }
+
+        /// <summary>
+        /// Updates view info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxNewProductsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisplayState(AdminState.SELECTEDNEW, _database);
         }
     }
 }
