@@ -145,13 +145,14 @@ namespace Bid501_Server
         /// <returns>the client id list, empyt list if null</returns>
         public List<string> GetClientIds()
         {
-            if((List<string>)Sessions.IDs == null)
-            {
-                return new List<string>();
-            }
-            else
+            try
             {
                 return (List<string>)Sessions.IDs;
+                
+            }
+            catch
+            {
+                return new List<string>();
             }
             
         }
