@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -30,6 +26,7 @@ namespace Bid501_Server
         /// <param name="e"></param>
         protected override void OnMessage(MessageEventArgs e)
         {
+            var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
             MessageBox.Show(e.Data);
             Send($"The following message was receieved: {e.Data}");
             Sessions.Broadcast($"Session call: {e.Data}");
