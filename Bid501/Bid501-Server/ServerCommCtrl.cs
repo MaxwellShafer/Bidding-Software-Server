@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Bid501_Shared;
+using Bid501_Shared.dto;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Windows.Forms;
 using WebSocketSharp;
@@ -27,9 +29,42 @@ namespace Bid501_Server
         protected override void OnMessage(MessageEventArgs e)
         {
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
-            MessageBox.Show(e.Data);
-            Send($"The following message was receieved: {e.Data}");
-            Sessions.Broadcast($"Session call: {e.Data}");
+            switch(response["Type"])
+            {
+                case PlaceBidDTO.Type:
+                    var bidData = PlaceBidDTO.Deserialize(e.Data);
+
+                    break;
+                case LoginDTO.Type:
+                    var loginData = LoginDTO.Deserialize(e.Data);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles when a bid expires
+        /// </summary>
+        /// <param name="p"></param>
+        public void HandleExpiringBid(IProduct p)
+        {
+            string clientId = GetId(((Product)p).User);
+            BidExpiredDTO dto = new BidExpiredDTO();
+            dto.Id = p.Id;
+            dto.IsWinning = true;
+            dto.Bid = p.MinBid;
+            Sessions.SendTo(dto.Serialize(), clientId);
+
+            dto.IsWinning = false;
+            string serialized = dto.Serialize();
+            foreach (string id in Sessions.IDs)
+            {
+                if (id != clientId)
+                {
+                    Sessions.SendTo(serialized, id);
+                }
+            }
         }
     }
 }
