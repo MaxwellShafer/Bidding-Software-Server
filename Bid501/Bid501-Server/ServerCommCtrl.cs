@@ -109,7 +109,7 @@ namespace Bid501_Server
         /// Handles the case when the login attempt is processed
         /// </summary>
         /// <param name="isGood"></param>
-        public void HandleLoginAttempt(bool isGood, string clientID, List<Product> db)
+        public void HandleLoginAttempt(bool isGood, string clientID, List<IProduct> db)
         {
             if(isGood)
             {
@@ -117,7 +117,9 @@ namespace Bid501_Server
                 List<Bid501_Shared.Product> products = new List<Bid501_Shared.Product>();
                 foreach(Product p in db)
                 {
-                    products.Add(new Bid501_Shared.Product(p.Id, p.Name, p.MinBid, p.BidCount, p.IsExpired));
+                    products.Add(new Bid501_Shared.Product
+                        { Id = p.Id, BidCount = p.BidCount, IsExpired = p.IsExpired, MinBid = p.MinBid, Name = p.Name}
+                    );
                 }
                 dto.Products = products;
                 Sessions.SendTo(dto.Serialize(), clientID);
