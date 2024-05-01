@@ -44,13 +44,51 @@ namespace Bid501_Server
         /// <param name="state"> The state the view will update to</param>
         internal void DisplayState(LoginState state)
         {
-            // to be implemented
+            switch(state)
+            {
+                case LoginState.START:
+                    break;
+                case LoginState.GOTUSERNAME:
+                    break;
+                case LoginState.GOTPASSWORD:
+                    break;
+                case LoginState.SUCCESS:
+                    break;
+                case LoginState.DECLINED:
+                    break;
+                default:
+                    break;
+            }
         }
 
-        // method for usrname changed 
+        /// <summary>
+        /// Handles the Login button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxLoginBtn_Click(object sender, EventArgs e)
+        {
+            //maybe have another loginstate for waiting on a response here? That way if the server took a really long time for some reason, it would disable the button or something
+        }
 
-        // method for password changed
+        /// <summary>
+        /// Handles the username having changed text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxUsernameEntry_TextChanged(object sender, EventArgs e)
+        {
+            DisplayState(LoginState.GOTUSERNAME);
+        }
 
-        // method to handle button click
+        /// <summary>
+        /// Handles the password having changed text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxPasswordEntry_TextChanged(object sender, EventArgs e)
+        {
+            DisplayState(LoginState.GOTPASSWORD);
+        }
     }
 }
