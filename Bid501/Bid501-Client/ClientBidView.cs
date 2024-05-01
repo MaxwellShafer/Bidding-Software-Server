@@ -23,7 +23,7 @@ namespace Bid501_Client
 
         public ProductProxy product;
 
-        public ProductDBProxy database;
+        public ProductDbProxy database;
 
         public decimal MinimumBid;
 
@@ -54,11 +54,11 @@ namespace Bid501_Client
             if(currentBid > MinimumBid)
             {
 
-                handleEvents(BidState.GOODBID);
+                handleEvents(BidState.GoodBid);
             }
             else
             {
-                handleEvents(BidState.BADBID);
+                handleEvents(BidState.BadBid);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Bid501_Client
         {
             switch (state)
             {
-                case BidState.CHANGEPRODUCT:
+                case BidState.ChangeProduct:
 
                     RefreshList();
                     RefreshDisplay();
@@ -74,18 +74,18 @@ namespace Bid501_Client
                     break;
 
 
-                case BidState.PRICEUPDATED:
+                case BidState.PriceUpdated:
 
                     RefreshDisplay();
                     break;
 
-                case BidState.GOODBID:
+                case BidState.GoodBid:
 
                     placeBid(currentBid);
                     break;
 
 
-                case BidState.BADBID:
+                case BidState.BadBid:
 
 
                    
@@ -109,7 +109,7 @@ namespace Bid501_Client
             NumBids.Text = $"({product.BidCount})";
             if (product.IsExpired)
             {
-                if (product.Winning)
+                if (product.IsWinning)
                 {
                     Status.Text = "won";
                 }

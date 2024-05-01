@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
 using Bid501_Shared;
@@ -12,56 +11,58 @@ namespace Bid501_Client
 
     public delegate void BidUpdateDEL(BidResponseDTO bidResponse);
 
-    public delegate void NewProduct(Product p);
+    public delegate void NewProductDEL(Product p);
+    
+    public delegate void BidExpiredDEL(BidExpiredDTO bidExpiredDTO);
 
     public class ClientCommCtrl : WebSocketBehavior
     {
-        private WebSocket ws;
-        private LoginReturnDEL loginReturn;
-        private BidUpdateDEL bidUpdated;
-        private NewProduct newProduct;
+        private readonly WebSocket _ws;
+        private readonly LoginReturnDEL _loginReturn;
+        private BidUpdateDEL _bidUpdated;
+        private NewProductDEL _newProductDel;
+        private BidExpiredDEL _bidExpired;
 
         // Event for when a message is received from the server
 
         public ClientCommCtrl(LoginReturnDEL lr)
         {
             // Connects to the server
-            loginReturn = lr;
-            ws = new WebSocket("ws://192.168.0.108:8002/server");
-            ws.OnMessage += OnMessage;
-            ws.Connect();
+            _loginReturn = lr;
+            _ws = new WebSocket("ws://192.168.0.108:8002/server");
+            _ws.OnMessage += OnMessage;
+            _ws.Connect();
         }
-
-        public void SetLoginReturn(LoginReturnDEL del)
-        {
-            loginReturn = del;
-        }
-
+        
         public void SetBidUpdated(BidUpdateDEL del)
         {
-            bidUpdated = del;
+            _bidUpdated = del;
         }
 
-        public void SetNewProduct(NewProduct newProduct)
+        public void SetNewProduct(NewProductDEL newProductDel)
         {
-            this.newProduct = newProduct;
+            _newProductDel = newProductDel;
+        }
+        
+        public void SetBidExpired(BidExpiredDEL bidExpiredDel)
+        {
+            _bidExpired = bidExpiredDel;
         }
 
         public void SendLoginInfo(LoginDTO model)
         {
             string body = model.Serialize();
-            ws.Send(body);
+            _ws.Send(body);
         }
 
-        public void SendBid(decimal price, string id)
+        public void SendBid(string id, decimal price)
         {
-            // Currently manually creating the JSON string, if we create a model for this move that logic over
             var dto = new PlaceBidDTO
             {
                 Bid = price,
                 Id = id,
             };
-            ws.Send(dto.Serialize());
+            _ws.Send(dto.Serialize());
         }
 
 
@@ -72,20 +73,19 @@ namespace Bid501_Client
             {
                 case IDB.Type:
                     IDB idb = IDB.Deserialize(e.Data);
-                    loginReturn(idb);
+                    _loginReturn(idb);
                     break;
                 case Product.Type:
                     Product p = Product.Deserialize(e.Data);
-                    newProduct(p);
+                    _newProductDel(p);
                     break;
                 case BidResponseDTO.Type:
                     BidResponseDTO bidResponse = BidResponseDTO.Deserialize(e.Data);
-                    // todo: pass dto through this delegate
-                    bidUpdated(bidResponse);
+                    _bidUpdated(bidResponse);
                     break;
                 case BidExpiredDTO.Type:
-                    BidExpiredDTO bidExpired = BidExpiredDTO.Deserialize(e.Data);
-                    // todo: add bid expired delegate
+                    BidExpiredDTO bid = BidExpiredDTO.Deserialize(e.Data);
+                    _bidExpired(bid);
                     break;
             }
         }

@@ -96,7 +96,7 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductDBProxy.cs" />
+    <Compile Include="ProductDbProxy.cs" />
     <Compile Include="ProductProxy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
