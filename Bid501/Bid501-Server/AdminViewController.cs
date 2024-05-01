@@ -27,6 +27,8 @@ namespace Bid501_Server
         /// </summary>
         public UpdateStateDEL UpdateStateDEL { get; set; }
 
+        public ExpireBidCommDEL ExpireBidCommDEL { get; set; }
+
         /// <summary>
         /// Constructs the AdminViewController
         /// </summary>
@@ -79,7 +81,7 @@ namespace Bid501_Server
         /// <summary>
         /// Handles expiring the bid
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="product">The expiring product</param>
         public void handleExpireProduct(IProduct product)
         {
             foreach(IProduct p in _productDB.Products)
@@ -88,7 +90,7 @@ namespace Bid501_Server
                 {
                     p.IsExpired = true;
                     UpdateStateDEL(AdminState.EXPIREDBID);
-
+                    ExpireBidCommDEL(p);
                     break;
                 }
             }

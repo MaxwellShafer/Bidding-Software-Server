@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bid501_Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
@@ -16,6 +17,8 @@ namespace Bid501_Server
     /// </summary>
     public class ServerCommCtrl : WebSocketBehavior
     {
+        public GetIDFromUsername GetId;
+
         /// <summary>
         /// ServerCommCtrl constructor
         /// </summary>
@@ -33,6 +36,16 @@ namespace Bid501_Server
             MessageBox.Show(e.Data);
             Send($"The following message was receieved: {e.Data}");
             Sessions.Broadcast($"Session call: {e.Data}");
+        }
+
+        //Takes from admin controller
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        public void HandleExpiringBid(IProduct p)
+        {
+            GetId(((Product)p).User);
         }
     }
 }

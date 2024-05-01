@@ -86,7 +86,7 @@ namespace Bid501_Server
     /// </summary>
     /// <param name="product"></param>
     /// <param name="username"></param>
-    public delegate void ExpireBidCommDEL(IProduct product, string username);
+    public delegate void ExpireBidCommDEL(IProduct product);
 
     /// <summary>
     /// Program class
