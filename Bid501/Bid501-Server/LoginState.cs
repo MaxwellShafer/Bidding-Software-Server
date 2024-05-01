@@ -14,7 +14,6 @@ namespace Bid501_Server
         START,
         GOTUSERNAME,
         GOTPASSWORD,
-        SUCCESS,
         DECLINED,
         EXIT
     }

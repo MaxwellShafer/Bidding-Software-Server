@@ -38,5 +38,39 @@ namespace Bid501_Server
         /// </summary>
         public bool IsExpired { get; set; }
 
+        /// <summary>
+        /// The current winning user
+        /// </summary>
+        public string User { get; set; }
+
+        /// <summary>
+        /// Creates the Product object
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="minBid"></param>
+        /// <param name="bidCount"></param>
+        /// <param name="isExpired"></param>
+        public Product(string id, string name, decimal minBid, int bidCount, bool isExpired)
+        {
+            Id = id;
+            Name = name;
+            MinBid = minBid;
+            BidCount = bidCount;
+            IsExpired = isExpired;
+            User = "";
+        }
+
+        /// <summary>
+        /// String summary for list viewing
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            if(BidCount == 1)
+                return $"{Name} - ${MinBid} \t\t {BidCount} bid";
+            else
+                return $"{Name} - ${MinBid} \t\t {BidCount} bids";
+        }
     }
 }

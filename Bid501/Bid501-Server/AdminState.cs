@@ -12,9 +12,9 @@ namespace Bid501_Server
     public enum AdminState
     {
         START,
-        ADDPRODUCT,
-        WAIT,
-        EXPIRE,
-        EXIT
+        SELECTEDEXPIRED,
+        EXPIREDBID,
+        SELECTEDNEW,
+        ADDEDNEW,
     }
 }

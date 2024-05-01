@@ -40,6 +40,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.uxNewProductsList = new System.Windows.Forms.ListBox();
             this.uxAddBtn = new System.Windows.Forms.Button();
+            this.uxExpireBtn = new System.Windows.Forms.Button();
             this.uxTabCtrl.SuspendLayout();
             this.uxHomeTab.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -79,11 +80,13 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.uxCurrentProductsList, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.uxConnectedClientsList, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.uxExpireBtn, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 78);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(786, 340);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
@@ -94,8 +97,9 @@
             this.uxCurrentProductsList.ItemHeight = 16;
             this.uxCurrentProductsList.Location = new System.Drawing.Point(3, 3);
             this.uxCurrentProductsList.Name = "uxCurrentProductsList";
-            this.uxCurrentProductsList.Size = new System.Drawing.Size(387, 334);
+            this.uxCurrentProductsList.Size = new System.Drawing.Size(387, 295);
             this.uxCurrentProductsList.TabIndex = 0;
+            this.uxCurrentProductsList.SelectedIndexChanged += new System.EventHandler(this.uxCurrentProductsList_SelectedIndexChanged);
             // 
             // uxConnectedClientsList
             // 
@@ -104,7 +108,7 @@
             this.uxConnectedClientsList.ItemHeight = 16;
             this.uxConnectedClientsList.Location = new System.Drawing.Point(396, 3);
             this.uxConnectedClientsList.Name = "uxConnectedClientsList";
-            this.uxConnectedClientsList.Size = new System.Drawing.Size(387, 334);
+            this.uxConnectedClientsList.Size = new System.Drawing.Size(387, 295);
             this.uxConnectedClientsList.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -181,6 +185,7 @@
             this.uxNewProductsList.Name = "uxNewProductsList";
             this.uxNewProductsList.Size = new System.Drawing.Size(387, 409);
             this.uxNewProductsList.TabIndex = 0;
+            this.uxNewProductsList.SelectedIndexChanged += new System.EventHandler(this.uxNewProductsList_SelectedIndexChanged);
             // 
             // uxAddBtn
             // 
@@ -194,6 +199,18 @@
             this.uxAddBtn.Text = "Add";
             this.uxAddBtn.UseVisualStyleBackColor = true;
             this.uxAddBtn.Click += new System.EventHandler(this.uxAddBtn_Click);
+            // 
+            // uxExpireBtn
+            // 
+            this.uxExpireBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.uxExpireBtn.Location = new System.Drawing.Point(96, 304);
+            this.uxExpireBtn.MinimumSize = new System.Drawing.Size(200, 30);
+            this.uxExpireBtn.Name = "uxExpireBtn";
+            this.uxExpireBtn.Size = new System.Drawing.Size(200, 33);
+            this.uxExpireBtn.TabIndex = 2;
+            this.uxExpireBtn.Text = "Expire Selected Bid";
+            this.uxExpireBtn.UseVisualStyleBackColor = true;
+            this.uxExpireBtn.Click += new System.EventHandler(this.uxExpireBtn_Click);
             // 
             // AdminView
             // 
@@ -228,5 +245,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.ListBox uxNewProductsList;
         private System.Windows.Forms.Button uxAddBtn;
+        private System.Windows.Forms.Button uxExpireBtn;
     }
 }

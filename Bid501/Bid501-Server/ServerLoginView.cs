@@ -30,6 +30,8 @@ namespace Bid501_Server
         /// </summary>
         internal LoginClickDEL LoginClickDEL { get; set; }
 
+        
+
         /// <summary>
         /// Constructor for the LoginView
         /// </summary>
@@ -44,13 +46,62 @@ namespace Bid501_Server
         /// <param name="state"> The state the view will update to</param>
         internal void DisplayState(LoginState state)
         {
-            // to be implemented
+            switch(state)
+            {
+                case LoginState.START:
+                    break;
+                case LoginState.GOTUSERNAME:
+                    break;
+                case LoginState.GOTPASSWORD:
+                    if (uxPasswordEntry.Text != "")
+                    {
+                        uxLoginBtn.Enabled = true;
+                    }
+                    else
+                    {
+                        uxLoginBtn.Enabled = false;
+                    }
+                    break;
+                case LoginState.DECLINED:
+                    uxPasswordEntry.Text = "";
+                    uxLoginBtn.Enabled = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
-        // method for usrname changed 
+        /// <summary>
+        /// Handles the Login button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxLoginBtn_Click(object sender, EventArgs e)
+        {
+            LoginClickDEL(uxUsernameEntry.Text, uxPasswordEntry.Text);
+            uxLoginBtn.Enabled = false;
+        }
 
-        // method for password changed
+        /// <summary>
+        /// Handles the username having changed text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxUsernameEntry_TextChanged(object sender, EventArgs e)
+        {
+            DisplayState(LoginState.GOTUSERNAME);
+        }
 
-        // method to handle button click
+        /// <summary>
+        /// Handles the password having changed text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxPasswordEntry_TextChanged(object sender, EventArgs e)
+        {
+            DisplayState(LoginState.GOTPASSWORD);
+           
+           
+        }
     }
 }

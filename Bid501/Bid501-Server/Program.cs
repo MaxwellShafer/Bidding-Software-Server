@@ -15,14 +15,14 @@ namespace Bid501_Server
     /// </summary>
     /// <param name="bid">The amount being bid</param>
     /// <param name="id">The id of the bid being updated</param>
-    public delegate void BidUpdateDEL(double bid, string id);
+    public delegate void BidUpdateDEL(decimal bid, string productID, string clientID);
 
     /// <summary>
     /// Delegate for when a new bid arrives to the server.
     /// </summary>
     /// <param name="bid">The amount being bid</param>
     /// <param name="id">The id of the product</param>
-    public delegate void NewBidDEL(double bid, string id);
+    public delegate void NewBidDEL(decimal bid, string id, string clientID);
 
     /// <summary>
     /// Delegate for when the login is returned to the client
@@ -47,7 +47,7 @@ namespace Bid501_Server
     /// Updates the state of the admin view
     /// </summary>
     /// <param name="state">The AdminState</param>
-    public delegate void UpdateStateDEL(AdminState state);
+    public delegate void UpdateStateDEL(AdminState state, ProductDB productDB);
 
     /// <summary>
     /// Add a product to the database
@@ -69,6 +69,37 @@ namespace Bid501_Server
     internal delegate void LoginClickDEL(string un, string pw);
 
     /// <summary>
+    /// Handles the expiring of a bid from the admin view system
+    /// </summary>
+    /// <param name="product">The product to be expired</param>
+    public delegate void ExpireBidDEL(IProduct product);
+
+    /// <summary>
+    /// Gets the client id for web socket handling from server controller
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    public delegate string GetIDFromUsername(string username);
+
+    /// <summary>
+    /// Sends the expired product to comm ctrl for notifications
+    /// </summary>
+    /// <param name="product"></param>
+    /// <param name="username"></param>
+    public delegate void ExpireBidCommDEL(IProduct product);
+
+    /// <summary>
+    /// Delegate to be called siginifing a successfull login from server login view
+    /// </summary>
+    public delegate void LoginSuccessDEL();
+
+    /// <summary>
+    /// a delegate to get the current connected clients
+    /// </summary>
+    /// <returns></returns>
+    public delegate List<string> GetClientDEL();
+
+    /// <summary>
     /// Program class
     /// </summary>
     internal static class Program
@@ -84,7 +115,10 @@ namespace Bid501_Server
             socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AdminView());
+
+            ServerController serverController = new ServerController();
+
+            //Application.Run(new AdminView(new ProductDB(), new List<string> { "Client 1", "Client 2", "Client 3"}, new List<Product> { new Product("12345", "beans", 20.0m, 0, false) }));
             socket.Stop();
         }
     }

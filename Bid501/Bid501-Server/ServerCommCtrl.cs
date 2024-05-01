@@ -1,5 +1,9 @@
 ﻿using Bid501_Shared;
 using Bid501_Shared.dto;
+using Bid501_Shared;
+using Bid501_Shared.dto;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -17,6 +21,8 @@ namespace Bid501_Server
         public LoginAttemptDEL loginAttempt { get; set; }
 
         public NewBidDEL newBid { get; set; }
+
+        public GetIDFromUsername GetId;
 
         /// <summary>
         /// ServerCommCtrl constructor
@@ -66,6 +72,32 @@ namespace Bid501_Server
             foreach (string id in Sessions.IDs)
             {
                 if (id != clientId)
+                {
+                    Sessions.SendTo(serialized, id);
+                }
+            }
+            
+        }
+
+        //Takes from admin controller
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        public void HandleExpiringBid(IProduct p)
+        {
+            string clientId = GetId(((Product)p).User);
+            BidExpiredDTO dto = new BidExpiredDTO();
+            dto.Id = p.Id;
+            dto.IsWinning = true;
+            dto.Bid = p.MinBid;
+            Sessions.SendTo(dto.Serialize(), clientId);
+
+            dto.IsWinning = false;
+            string serialized = dto.Serialize();
+            foreach(string id in Sessions.IDs)
+            {
+                if(id != clientId)
                 {
                     Sessions.SendTo(serialized, id);
                 }
