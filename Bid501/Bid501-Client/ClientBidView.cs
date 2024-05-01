@@ -85,11 +85,7 @@ namespace Bid501_Client
                     break;
 
 
-                case BidState.BadBid:
-
-
-                   
-                    break;
+                
 
                 case BidState.Win:
 
@@ -102,9 +98,20 @@ namespace Bid501_Client
 
                     Status.Text = "lost";
                     break;
-                   
 
-                        default:
+
+
+
+
+                case BidState.BadBid:
+
+                    //display bad bid
+
+
+                    break;
+
+
+                default:
                     break;
             }
         }
