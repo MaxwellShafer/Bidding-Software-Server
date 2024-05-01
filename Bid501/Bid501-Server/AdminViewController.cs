@@ -38,6 +38,31 @@ namespace Bid501_Server
             _productDB = productDB;
             this.SendProductDEL = sendProductDEL;
             this.UpdateStateDEL = updateStateDEL;
+            
+        }
+
+        /// <summary>
+        /// Generates an id for the new products
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateUUID()
+        {
+            bool flag = false;
+            string newId = "";
+            while (!flag)
+            {
+                newId = Convert.ToString(((DateTimeOffset)DateTime.UtcNow).ToUnixTimeMilliseconds());
+                flag = true;
+                foreach(IProduct product in _productDB.Products)
+                {
+                    if(product.Id == newId) 
+                    { 
+                        flag = false; 
+                        break; 
+                    }
+                }
+            }
+            return newId;
         }
 
         /// <summary>
@@ -46,8 +71,9 @@ namespace Bid501_Server
         /// <param name="product">the product handled</param>
         public void handleAddProduct(IProduct product)
         {
-            //Generate a new id for product
+            product.Id = GenerateUUID();
             _productDB.Products.Add(product);
+            UpdateStateDEL(AdminState.ADDEDNEW);
         }
 
         /// <summary>
@@ -56,7 +82,16 @@ namespace Bid501_Server
         /// <param name="product"></param>
         public void handleExpireProduct(IProduct product)
         {
+            foreach(IProduct p in _productDB.Products)
+            {
+                if(p.Id == product.Id)
+                {
+                    p.IsExpired = true;
+                    UpdateStateDEL(AdminState.EXPIREDBID);
 
+                    break;
+                }
+            }
         }
     }
 }

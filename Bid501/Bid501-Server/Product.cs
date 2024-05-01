@@ -39,6 +39,11 @@ namespace Bid501_Server
         public bool IsExpired { get; set; }
 
         /// <summary>
+        /// The current winning user
+        /// </summary>
+        public string User { get; set; }
+
+        /// <summary>
         /// Creates the Product object
         /// </summary>
         /// <param name="id"></param>
@@ -53,6 +58,7 @@ namespace Bid501_Server
             MinBid = minBid;
             BidCount = bidCount;
             IsExpired = isExpired;
+            User = "";
         }
 
         /// <summary>
