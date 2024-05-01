@@ -15,23 +15,46 @@ namespace Bid501_Server
         /// <summary>
         /// a private field to hold the database
         /// </summary>
-        private ProductDB productDB;
+        private ProductDB _productDB;
 
         /// <summary>
         /// a delegate to hold the send product method
         /// </summary>
-        public SendProductDEL sendProductDEL { get; set; }
+        public SendProductDEL SendProductDEL { get; set; }
 
         /// <summary>
         /// a delegate to hold the update state method
         /// </summary>
-        public UpdateStateDEL updateStateDEL { get; set; }
-        
+        public UpdateStateDEL UpdateStateDEL { get; set; }
+
+        /// <summary>
+        /// Constructs the AdminViewController
+        /// </summary>
+        /// <param name="productDB"></param>
+        /// <param name="sendProductDEL"></param>
+        /// <param name="updateStateDEL"></param>
+        public AdminViewController(ProductDB productDB, SendProductDEL sendProductDEL, UpdateStateDEL updateStateDEL)
+        {
+            _productDB = productDB;
+            this.SendProductDEL = sendProductDEL;
+            this.UpdateStateDEL = updateStateDEL;
+        }
+
         /// <summary>
         /// a method to handle when a product is added
         /// </summary>
         /// <param name="product">the product handled</param>
         public void handleAddProduct(IProduct product)
+        {
+            //Generate a new id for product
+            _productDB.Products.Add(product);
+        }
+
+        /// <summary>
+        /// Handles expiring the bid
+        /// </summary>
+        /// <param name="product"></param>
+        public void handleExpireProduct(IProduct product)
         {
 
         }

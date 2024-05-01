@@ -69,6 +69,12 @@ namespace Bid501_Server
     internal delegate void LoginClickDEL(string un, string pw);
 
     /// <summary>
+    /// Handles the expiring of a bid from the admin view system
+    /// </summary>
+    /// <param name="product">The product to be expired</param>
+    public delegate void ExpireBidDEL(IProduct product);
+
+    /// <summary>
     /// Program class
     /// </summary>
     internal static class Program
