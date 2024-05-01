@@ -184,7 +184,7 @@ namespace Bid501_Server
             
             AdminView adminView = new AdminView(_productDB, GetClientDEL(), products);
             AdminViewController adminViewController = new AdminViewController(_productDB, ServerCommCtrl.SendProduct , adminView.DisplayState);
-            Application.Run(adminView);
+            adminView.ShowDialog();
             this.UpdateStateDEL = adminView.DisplayState;
             
         }
