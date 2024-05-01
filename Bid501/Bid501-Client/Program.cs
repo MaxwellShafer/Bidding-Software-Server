@@ -36,6 +36,7 @@ namespace Bid501_Client
                     clientCommCtrl.SetBidExpired(controller.BidExpired);
                     var bidView = new ClientBidView(controller.FetchNewProduct);
                     controller.SetProxy(bidView.handleEvents);
+                    bidView.setPlaceBid(controller.PlaceBid);
                     Application.Run(bidView);
                     // maybe use this instead...
                     //bidView.Show();
