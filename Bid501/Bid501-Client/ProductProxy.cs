@@ -1,4 +1,5 @@
-﻿using Bid501_Shared;
+﻿using System.Text;
+using Bid501_Shared;
 
 namespace Bid501_Client
 {
@@ -12,6 +13,6 @@ namespace Bid501_Client
             }
         }
 
-        public bool Winning { get; set; } = false;
+        public bool IsWinning { get; set; } = false;
     }
 }

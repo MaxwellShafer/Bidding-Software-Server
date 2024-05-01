@@ -1,47 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bid501_Shared;
+﻿using Bid501_Shared;
+using Bid501_Shared.dto;
 
 namespace Bid501_Client
 {
     public enum BidState
     {
-        WAIT,
-        NEWPRODUCT,
-        PRICEUPDATED,
-        GOODBID,
-        BADBID,
-        WIN,
-        LOSE,
-        EXIT
+        Wait,
+        NewProduct,
+        ChangeProduct,
+        PriceUpdated,
+        GoodBid,
+        BadBid,
+        Win,
+        Lose,
+        Exit
     }
 
-    public delegate void UpdateBidState(BidState state);
+    public delegate void UpdateBidStateDEL(BidState state);
+
+    public delegate void SendBidDEL(string id, decimal price);
 
 
     public class BidClientController
     {
-        private ProductDBProxy productDB;
+        private readonly ProductDbProxy _productDb;
+        private UpdateBidStateDEL _updateBidStateDel;
+        private SendBidDEL _sendBidDel;
 
-        public void BidUpdated(decimal price, string id, bool winning)
+
+        public void BidUpdated(BidResponseDTO bidResponse)
         {
-            productDB.handleProductUpdated(price, id, winning);
-            // todo refresh display
+            _productDb.HandleProductUpdated(bidResponse);
+            _updateBidStateDel(BidState.PriceUpdated);
         }
-        
+
+        public void PlaceBid(string id, decimal price)
+        {
+            if (price <= _productDb.SelectedProduct.MinBid)
+            {
+                _updateBidStateDel(BidState.BadBid);
+            }
+            else
+            {
+                _sendBidDel(id, price);
+                _updateBidStateDel(BidState.GoodBid);
+            }
+        }
+
         public void NewProduct(Product product)
         {
-            productDB.handleNewProduct(product);
-            // todo refresh display
+            _productDb.HandleNewProduct(product);
+            _updateBidStateDel(BidState.NewProduct);
         }
-        
-        public BidClientController(ProductDBProxy db)
+
+        public void BidExpired(BidExpiredDTO bidExpired)
         {
-            this.productDB = db;
+            _productDb.HandleProductExpired(bidExpired);
+            _updateBidStateDel(bidExpired.IsWinning ? BidState.Win : BidState.Lose);
         }
-        
+
+        public BidClientController(ProductDbProxy db, SendBidDEL sendBid)
+        {
+            _productDb = db;
+            _sendBidDel = sendBid;
+        }
+
+        public void SetProxy(UpdateBidStateDEL del)
+        {
+            _updateBidStateDel = del;
+        }
+
+        public void FetchNewProduct(ProductProxy p)
+        {
+            _productDb.SelectProduct(p);
+        }
     }
 }

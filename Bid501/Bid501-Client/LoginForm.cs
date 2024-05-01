@@ -27,11 +27,11 @@ namespace Bid501_Client
 
     public partial class LoginForm : Form
     {
-        public LoginClickDEL loginClick;
+        private readonly LoginClickDEL _loginClick;
 
         public LoginForm(LoginClickDEL del)
         {
-            loginClick = del;
+            _loginClick = del;
 
             InitializeComponent();
 
@@ -99,7 +99,7 @@ namespace Bid501_Client
             String un = tbUserName.Text;
             String up = tbPassword.Text;
             
-            loginClick(LoginState.GOTPASSWORD, un, up);
+            _loginClick(LoginState.GOTPASSWORD, un, up);
            
 
         }
@@ -113,7 +113,7 @@ namespace Bid501_Client
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            loginClick(LoginState.START, "", "");
+            _loginClick(LoginState.START, "", "");
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Bid501_Client
         /// <param name="e"></param>
         private void tbUserName_TextChanged(object sender, EventArgs e)
         {
-            loginClick(LoginState.GOTUSERNAME, null, null);
+            _loginClick(LoginState.GOTUSERNAME, null, null);
         }
 
 
