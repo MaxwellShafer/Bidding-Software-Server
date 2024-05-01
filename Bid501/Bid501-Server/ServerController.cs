@@ -40,7 +40,7 @@ namespace Bid501_Server
         /// <summary>
         /// private field to hold the product database
         /// </summary>
-        private ProductDB _productDB = new ProductDB();
+        private ProductDB _productDB;
 
 
         /// <summary>
@@ -54,12 +54,25 @@ namespace Bid501_Server
         private Dictionary<string, string> _userLoginInfo;
 
         /// <summary>
+        /// a private field to hold the server com controller
+        /// </summary>
+        private ServerCommCtrl ServerCommCtrl;
+
+        /// <summary>
+        /// a dictionary to hold the id and usernaim kvp
+        /// </summary>
+        private Dictionary<string, string> _userIdPair = new Dictionary<string, string>();
+
+        /// <summary>
         /// constuctor for server controller
         /// </summary>
-        public ServerController()
+        public ServerController(ProductDB productDB)
         {
+            _productDB = productDB;
+            ServerCommCtrl = new ServerCommCtrl(this.NewLoginAttempt,this.HandleNewBid);
             ServerLoginController serverLoginController = new ServerLoginController();
-            ServerLoginView serverLoginView = new ServerLoginView();
+            ServerLoginView serverLoginView = new ServerLoginView(serverLoginController.NewLoginAttempt);
+            serverLoginController.SetDEL(this.LoginSuccess, serverLoginView.DisplayState);
 
             Application.Run(serverLoginView);
             _userLoginInfo = BuildDictonary(_userFilepath);
@@ -71,25 +84,27 @@ namespace Bid501_Server
         /// <param name="username">the username</param>
         /// <param name="password">password</param>
         /// <param name="IsAdmin">True if the attempt is an admin</param>
-        public void NewLoginAttempt(string username, string password)
+        public void NewLoginAttempt(string username, string password, string clientID)
         {
+
+            _userIdPair.Add(username, clientID);
 
             //if it does not contain create new and return sucsessfull
             if (!(_userLoginInfo.ContainsKey(username)))
             {
                 _userLoginInfo.Add(username, password); // add to dict
                 WriteToJson(_userLoginInfo, "UserLoginInfo"); //overwrite with new dict
-                LoginReturnDEL(true);
+                LoginReturnDEL(true, clientID, _productDB.Products);
             }
             else
             {
                 if (_userLoginInfo[username] == password)
                 {
-                    LoginReturnDEL(true);
+                    LoginReturnDEL(true, clientID, _productDB.Products );
                 }
                 else
                 {
-                    LoginReturnDEL(false);
+                    LoginReturnDEL(false,clientID, _productDB.Products);
                 }
 
             }
@@ -154,6 +169,7 @@ namespace Bid501_Server
         /// </summary>
         public void LoginSuccess()
         {
+            
             List<Product> products = new List<Product>
             {
                 new Product("", "Jorge's left toenail clipping", 300.0m, 0, false),
@@ -162,7 +178,10 @@ namespace Bid501_Server
                 new Product("", "Blades of grass (5 pack)", 10000.0m, 0, false),
                 new Product("", "Max and Charlie's will to finish this project", 0.30m, 0, false),
             };
-            Application.Run(new AdminView(_productDB, GetClientDEL(), products));
+            
+            AdminView adminView = new AdminView(_productDB, GetClientDEL(), products);
+            AdminViewController adminViewController = new AdminViewController(_productDB, ServerCommCtrl.SendProduct , adminView.DisplayState);
+            Application.Run(adminView);
             
         }
 
