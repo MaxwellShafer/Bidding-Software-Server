@@ -138,5 +138,10 @@ namespace Bid501_Server
             Bid501_Shared.Product dto = (Bid501_Shared.Product)product;
             Sessions.Broadcast(dto.Serialize());
         }
+
+        public List<string> GetClientIds()
+        {
+            return (List<string>)Sessions.IDs;
+        }
     }
 }

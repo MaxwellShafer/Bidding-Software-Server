@@ -33,7 +33,7 @@ namespace Bid501_Server
         public GetClientDEL GetClientDEL { get; set; }
 
         /// <summary>
-        /// A delegate to send changes in the database so i can be reflected in the 
+        /// A delegate to send changes in the database so i can be reflected in t
         /// </summary>
         public UpdateStateDEL UpdateStateDEL { get; set; }
 
@@ -73,7 +73,10 @@ namespace Bid501_Server
             ServerLoginController serverLoginController = new ServerLoginController();
             ServerLoginView serverLoginView = new ServerLoginView(serverLoginController.NewLoginAttempt);
             serverLoginController.SetDEL(this.LoginSuccess, serverLoginView.DisplayState);
-
+            this.BidUpdateDEL = ServerCommCtrl.HandleBidUpdated;
+            this.LoginReturnDEL = ServerCommCtrl.HandleLoginAttempt;
+            this.GetClientDEL = ServerCommCtrl.GetClientIds;
+            
             Application.Run(serverLoginView);
             _userLoginInfo = BuildDictonary(_userFilepath);
         }
@@ -182,6 +185,7 @@ namespace Bid501_Server
             AdminView adminView = new AdminView(_productDB, GetClientDEL(), products);
             AdminViewController adminViewController = new AdminViewController(_productDB, ServerCommCtrl.SendProduct , adminView.DisplayState);
             Application.Run(adminView);
+            this.UpdateStateDEL = adminView.DisplayState;
             
         }
 
