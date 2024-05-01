@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bid501_Shared;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Windows.Forms;
 using WebSocketSharp;
@@ -27,9 +28,18 @@ namespace Bid501_Server
         protected override void OnMessage(MessageEventArgs e)
         {
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
-            MessageBox.Show(e.Data);
-            Send($"The following message was receieved: {e.Data}");
-            Sessions.Broadcast($"Session call: {e.Data}");
+            switch(response["Type"])
+            {
+                case PlaceBidDTO.Type:
+                    var bidData = PlaceBidDTO.Deserialize(e.Data);
+
+                    break;
+                case LoginDTO.Type:
+                    var loginData = LoginDTO.Deserialize(e.Data);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
