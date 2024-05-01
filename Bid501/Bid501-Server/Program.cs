@@ -28,14 +28,14 @@ namespace Bid501_Server
     /// Delegate for when the login is returned to the client
     /// </summary>
     /// <param name="status">Whether or not the client successfully logged in</param>
-    public delegate void LoginReturnDEL(bool status);
+    public delegate void LoginReturnDEL(bool status, string clientID, List<IProduct> products);
 
     /// <summary>
     /// Delegate for receiving a login attempt from the client
     /// </summary>
     /// <param name="user"></param>
     /// <param name="password"></param>
-    public delegate void LoginAttemptDEL(string user, string password);
+    public delegate void LoginAttemptDEL(string user, string password, string clientID);
 
     /// <summary>
     /// Sends a product to the clients
@@ -59,14 +59,14 @@ namespace Bid501_Server
     /// Delegate for when the login display needs to be updated
     /// </summary>
     /// <param name="state">The current state of the login system</param>
-    internal delegate void FetchStateDEL(LoginState state);
+    public delegate void FetchStateDEL(LoginState state);
 
     /// <summary>
     /// Handles the admin login attempt
     /// </summary>
     /// <param name="un">The username</param>
     /// <param name="pw">The password</param>
-    internal delegate void LoginClickDEL(string un, string pw);
+    public delegate void LoginClickDEL(string un, string pw);
 
     /// <summary>
     /// Handles the expiring of a bid from the admin view system
@@ -102,7 +102,7 @@ namespace Bid501_Server
     /// <summary>
     /// Program class
     /// </summary>
-    internal static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -116,7 +116,8 @@ namespace Bid501_Server
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ServerController serverController = new ServerController();
+            ProductDB productDB = new ProductDB();
+            ServerController serverController = new ServerController(productDB);
 
             //Application.Run(new AdminView(new ProductDB(), new List<string> { "Client 1", "Client 2", "Client 3"}, new List<Product> { new Product("12345", "beans", 20.0m, 0, false) }));
             socket.Stop();
