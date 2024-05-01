@@ -75,7 +75,7 @@ namespace Bid501_Server
         {
             product.Id = GenerateUUID();
             _productDB.Products.Add(product);
-            UpdateStateDEL(AdminState.ADDEDNEW);
+            UpdateStateDEL(AdminState.ADDEDNEW, _productDB);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Bid501_Server
                 if(p.Id == product.Id)
                 {
                     p.IsExpired = true;
-                    UpdateStateDEL(AdminState.EXPIREDBID);
+                    UpdateStateDEL(AdminState.EXPIREDBID, _productDB);
                     ExpireBidCommDEL(p);
                     break;
                 }
