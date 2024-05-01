@@ -89,8 +89,6 @@ namespace Bid501_Server
                     uxAddBtn.Enabled = false;
                     uxNewProductsList.SelectedIndex = -1;
                     break;
-                case AdminState.NOCHANGE:
-                    break;
                 default:
                     break;
             }
