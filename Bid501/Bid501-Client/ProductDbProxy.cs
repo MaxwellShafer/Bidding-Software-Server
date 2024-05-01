@@ -31,7 +31,7 @@ namespace Bid501_Client
             ProductProxy product = Products.Find(p => p.Id == bidExpired.Id);
             if (product != null)
             {
-                product.Expired = true;
+                product.IsExpired = true;
                 product.IsWinning = bidExpired.IsWinning;
                 product.MinBid = bidExpired.Bid;
             }
