@@ -110,14 +110,15 @@ namespace Bid501_Server
         [STAThread]
         static void Main()
         {
-            WebSocketServer socket = new WebSocketServer(8002);
-            socket.AddWebSocketService<ServerCommCtrl>("/server", () => new ServerCommCtrl());
-            socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             ProductDB productDB = new ProductDB();
             ServerController serverController = new ServerController(productDB);
+
+            WebSocketServer socket = new WebSocketServer(8002);
+            socket.AddWebSocketService<ServerCommCtrl>("/server", () => serverController.ServerCommCtrl);
+            socket.Start();
 
             //Application.Run(new AdminView(new ProductDB(), new List<string> { "Client 1", "Client 2", "Client 3"}, new List<Product> { new Product("12345", "beans", 20.0m, 0, false) }));
             socket.Stop();

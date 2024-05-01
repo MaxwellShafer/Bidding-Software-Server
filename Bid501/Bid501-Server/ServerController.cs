@@ -56,7 +56,7 @@ namespace Bid501_Server
         /// <summary>
         /// a private field to hold the server com controller
         /// </summary>
-        private ServerCommCtrl ServerCommCtrl;
+        public ServerCommCtrl ServerCommCtrl;
 
         /// <summary>
         /// a dictionary to hold the id and usernaim kvp
