@@ -90,8 +90,21 @@ namespace Bid501_Client
 
                    
                     break;
-                
-                default:
+
+                case BidState.Win:
+
+                    
+                            Status.Text = "won";
+
+                    break;
+
+                case BidState.Lose:
+
+                    Status.Text = "lost";
+                    break;
+                   
+
+                        default:
                     break;
             }
         }
@@ -107,21 +120,9 @@ namespace Bid501_Client
             MinBid.Text = "Minimum bid: $" + product.MinBid.ToString();
             MinimumBid = product.MinBid;
             NumBids.Text = $"({product.BidCount})";
-            if (product.IsExpired)
-            {
-                if (product.IsWinning)
-                {
-                    Status.Text = "won";
-                }
-                else
-                {
-                    Status.Text = "lost";
-                }
-            }
-            else
-            {
+            
                 Status.Text = "Open";
-            }
+            
             
             name.Text = product.Name;
         }
