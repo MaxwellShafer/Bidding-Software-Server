@@ -60,6 +60,10 @@ namespace Bid501_Client
 
         public void HandleLoginReturn(IDB idb)
         {
+            if (idb == null)
+            {
+                _fetchState(LoginState.DECLINED);
+            }
             _launchBidView(idb);
         }
     }
