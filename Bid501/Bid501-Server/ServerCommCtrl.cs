@@ -1,5 +1,6 @@
 ﻿using Bid501_Shared;
 using Bid501_Shared.dto;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
