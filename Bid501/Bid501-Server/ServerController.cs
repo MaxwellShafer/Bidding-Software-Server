@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Bid501_Shared;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Bid501_Server
 {
@@ -26,6 +28,11 @@ namespace Bid501_Server
         public LoginReturnDEL LoginReturnDEL { get; set; }
 
         /// <summary>
+        /// a delegate to call so we can get clients
+        /// </summary>
+        public GetClientDEL GetClientDEL { get; set; }
+
+        /// <summary>
         /// A delegate to send changes in the database so i can be reflected in the 
         /// </summary>
         public UpdateStateDEL UpdateStateDEL { get; set; }
@@ -34,6 +41,7 @@ namespace Bid501_Server
         /// private field to hold the product database
         /// </summary>
         private ProductDB _productDB = new ProductDB();
+
 
         /// <summary>
         /// dictates what file the user information should be read/writen to
@@ -135,6 +143,20 @@ namespace Bid501_Server
                     }
                 }
             }
+        }
+
+        public void LoginSuccess()
+        {
+            List<Product> products = new List<Product>
+            {
+                new Product("", "Jorge's left toenail clipping", 300.0m, 0, false),
+                new Product("", "Half-eaten banana", 10.0m, 0, false),
+                new Product("", "Jorge's right toenail clipping", 300.0m, 0, false),
+                new Product("", "Blades of grass (5 pack)", 10000.0m, 0, false),
+                new Product("", "Max and Charlie's will to finish this project", 0.30m, 0, false),
+            };
+            Application.Run(new AdminView(_productDB, GetClientDEL(), products));
+            
         }
     }
 }

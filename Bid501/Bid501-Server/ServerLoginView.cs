@@ -30,6 +30,8 @@ namespace Bid501_Server
         /// </summary>
         internal LoginClickDEL LoginClickDEL { get; set; }
 
+        
+
         /// <summary>
         /// Constructor for the LoginView
         /// </summary>
@@ -51,10 +53,18 @@ namespace Bid501_Server
                 case LoginState.GOTUSERNAME:
                     break;
                 case LoginState.GOTPASSWORD:
-                    break;
-                case LoginState.SUCCESS:
+                    if (uxPasswordEntry.Text != "")
+                    {
+                        uxLoginBtn.Enabled = true;
+                    }
+                    else
+                    {
+                        uxLoginBtn.Enabled = false;
+                    }
                     break;
                 case LoginState.DECLINED:
+                    uxPasswordEntry.Text = "";
+                    uxLoginBtn.Enabled = false;
                     break;
                 default:
                     break;
@@ -68,7 +78,8 @@ namespace Bid501_Server
         /// <param name="e"></param>
         private void uxLoginBtn_Click(object sender, EventArgs e)
         {
-            //maybe have another loginstate for waiting on a response here? That way if the server took a really long time for some reason, it would disable the button or something
+            LoginClickDEL(uxUsernameEntry.Text, uxPasswordEntry.Text);
+            uxLoginBtn.Enabled = false;
         }
 
         /// <summary>
@@ -89,6 +100,8 @@ namespace Bid501_Server
         private void uxPasswordEntry_TextChanged(object sender, EventArgs e)
         {
             DisplayState(LoginState.GOTPASSWORD);
+           
+           
         }
     }
 }

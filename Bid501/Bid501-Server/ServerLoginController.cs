@@ -37,7 +37,10 @@ namespace Bid501_Server
         /// </summary>
         private Dictionary<string, string> _adminLoginInfo;
 
-        
+        /// <summary>
+        /// delegate to be called to show a sucsessfull login
+        /// </summary>
+        public LoginSuccessDEL LoginSuccessDEL { get; set; }
 
         public ServerLoginController()
         {
@@ -57,8 +60,7 @@ namespace Bid501_Server
           
            if (_adminLoginInfo[username] == password)
            {
-               //invoke sucsessfull login send state back
-               fetchStateDEL(LoginState.SUCCESS);
+                LoginSuccessDEL();
            }
            else
            {

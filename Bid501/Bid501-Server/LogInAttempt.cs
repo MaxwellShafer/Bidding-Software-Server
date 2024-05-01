@@ -21,5 +21,12 @@ namespace Bid501_Server
         /// </summary>
         public string Password { get; private set; }
 
+        public LoginAttempt(string usr, string pass)
+        {
+            Name = usr;
+            Password = pass;
+
+        }
+
     }
 }
