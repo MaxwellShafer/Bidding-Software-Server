@@ -114,7 +114,6 @@
     <Compile Include="dto\LoginDTO.cs" />
     <Compile Include="dto\PlaceBidDTO.cs" />
     <Compile Include="dto\Product.cs" />
-    <Compile Include="IDB.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
