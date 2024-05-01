@@ -9,11 +9,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Bid501_Client
 {
-    public delegate void PlaceBidDEL(double price);
-    public delegate void FetchBidDEL(ProductProxy product);
+    public delegate void PlaceBidDEL(decimal price);
+    public delegate void ChangeProdDEL(ProductProxy product);
 
 
     public partial class ClientBidView : Form
@@ -24,13 +25,16 @@ namespace Bid501_Client
 
         public ProductDBProxy database;
 
-        public double MinimumBid;
+        public decimal MinimumBid;
 
-        public double currentBid;
+        public decimal currentBid;
+
+        public ChangeProdDEL changeproduct;
         
 
-        public ClientBidView()
+        public ClientBidView(ChangeProdDEL cpd)
         {
+            changeproduct = cpd;
             InitializeComponent();
 
         }
@@ -45,7 +49,7 @@ namespace Bid501_Client
 
         private void PlaceBidClick(object sender, EventArgs e)
         {
-            currentBid = Convert.ToDouble(Bid.Text);
+            currentBid = Convert.ToDecimal(Bid.Text);
 
             if(currentBid > MinimumBid)
             {
@@ -62,10 +66,11 @@ namespace Bid501_Client
         {
             switch (state)
             {
-                case BidState.NEWPRODUCT:
+                case BidState.CHANGEPRODUCT:
 
+                    RefreshList();
                     RefreshDisplay();
-                    
+
                     break;
 
 
@@ -81,6 +86,7 @@ namespace Bid501_Client
 
 
                 case BidState.BADBID:
+
 
                    
                     break;
@@ -98,15 +104,42 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-           /* MinBid.Text = "Minimum bid: $" + product.minbid.ToString();
-            MinimumBid = product.minbid;
-            NumBids.Text = $"({product.numbid})";
-            Status.Text = "Status: " +  ;
-            name.Text = product.name;*/
-
-
+            MinBid.Text = "Minimum bid: $" + product.MinBid.ToString();
+            MinimumBid = product.MinBid;
+            NumBids.Text = $"({product.BidCount})";
+            if (product.IsExpired)
+            {
+                if (product.Winning)
+                {
+                    Status.Text = "won";
+                }
+                else
+                {
+                    Status.Text = "lost";
+                }
+            }
+            else
+            {
+                Status.Text = "Open";
+            }
+            
+            name.Text = product.Name;
         }
 
+
+        public void RefreshList()
+        {
+            productList.Items.Clear();
+
+            // Iterate through the list of products
+            foreach (Product product in database.Products)
+            {
+                
+                ListViewItem item = new ListViewItem(product.Name); 
+
+                productList.Items.Add(item);
+            }
+        }
 
         private void label3_Click(object sender, EventArgs e)
         {
@@ -120,19 +153,30 @@ namespace Bid501_Client
         /// <param name="e"></param>
         private void NewProductClick(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0 && database != null)
-            {
-                int selectedIndex = listView1.SelectedIndices[0];
+            
 
-                
+
+
+            if (productList.SelectedItems.Count > 0 && database != null)
+            {
+                int selectedIndex = productList.SelectedIndices[0];
+
                 if (selectedIndex >= 0 && selectedIndex < database.Products.Count)
                 {
-                    Product selectedProduct = database.Products[selectedIndex];
-
-
-                   
+                    ProductProxy selectedProduct = database.Products[selectedIndex];
+                    
+                    changeproduct(selectedProduct);
                 }
             }
+
+
+
+
+
+
+
+
+
         }
     }
 }

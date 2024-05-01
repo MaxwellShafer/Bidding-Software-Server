@@ -12,6 +12,7 @@ namespace Bid501_Client
     {
         WAIT,
         NEWPRODUCT,
+        CHANGEPRODUCT,
         PRICEUPDATED,
         GOODBID,
         BADBID,
@@ -26,22 +27,35 @@ namespace Bid501_Client
     public class BidClientController
     {
         private ProductDBProxy productDB;
+        public UpdateBidState updatebidState;
 
         public void BidUpdated(BidResponseDTO bidResponse)
         {
             productDB.handleProductUpdated(bidResponse);
-            // todo refresh display
+            updatebidState(BidState.PRICEUPDATED);
         }
         
         public void NewProduct(Product product)
         {
             productDB.handleNewProduct(product);
-            // todo refresh display
+            updatebidState(BidState.NEWPRODUCT);
+
+            
         }
         
         public BidClientController(ProductDBProxy db)
         {
             this.productDB = db;
+        }
+
+        public void SetProxy(UpdateBidState del)
+        {
+            updatebidState = del;
+        }
+
+        public void fetchNewProduct(ProductProxy p)
+        {
+            productDB.selectProduct(p);
         }
         
     }

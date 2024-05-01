@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.productList = new System.Windows.Forms.ListView();
             this.Bid = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.MinBid = new System.Windows.Forms.Label();
@@ -50,15 +50,15 @@
             this.label1.Text = "Products";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // listView1
+            // productList
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(402, 108);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(190, 330);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.NewProductClick);
+            this.productList.HideSelection = false;
+            this.productList.Location = new System.Drawing.Point(402, 108);
+            this.productList.Name = "productList";
+            this.productList.Size = new System.Drawing.Size(190, 330);
+            this.productList.TabIndex = 1;
+            this.productList.UseCompatibleStateImageBehavior = false;
+            this.productList.SelectedIndexChanged += new System.EventHandler(this.NewProductClick);
             // 
             // Bid
             // 
@@ -136,7 +136,7 @@
             this.Controls.Add(this.MinBid);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Bid);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.productList);
             this.Controls.Add(this.label1);
             this.Name = "ClientBidView";
             this.Text = "ClientBidView";
@@ -148,7 +148,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView productList;
         private System.Windows.Forms.TextBox Bid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label MinBid;
