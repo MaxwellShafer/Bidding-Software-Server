@@ -127,7 +127,7 @@ namespace Bid501_Server
                     {
                         p.MinBid = bid;
                         BidUpdateDEL(bid, productID, clientID); // comunicating back to the clients
-                        UpdateStateDEL(AdminState.EXPIRE, _productDB);
+                        UpdateStateDEL(AdminState.EXPIREDBID, _productDB);
                     }
                     else
                     {

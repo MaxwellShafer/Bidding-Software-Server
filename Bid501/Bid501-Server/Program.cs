@@ -47,7 +47,7 @@ namespace Bid501_Server
     /// Updates the state of the admin view
     /// </summary>
     /// <param name="state">The AdminState</param>
-    public delegate void UpdateStateDEL(AdminState state);
+    public delegate void UpdateStateDEL(AdminState state, ProductDB productDB);
 
     /// <summary>
     /// Add a product to the database
