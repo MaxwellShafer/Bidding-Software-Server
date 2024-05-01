@@ -115,6 +115,9 @@ namespace Bid501_Server
             socket.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            ServerController serverController = new ServerController();
+
             //Application.Run(new AdminView(new ProductDB(), new List<string> { "Client 1", "Client 2", "Client 3"}, new List<Product> { new Product("12345", "beans", 20.0m, 0, false) }));
             socket.Stop();
         }

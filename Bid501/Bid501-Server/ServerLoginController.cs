@@ -24,7 +24,7 @@ namespace Bid501_Server
         /// <summary>
         /// A delegate that is called in the controller to invoke the method to update the state in the view
         /// </summary>
-        public FetchStateDEL fetchStateDEL { get; set; }
+        public FetchStateDEL FetchStateDEL { get; set; }
 
         
         /// <summary>
@@ -65,7 +65,7 @@ namespace Bid501_Server
            else
            {
                //invoke unsucessfull
-               fetchStateDEL(LoginState.DECLINED);
+               FetchStateDEL(LoginState.DECLINED);
            }         
           
           
@@ -93,6 +93,14 @@ namespace Bid501_Server
             Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             return dict;
         }
+        
+
+        public void SetDEL(LoginSuccessDEL LoginSuccess, FetchStateDEL fetchState)
+        {
+            LoginSuccessDEL = LoginSuccess;
+            FetchStateDEL = fetchState;
+        }
+
         
 
     }

@@ -58,6 +58,10 @@ namespace Bid501_Server
         /// </summary>
         public ServerController()
         {
+            ServerLoginController serverLoginController = new ServerLoginController();
+            ServerLoginView serverLoginView = new ServerLoginView();
+
+            Application.Run(serverLoginView);
             _userLoginInfo = BuildDictonary(_userFilepath);
         }
 
@@ -145,6 +149,9 @@ namespace Bid501_Server
             }
         }
 
+        /// <summary>
+        /// method to be invoked on a sucsessfull login
+        /// </summary>
         public void LoginSuccess()
         {
             List<Product> products = new List<Product>
@@ -157,6 +164,21 @@ namespace Bid501_Server
             };
             Application.Run(new AdminView(_productDB, GetClientDEL(), products));
             
+        }
+
+        /// <summary>
+        /// A method to set the delegates
+        /// </summary>
+        /// <param name="bidUpdate">the bidUpdateDEL</param>
+        /// <param name="LoginReturn">the LoginReturnDEL</param>
+        /// <param name="GetClient"> the getClientDEL</param>
+        /// <param name="UpdateState"> the UpdateStateDEL</param>
+        public void SetDEL(BidUpdateDEL bidUpdate, LoginReturnDEL LoginReturn, GetClientDEL GetClient, UpdateStateDEL UpdateState)
+        {
+            BidUpdateDEL = bidUpdate;
+            LoginReturnDEL = LoginReturn;
+            GetClientDEL = GetClient;
+            UpdateStateDEL = UpdateState;
         }
     }
 }
