@@ -68,6 +68,11 @@ namespace Bid501_Client
 
         private void OnMessage(object sender, MessageEventArgs e)
         {
+            if(e.Data == "Unauthorized")
+            {
+                _loginReturn(null);
+                return;
+            }
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
             switch (response["Type"])
             {
