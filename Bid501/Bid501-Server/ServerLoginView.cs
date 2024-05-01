@@ -18,7 +18,7 @@ namespace Bid501_Server
         /// <summary>
         /// The current State of the Login View
         /// </summary>
-        internal LoginState State { get; set; }
+        public LoginState State { get; set; }
 
         /// <summary>
         /// A property to hold each login attempt
@@ -28,15 +28,16 @@ namespace Bid501_Server
         /// <summary>
         /// A delgate that is called when the user attempts to log in
         /// </summary>
-        internal LoginClickDEL LoginClickDEL { get; set; }
+        public LoginClickDEL LoginClickDEL { get; set; }
 
         
 
         /// <summary>
         /// Constructor for the LoginView
         /// </summary>
-        public ServerLoginView()
+        public ServerLoginView(LoginClickDEL LoginClick)
         {
+            LoginClickDEL = LoginClick;
             InitializeComponent();
         }
 
@@ -44,7 +45,7 @@ namespace Bid501_Server
         /// A method to be called when the state of the display need to be changed
         /// </summary>
         /// <param name="state"> The state the view will update to</param>
-        internal void DisplayState(LoginState state)
+        public void DisplayState(LoginState state)
         {
             switch(state)
             {

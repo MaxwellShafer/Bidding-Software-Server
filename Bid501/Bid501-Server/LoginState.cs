@@ -9,7 +9,7 @@ namespace Bid501_Server
     /// <summary>
     /// LoginState enum definition
     /// </summary>
-    internal enum LoginState
+    public enum LoginState
     {
         START,
         GOTUSERNAME,
