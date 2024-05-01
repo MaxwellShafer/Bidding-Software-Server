@@ -26,11 +26,7 @@ namespace Bid501_Server
         /// </summary>
         public FetchStateDEL fetchStateDEL { get; set; }
 
-        /// <summary>
-        /// dictates what file the user information should be read/writen to
-        /// </summary>
-        private string _userFilepath = "UserLoginInfo";
-
+        
         /// <summary>
         /// dictates what file the admin login info is read from
         /// </summary>
@@ -41,16 +37,13 @@ namespace Bid501_Server
         /// </summary>
         private Dictionary<string, string> _adminLoginInfo;
 
-        /// <summary>
-        /// a dictionary to load and check user logins
-        /// </summary>
-        private Dictionary<string, string> _userLoginInfo;
+        
 
         public ServerLoginController()
         {
             //load dictionaries from given filepaths
             _adminLoginInfo = BuildDictonary(_adminFilepath);
-            _userLoginInfo = BuildDictonary(_userFilepath);
+            
         }
 
         /// <summary>
@@ -59,41 +52,21 @@ namespace Bid501_Server
         /// <param name="username">the username</param>
         /// <param name="password">password</param>
         /// <param name="IsAdmin">True if the attempt is an admin</param>
-        public void NewLoginAttempt(string username, string password, bool IsAdmin)
+        public void NewLoginAttempt(string username, string password)
         {
-            if (IsAdmin)
-            {
-                if (_adminLoginInfo[username] == password)
-                {
-                    //invoke sucsessfull login send state back
-                    fetchStateDEL(LoginState.SUCCESS);
-                }
-                else
-                {
-                    //invoke unsucessfull
-                    fetchStateDEL(LoginState.DECLINED);
-                }
-            }
-            else // if its not an admin login
-            {
-                //if it does not contain create new and return sucsessfull
-                if ( !(_userLoginInfo.ContainsKey(username)) )
-                {
-                    _userLoginInfo.Add(username, password); // add to dict
-                    WriteToJson(_userLoginInfo, "UserLoginInfo"); //overwrite with new dict
-                    fetchStateDEL(LoginState.SUCCESS);
-                }
-
-                if (_userLoginInfo[username] == password)
-                {
-                    fetchStateDEL(LoginState.SUCCESS);
-                }
-                else
-                {
-                    fetchStateDEL(LoginState.DECLINED);
-                }
-            }
-            
+          
+           if (_adminLoginInfo[username] == password)
+           {
+               //invoke sucsessfull login send state back
+               fetchStateDEL(LoginState.SUCCESS);
+           }
+           else
+           {
+               //invoke unsucessfull
+               fetchStateDEL(LoginState.DECLINED);
+           }         
+          
+          
         }
 
         /// <summary>
