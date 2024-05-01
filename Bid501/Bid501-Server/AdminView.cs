@@ -19,6 +19,8 @@ namespace Bid501_Server
 
         public AddProductDEL AddProduct;
 
+        public ExpireBidDEL ExpireProduct;
+
         private List<Product> _newItems;
 
         public AdminView(ProductDB db, List<string> clients, List<Product> newItems)
@@ -27,15 +29,16 @@ namespace Bid501_Server
             _newItems = newItems;
             _database = db;
             _clients = clients;
-            DisplayState(AdminState.START);
+            DisplayState(AdminState.START, _database);
         }
 
         /// <summary>
         /// Updates the AdminView based on the state given
         /// </summary>
         /// <param name="state"></param>
-        public void DisplayState(AdminState state)
+        public void DisplayState(AdminState state, ProductDB updatedDB)
         {
+            _database = updatedDB;
             switch(state)
             {
                 case AdminState.START:
@@ -52,13 +55,37 @@ namespace Bid501_Server
                         uxNewProductsList.Items.Add(item.ToString());
                     }
                     uxNewProductsList.SelectedIndex = -1;
+                    uxCurrentProductsList.SelectedIndex = -1;
+                    uxConnectedClientsList.Enabled = false;
                     uxAddBtn.Enabled = false;
+                    uxExpireBtn.Enabled = false;
                     break;
-                case AdminState.EXPIRE:
+                case AdminState.SELECTEDEXPIRED:
+                    uxExpireBtn.Enabled = true;
+                    uxNewProductsList.SelectedIndex = -1;
                     break;
-                case AdminState.WAIT:
+                case AdminState.EXPIREDBID:
+                    uxCurrentProductsList.Items.Clear();
+                    foreach(Product p in _database.Products)
+                    {
+                        uxCurrentProductsList.Items.Add(p.ToString());
+                    }
+                    uxCurrentProductsList.SelectedIndex = -1;
+                    uxExpireBtn.Enabled = false;
                     break;
-                case AdminState.ADDPRODUCT:
+                case AdminState.SELECTEDNEW:
+                    uxAddBtn.Enabled = true;
+                    uxCurrentProductsList.SelectedIndex = -1;
+                    break;
+                case AdminState.ADDEDNEW:
+                    uxCurrentProductsList.Items.Clear();
+                    foreach(Product p in _database.Products)
+                    {
+                        uxCurrentProductsList.Items.Add(p.ToString());
+                    }
+                    uxCurrentProductsList.SelectedIndex = -1;
+                    uxAddBtn.Enabled = false;
+                    uxNewProductsList.SelectedIndex = -1;
                     break;
                 case AdminState.EXIT:
                     break;
@@ -76,6 +103,21 @@ namespace Bid501_Server
         {
             if (uxNewProductsList.SelectedItem is IProduct p) {
                 AddProduct(p);
+            } else {
+                MessageBox.Show("Error!");
+            }
+        }
+
+        /// <summary>
+        /// Handles the expiring of a bid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxExpireBtn_Click(object sender, EventArgs e)
+        {
+            if (uxCurrentProductsList.SelectedItem is IProduct p)
+            {
+                ExpireProduct(p);
             } else
             {
                 MessageBox.Show("Error!");
