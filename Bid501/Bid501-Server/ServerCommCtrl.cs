@@ -34,9 +34,7 @@ namespace Bid501_Server
         /// <param name="e"></param>
         protected override void OnMessage(MessageEventArgs e)
         {
-            MessageBox.Show(e.Data);
-            Send($"The following message was receieved: {e.Data}");
-            Sessions.Broadcast($"Session call: {e.Data}");
+            
         }
 
         //Takes from admin controller
