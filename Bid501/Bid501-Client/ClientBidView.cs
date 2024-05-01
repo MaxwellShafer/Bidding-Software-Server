@@ -13,7 +13,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Bid501_Client
 {
-    public delegate void PlaceBidDEL(decimal price);
+    public delegate void PlaceBidDEL(string id, decimal price);
     public delegate void ChangeProdDEL(ProductProxy product);
 
 
@@ -35,7 +35,10 @@ namespace Bid501_Client
         public ClientBidView(ChangeProdDEL cpd)
         {
             changeproduct = cpd;
+            
             InitializeComponent();
+
+            RefreshDisplay();
 
         }
 
@@ -81,7 +84,7 @@ namespace Bid501_Client
 
                 case BidState.GoodBid:
 
-                    placeBid(currentBid);
+                    placeBid(product.Id,currentBid);
                     break;
 
 
@@ -185,6 +188,12 @@ namespace Bid501_Client
 
 
 
+        }
+
+
+        public void setPlaceBid(PlaceBidDEL del)
+        {
+            placeBid = del;
         }
     }
 }

@@ -63,6 +63,7 @@ namespace Bid501_Client
         {
             _productDb = db;
             _sendBidDel = sendBid;
+
         }
 
         public void SetProxy(UpdateBidStateDEL del)
