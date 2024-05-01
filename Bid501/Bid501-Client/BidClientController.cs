@@ -73,6 +73,7 @@ namespace Bid501_Client
         public void FetchNewProduct(ProductProxy p)
         {
             _productDb.SelectProduct(p);
+            _updateBidStateDel(BidState.ChangeProduct);
         }
     }
 }

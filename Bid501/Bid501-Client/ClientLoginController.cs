@@ -31,6 +31,11 @@ namespace Bid501_Client
 
         public void HandleEvents(LoginState state, string email, String password)
         {
+            var delsDefined = _fetchState != null;
+            if (!delsDefined)
+            {
+                return;
+            }
             switch (state)
             {
                 case LoginState.START:
