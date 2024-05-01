@@ -20,6 +20,7 @@ namespace Bid501_Client
             LoginDTO login = new LoginDTO();
             ClientLoginController loginController = new ClientLoginController(login);
             LoginForm view = new LoginForm(loginController.HandleEvents);
+            
 
             WebSocketServer wss = new WebSocketServer(8001);
 
