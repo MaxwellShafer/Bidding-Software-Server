@@ -16,6 +16,11 @@ namespace Bid501_Server
         public ServerState State { get; set; }
 
         /// <summary>
+        /// delegate that we call to return the updated product and if they are winning and such
+        /// </summary>
+        public BidUpdateDEL BidUpdateDEL { get; set; }
+
+        /// <summary>
         /// A delegate to hold the method that handles when we return login result
         /// </summary>
         public LoginReturnDEL LoginReturnDEL { get; set; }
@@ -35,6 +40,9 @@ namespace Bid501_Server
         /// </summary>
         private Dictionary<string, string> _userLoginInfo;
 
+        /// <summary>
+        /// constuctor for server controller
+        /// </summary>
         public ServerController()
         {
             _userLoginInfo = BuildDictonary(_userFilepath);
@@ -48,7 +56,6 @@ namespace Bid501_Server
         /// <param name="IsAdmin">True if the attempt is an admin</param>
         public void NewLoginAttempt(string username, string password)
         {
-
 
             //if it does not contain create new and return sucsessfull
             if (!(_userLoginInfo.ContainsKey(username)))
@@ -96,6 +103,25 @@ namespace Bid501_Server
         {
             string obj = JsonConvert.SerializeObject(dict);
             File.WriteAllText(filePath, obj);
+        }
+
+        public void HandleNewBid(decimal bid, string productID, string clientID)
+        {
+            foreach(Product p in _productDB.Products)
+            {
+                if(p.Id == productID)
+                {
+                    if(p.MinBid < bid)
+                    {
+                        p.MinBid = bid;
+                        BidUpdateDEl(bid, productID, clientID);
+                    }
+                    else
+                    {
+                        //supposedly do nothing and the other bid that causes this one to fail should update the view to alert them that they are not winning
+                    }
+                }
+            }
         }
     }
 }
