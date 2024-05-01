@@ -89,6 +89,9 @@ namespace Bid501_Server
         /// <returns></returns>
         private Dictionary<string,string> BuildDictonary(string filepath)
         {
+            Dictionary<string, string> TempDictionary = new Dictionary<string, string>();
+            TempDictionary.Add("admin", "password");
+            File.WriteAllText(filepath, JsonConvert.SerializeObject(TempDictionary));
             string json = File.ReadAllText(filepath);
             Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             return dict;

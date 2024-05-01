@@ -139,9 +139,21 @@ namespace Bid501_Server
             Sessions.Broadcast(dto.Serialize());
         }
 
+        /// <summary>
+        /// a methid to return the client id list
+        /// </summary>
+        /// <returns>the client id list, empyt list if null</returns>
         public List<string> GetClientIds()
         {
-            return (List<string>)Sessions.IDs;
+            if((List<string>)Sessions.IDs == null)
+            {
+                return new List<string>();
+            }
+            else
+            {
+                return (List<string>)Sessions.IDs;
+            }
+            
         }
     }
 }
