@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
 using Bid501_Shared;
@@ -29,7 +30,7 @@ namespace Bid501_Client
         {
             // Connects to the server
             _loginReturn = lr;
-            _ws = new WebSocket("ws://192.168.0.108:8002/server");
+            _ws = new WebSocket("ws://localhost:8002/server");
             _ws.OnMessage += OnMessage;
             _ws.Connect();
         }
@@ -51,6 +52,7 @@ namespace Bid501_Client
 
         public void SendLoginInfo(LoginDTO model)
         {
+            Console.WriteLine("test");
             string body = model.Serialize();
             _ws.Send(body);
         }

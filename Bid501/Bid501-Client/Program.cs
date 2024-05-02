@@ -22,31 +22,22 @@ namespace Bid501_Client
             LoginForm view = new LoginForm(loginController.HandleEvents);
             
 
-            WebSocketServer wss = new WebSocketServer(8001);
-
-            wss.AddWebSocketService("/client", () =>
+            ClientCommCtrl clientCommCtrl = new ClientCommCtrl(loginController.HandleLoginReturn);
+            loginController.SetupDels(view.DisplayState, clientCommCtrl.SendLoginInfo, (idb) =>
             {
-                ClientCommCtrl clientCommCtrl = new ClientCommCtrl(loginController.HandleLoginReturn);
-                loginController.SetupDels(view.DisplayState, clientCommCtrl.SendLoginInfo, (idb) =>
-                {
-                    var productsProxy = new ProductDbProxy(idb.Products);
-                    var controller = new BidClientController(productsProxy, clientCommCtrl.SendBid);
-                    clientCommCtrl.SetBidUpdated(controller.BidUpdated);
-                    clientCommCtrl.SetNewProduct(controller.NewProduct);
-                    clientCommCtrl.SetBidExpired(controller.BidExpired);
-                    var bidView = new ClientBidView(controller.FetchNewProduct);
-                    controller.SetProxy(bidView.handleEvents);
-                    bidView.setPlaceBid(controller.PlaceBid);
-                    //Application.Run(bidView);
-                    // maybe use this instead...
-                    bidView.Show();
-                });
-                return clientCommCtrl;
+                var productsProxy = new ProductDbProxy(idb.Products);
+                var controller = new BidClientController(productsProxy, clientCommCtrl.SendBid);
+                clientCommCtrl.SetBidUpdated(controller.BidUpdated);
+                clientCommCtrl.SetNewProduct(controller.NewProduct);
+                clientCommCtrl.SetBidExpired(controller.BidExpired);
+                var bidView = new ClientBidView(controller.FetchNewProduct);
+                controller.SetProxy(bidView.handleEvents);
+                bidView.setPlaceBid(controller.PlaceBid);
+                Application.Run(bidView);
+                // maybe use this instead...
+                bidView.Show();
             });
-            wss.Start();
-
             Application.Run(view);
-            wss.Stop();
         }
     }
 }
