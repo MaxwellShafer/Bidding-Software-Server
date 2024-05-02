@@ -20,9 +20,7 @@ namespace Bid501_Client
     public partial class ClientBidView : Form
     {
         public PlaceBidDEL placeBid;
-
-        public ProductProxy Product;
-
+        
         public ProductDbProxy database;
 
         public decimal MinimumBid;
@@ -84,7 +82,7 @@ namespace Bid501_Client
 
                 case BidState.GoodBid:
 
-                    placeBid(Product.Id,currentBid);
+                    placeBid(database.SelectedProduct.Id,currentBid);
                     break;
 
 
@@ -127,7 +125,7 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-            MinBid.Text = "Minimum bid: $" + Product.MinBid.ToString();
+            MinBid.Text = "Minimum bid: $" + database.SelectedProduct.MinBid.ToString();
             MinimumBid = Product.MinBid;
             NumBids.Text = $"({Product.BidCount})";
             
@@ -179,15 +177,6 @@ namespace Bid501_Client
                     changeproduct(selectedProduct);
                 }
             }
-
-
-
-
-
-
-
-
-
         }
 
 

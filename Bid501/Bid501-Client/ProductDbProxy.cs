@@ -9,7 +9,7 @@ namespace Bid501_Client
     {
         public List<ProductProxy> Products { get; }
         private int _selectedProductIdx;
-        public ProductDTO SelectedProductDto => Products[_selectedProductIdx];
+        public ProductProxy SelectedProduct => Products[_selectedProductIdx];
 
         public ProductDbProxy(List<ProductDTO> products)
         {

@@ -200,8 +200,8 @@ namespace Bid501_Server
             AdminViewController adminViewController = new AdminViewController(_productDB);
             AdminView adminView = new AdminView(_productDB, GetClientDEL(), products, adminViewController.handleAddProduct, adminViewController.handleExpireProduct);
             adminViewController.addDels(ServerCommCtrl.SendProduct, adminView.DisplayState, ServerCommCtrl.HandleExpiringBid);
-            adminView.ShowDialog();
             this.UpdateStateDEL = adminView.DisplayState;
+            adminView.ShowDialog();
             
         }
 
