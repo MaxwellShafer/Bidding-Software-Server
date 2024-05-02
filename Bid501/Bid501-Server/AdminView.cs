@@ -23,20 +23,22 @@ namespace Bid501_Server
 
         private List<Product> _newItems;
 
-        public AdminView(ProductDB db, List<string> clients, List<Product> newItems)
+        public AdminView(ProductDB db, List<string> clients, List<Product> newItems, AddProductDEL add, ExpireBidDEL expire)
         {
             InitializeComponent();
             _newItems = newItems;
             _database = db;
             _clients = clients;
-            DisplayState(AdminState.START, _database);
+            AddProduct = add;
+            ExpireProduct = expire;
+            DisplayState(AdminState.START, _database, null);
         }
 
         /// <summary>
         /// Updates the AdminView based on the state given
         /// </summary>
         /// <param name="state"></param>
-        public void DisplayState(AdminState state, ProductDB updatedDB)
+        public void DisplayState(AdminState state, ProductDB updatedDB, string newClient)
         {
             _database = updatedDB;
             switch(state)
@@ -44,7 +46,7 @@ namespace Bid501_Server
                 case AdminState.START:
                     foreach(Product p in _database.Products)
                     {
-                        uxCurrentProductsList.Items.Add(p.ToString());
+                        uxCurrentProductsList.Items.Add(p);
                     }
                     foreach(string client in _clients)
                     {
@@ -52,7 +54,7 @@ namespace Bid501_Server
                     }
                     foreach(Product item in _newItems)
                     {
-                        uxNewProductsList.Items.Add(item.ToString());
+                        uxNewProductsList.Items.Add(item);
                     }
                     uxNewProductsList.SelectedIndex = -1;
                     uxCurrentProductsList.SelectedIndex = -1;
@@ -61,33 +63,49 @@ namespace Bid501_Server
                     uxExpireBtn.Enabled = false;
                     break;
                 case AdminState.SELECTEDEXPIRED:
-                    uxExpireBtn.Enabled = true;
-                    uxNewProductsList.SelectedIndex = -1;
-                    uxAddBtn.Enabled = false;
+                    try
+                    {
+                        if (!((IProduct)uxCurrentProductsList.SelectedItem).IsExpired)
+                        {
+                            uxExpireBtn.Enabled = true;
+                            uxNewProductsList.ClearSelected();
+                            uxAddBtn.Enabled = false;
+                        } else
+                        {
+                            uxExpireBtn.Enabled = false;
+                        }
+                    } catch { }
                     break;
                 case AdminState.EXPIREDBID:
                     uxCurrentProductsList.Items.Clear();
                     foreach(Product p in _database.Products)
                     {
-                        uxCurrentProductsList.Items.Add(p.ToString());
+                        uxCurrentProductsList.Items.Add(p);
                     }
                     uxCurrentProductsList.SelectedIndex = -1;
                     uxExpireBtn.Enabled = false;
                     break;
                 case AdminState.SELECTEDNEW:
                     uxAddBtn.Enabled = true;
-                    uxCurrentProductsList.SelectedIndex = -1;
+                    uxCurrentProductsList.ClearSelected();
                     uxExpireBtn.Enabled = false;
                     break;
                 case AdminState.ADDEDNEW:
                     uxCurrentProductsList.Items.Clear();
                     foreach(Product p in _database.Products)
                     {
-                        uxCurrentProductsList.Items.Add(p.ToString());
+                        uxCurrentProductsList.Items.Add(p);
                     }
                     uxCurrentProductsList.SelectedIndex = -1;
                     uxAddBtn.Enabled = false;
                     uxNewProductsList.SelectedIndex = -1;
+                    break;
+                case AdminState.NEWCLIENT:
+                    if(newClient != null)
+                    {
+                        _clients.Add(newClient);
+                        uxConnectedClientsList.Items.Add(newClient);
+                    }
                     break;
                 default:
                     break;
@@ -131,7 +149,7 @@ namespace Bid501_Server
         /// <param name="e"></param>
         private void uxCurrentProductsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisplayState(AdminState.SELECTEDEXPIRED, _database);
+            DisplayState(AdminState.SELECTEDEXPIRED, _database, null);
         }
 
         /// <summary>
@@ -141,7 +159,7 @@ namespace Bid501_Server
         /// <param name="e"></param>
         private void uxNewProductsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisplayState(AdminState.SELECTEDNEW, _database);
+            DisplayState(AdminState.SELECTEDNEW, _database, null);
         }
     }
 }

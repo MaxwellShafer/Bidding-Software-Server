@@ -43,6 +43,8 @@ namespace Bid501_Server
         /// </summary>
         public string User { get; set; }
 
+        public string NewStrDisplay => $"{Name} - ${String.Format("{0:0.00}", MinBid)}";
+
         /// <summary>
         /// Creates the Product object
         /// </summary>
@@ -67,10 +69,16 @@ namespace Bid501_Server
         /// <returns></returns>
         public override string ToString()
         {
-            if(BidCount == 1)
-                return $"{Name} - ${MinBid} \t\t {BidCount} bid";
+            if (BidCount == 1)
+                if (IsExpired)
+                    return $"Expired: {BidCount} bid on {Name} - ${String.Format("{0:0.00}", MinBid)}";
+                else
+                    return $"Active: {BidCount} bid on {Name} - ${String.Format("{0:0.00}", MinBid)}";
             else
-                return $"{Name} - ${MinBid} \t\t {BidCount} bids";
+                if (IsExpired)
+                    return $"Expired: {BidCount} bids on {Name} - ${String.Format("{0:0.00}", MinBid)}";
+                else
+                    return $"Active: {BidCount} bids on {Name} - ${String.Format("{0:0.00}", MinBid)}";
         }
     }
 }

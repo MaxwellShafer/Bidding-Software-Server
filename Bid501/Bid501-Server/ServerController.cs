@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebSocketSharp.Server;
 
 namespace Bid501_Server
 {
@@ -46,7 +47,7 @@ namespace Bid501_Server
         /// <summary>
         /// dictates what file the user information should be read/writen to
         /// </summary>
-        private string _userFilepath = "UserLoginInfo";
+        private string _userFilepath = "../../UserLoginInfo.json";
 
         /// <summary>
         /// a dictionary to load and check user logins
@@ -69,16 +70,19 @@ namespace Bid501_Server
         public ServerController(ProductDB productDB)
         {
             _productDB = productDB;
-            ServerCommCtrl = new ServerCommCtrl(this.NewLoginAttempt,this.HandleNewBid);
+            ServerCommCtrl = new ServerCommCtrl(this.NewLoginAttempt,this.HandleNewBid, this.GetClientID);
+            WebSocketServer socket = new WebSocketServer(8002);
+            socket.AddWebSocketService<ServerCommCtrl>("/server", () => ServerCommCtrl);
+            socket.Start();
             ServerLoginController serverLoginController = new ServerLoginController();
             ServerLoginView serverLoginView = new ServerLoginView(serverLoginController.NewLoginAttempt);
             serverLoginController.SetDEL(this.LoginSuccess, serverLoginView.DisplayState);
             this.BidUpdateDEL = ServerCommCtrl.HandleBidUpdated;
             this.LoginReturnDEL = ServerCommCtrl.HandleLoginAttempt;
             this.GetClientDEL = ServerCommCtrl.GetClientIds;
-            
-            Application.Run(serverLoginView);
+
             _userLoginInfo = BuildDictonary(_userFilepath);
+            Application.Run(serverLoginView);
         }
 
         /// <summary>
@@ -89,21 +93,25 @@ namespace Bid501_Server
         /// <param name="IsAdmin">True if the attempt is an admin</param>
         public void NewLoginAttempt(string username, string password, string clientID)
         {
-
-            _userIdPair.Add(username, clientID);
-
             //if it does not contain create new and return sucsessfull
             if (!(_userLoginInfo.ContainsKey(username)))
             {
+                _userIdPair.Add(username, clientID);
                 _userLoginInfo.Add(username, password); // add to dict
-                WriteToJson(_userLoginInfo, "UserLoginInfo"); //overwrite with new dict
+                WriteToJson(_userLoginInfo, _userFilepath); //overwrite with new dict
                 LoginReturnDEL(true, clientID, _productDB.Products);
+                UpdateStateDEL(AdminState.NEWCLIENT, _productDB, clientID);
             }
             else
             {
                 if (_userLoginInfo[username] == password)
                 {
+                    if(_userIdPair.ContainsKey(username))
+                        _userIdPair[username] = clientID;
+                    else
+                        _userIdPair.Add(username, clientID);
                     LoginReturnDEL(true, clientID, _productDB.Products );
+                    UpdateStateDEL(AdminState.NEWCLIENT, _productDB, clientID);
                 }
                 else
                 {
@@ -153,11 +161,11 @@ namespace Bid501_Server
             {
                 if(p.Id == productID)
                 {
-                    if(p.MinBid < bid)
+                    if(p.MinBid < bid && !p.IsExpired)
                     {
                         p.MinBid = bid;
                         BidUpdateDEL(bid, productID, clientID); // comunicating back to the clients
-                        UpdateStateDEL(AdminState.EXPIREDBID, _productDB);
+                        UpdateStateDEL(AdminState.EXPIREDBID, _productDB, null);
                     }
                     else
                     {
@@ -175,15 +183,16 @@ namespace Bid501_Server
             
             List<Product> products = new List<Product>
             {
-                new Product("", "Jorge's left toenail clipping", 300.0m, 0, false),
+                new Product("", "Mini Corn Dogs (40 ct)", 300.0m, 0, false),
                 new Product("", "Half-eaten banana", 10.0m, 0, false),
-                new Product("", "Jorge's right toenail clipping", 300.0m, 0, false),
+                new Product("", "30 ft. HDMI cable", 30.0m, 0, false),
                 new Product("", "Blades of grass (5 pack)", 10000.0m, 0, false),
-                new Product("", "Max and Charlie's will to finish this project", 0.30m, 0, false),
+                new Product("", "Electric Guitar", 400.0m, 0, false),
             };
             
-            AdminView adminView = new AdminView(_productDB, GetClientDEL(), products);
-            AdminViewController adminViewController = new AdminViewController(_productDB, ServerCommCtrl.SendProduct , adminView.DisplayState);
+            AdminViewController adminViewController = new AdminViewController(_productDB);
+            AdminView adminView = new AdminView(_productDB, GetClientDEL(), products, adminViewController.handleAddProduct, adminViewController.handleExpireProduct);
+            adminViewController.addDels(ServerCommCtrl.SendProduct, adminView.DisplayState, ServerCommCtrl.HandleExpiringBid);
             adminView.ShowDialog();
             this.UpdateStateDEL = adminView.DisplayState;
             
@@ -202,6 +211,15 @@ namespace Bid501_Server
             LoginReturnDEL = LoginReturn;
             GetClientDEL = GetClient;
             UpdateStateDEL = UpdateState;
+        }
+
+        public string GetClientID(string username)
+        {
+            string id;
+            if(_userIdPair.TryGetValue(username, out id))
+                return id;
+            else
+                return null;
         }
     }
 }

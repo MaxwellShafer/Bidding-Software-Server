@@ -39,6 +39,7 @@ namespace Bid501_Server
         {
             LoginClickDEL = LoginClick;
             InitializeComponent();
+            uxLoginBtn.Enabled = false;
         }
 
         /// <summary>
@@ -52,9 +53,8 @@ namespace Bid501_Server
                 case LoginState.START:
                     break;
                 case LoginState.GOTUSERNAME:
-                    break;
                 case LoginState.GOTPASSWORD:
-                    if (uxPasswordEntry.Text != "")
+                    if (uxPasswordEntry.Text != "" && uxUsernameEntry.Text != "")
                     {
                         uxLoginBtn.Enabled = true;
                     }
@@ -66,6 +66,7 @@ namespace Bid501_Server
                 case LoginState.DECLINED:
                     uxPasswordEntry.Text = "";
                     uxLoginBtn.Enabled = false;
+                    MessageBox.Show("Sorry, that wasn't quite right");
                     break;
                 default:
                     break;

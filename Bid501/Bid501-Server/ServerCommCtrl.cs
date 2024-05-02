@@ -27,10 +27,11 @@ namespace Bid501_Server
         /// <summary>
         /// ServerCommCtrl constructor
         /// </summary>
-        public ServerCommCtrl(LoginAttemptDEL loginAttempt, NewBidDEL newBid)
+        public ServerCommCtrl(LoginAttemptDEL loginAttempt, NewBidDEL newBid, GetIDFromUsername getId)
         {
             this.loginAttempt = loginAttempt;
             this.newBid = newBid;
+            this.GetId = getId;
         }
 
         /// <summary>
@@ -66,18 +67,20 @@ namespace Bid501_Server
             dto.Id = p.Id;
             dto.IsWinning = true;
             dto.Bid = p.MinBid;
-            Sessions.SendTo(dto.Serialize(), clientId);
-
+            if (clientId != null)
+            {
+                Sessions.SendTo(dto.Serialize(), clientId);
+            }
             dto.IsWinning = false;
             string serialized = dto.Serialize();
-            foreach (string id in Sessions.IDs)
-            {
-                if (id != clientId)
+            if(Sessions != null)
+                foreach (string id in Sessions.IDs)
                 {
-                    Sessions.SendTo(serialized, id);
-                }
-            }
-            
+                    if (id != clientId)
+                    {
+                        Sessions.SendTo(serialized, id);
+                    }
+                }            
         }
 
         /// <summary>
@@ -135,8 +138,9 @@ namespace Bid501_Server
         /// <param name="product"></param>
         public void SendProduct(IProduct product)
         {
-            Bid501_Shared.Product dto = (Bid501_Shared.Product)product;
-            Sessions.Broadcast(dto.Serialize());
+            Bid501_Shared.Product dto = new Bid501_Shared.Product { Id = product.Id, BidCount = product.BidCount, IsExpired = product.IsExpired, MinBid = product.MinBid, Name = product.Name };
+            if(Sessions != null)
+                Sessions.Broadcast(dto.Serialize());
         }
 
         /// <summary>

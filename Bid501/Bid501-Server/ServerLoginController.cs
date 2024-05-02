@@ -30,7 +30,7 @@ namespace Bid501_Server
         /// <summary>
         /// dictates what file the admin login info is read from
         /// </summary>
-        private string _adminFilepath = "AdminLoginInfo";
+        private string _adminFilepath = "../../AdminLoginInfo.json";
 
         /// <summary>
         /// a dictionary to load in and check admin logins

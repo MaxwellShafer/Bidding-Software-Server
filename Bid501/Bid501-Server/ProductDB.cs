@@ -23,6 +23,7 @@ namespace Bid501_Server
         {
             Products = new List<IProduct>();
             Products.Add(new Product("unga bunga", "bana", 1.0m, 10, false));
+            //Load these from an external file
         }
     }
 }

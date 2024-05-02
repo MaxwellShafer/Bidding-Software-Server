@@ -47,7 +47,7 @@ namespace Bid501_Server
     /// Updates the state of the admin view
     /// </summary>
     /// <param name="state">The AdminState</param>
-    public delegate void UpdateStateDEL(AdminState state, ProductDB productDB);
+    public delegate void UpdateStateDEL(AdminState state, ProductDB productDB, string client);
 
     /// <summary>
     /// Add a product to the database
@@ -114,11 +114,9 @@ namespace Bid501_Server
             Application.SetCompatibleTextRenderingDefault(false);
 
             ProductDB productDB = new ProductDB();
-            ServerController serverController = new ServerController(productDB);
+            ServerController serverController = new ServerController(productDB); //Call to ServerController()
 
-            WebSocketServer socket = new WebSocketServer(8002);
-            socket.AddWebSocketService<ServerCommCtrl>("/server", () => serverController.ServerCommCtrl);
-            socket.Start();
+            
 
             //Application.Run(new AdminView(new ProductDB(), new List<string> { "Client 1", "Client 2", "Client 3"}, new List<Product> { new Product("12345", "beans", 20.0m, 0, false) }));
             

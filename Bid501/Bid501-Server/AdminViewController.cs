@@ -35,11 +35,9 @@ namespace Bid501_Server
         /// <param name="productDB"></param>
         /// <param name="sendProductDEL"></param>
         /// <param name="updateStateDEL"></param>
-        public AdminViewController(ProductDB productDB, SendProductDEL sendProductDEL, UpdateStateDEL updateStateDEL)
+        public AdminViewController(ProductDB productDB)
         {
             _productDB = productDB;
-            this.SendProductDEL = sendProductDEL;
-            this.UpdateStateDEL = updateStateDEL;
             
         }
 
@@ -75,7 +73,8 @@ namespace Bid501_Server
         {
             product.Id = GenerateUUID();
             _productDB.Products.Add(product);
-            UpdateStateDEL(AdminState.ADDEDNEW, _productDB);
+            UpdateStateDEL(AdminState.ADDEDNEW, _productDB, null);
+            SendProductDEL(product);
         }
 
         /// <summary>
@@ -89,13 +88,21 @@ namespace Bid501_Server
                 if(p.Id == product.Id)
                 {
                     p.IsExpired = true;
-                    UpdateStateDEL(AdminState.EXPIREDBID, _productDB);
+                    UpdateStateDEL(AdminState.EXPIREDBID, _productDB, null);
                     ExpireBidCommDEL(p);
                     break;
                 }
             }
         }
 
-        
+        /// <summary>
+        /// Ties in the delegate to the view
+        /// </summary>
+        public void addDels(SendProductDEL sendProductDEL, UpdateStateDEL updateStateDEL, ExpireBidCommDEL expireCommDel)
+        {
+            this.SendProductDEL = sendProductDEL;
+            this.UpdateStateDEL = updateStateDEL;
+            this.ExpireBidCommDEL = expireCommDel;
+        }
     }
 }
