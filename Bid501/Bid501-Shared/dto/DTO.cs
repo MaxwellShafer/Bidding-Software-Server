@@ -2,11 +2,11 @@
 
 namespace Bid501_Shared
 {
-    public class DTO<T>
+    public class DTO<T> where T : class
     {
         public string Serialize()
         {
-            return JsonSerializer.Serialize(this);
+            return JsonSerializer.Serialize<T>(this as T);
         }
         
         public static T Deserialize(string json)
