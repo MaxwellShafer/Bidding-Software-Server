@@ -18,9 +18,9 @@ namespace Bid501_Server
     /// </summary>
     public class ServerCommCtrl : WebSocketBehavior
     {
-        public LoginAttemptDEL loginAttempt { get; set; }
+        public LoginAttemptDEL LoginAttemptDel { get; set; }
 
-        public NewBidDEL newBid { get; set; }
+        public NewBidDEL NewBid { get; set; }
 
         public GetIDFromUsername GetId;
 
@@ -29,8 +29,8 @@ namespace Bid501_Server
         /// </summary>
         public ServerCommCtrl(LoginAttemptDEL loginAttempt, NewBidDEL newBid, GetIDFromUsername getId)
         {
-            this.loginAttempt = loginAttempt;
-            this.newBid = newBid;
+            this.LoginAttemptDel = loginAttempt;
+            this.NewBid = newBid;
             this.GetId = getId;
         }
 
@@ -48,11 +48,11 @@ namespace Bid501_Server
             {
                 case PlaceBidDTO.SerializeType:
                     var bidData = PlaceBidDTO.Deserialize(e.Data);
-                    newBid(bidData.Bid, bidData.Id, ID);
+                    NewBid(bidData.Bid, bidData.Id, ID);
                     break;
                 case LoginDTO.SerializeType:
                     var loginData = LoginDTO.Deserialize(e.Data);
-                    loginAttempt(loginData.Username, loginData.Password, ID);
+                    LoginAttemptDel(loginData.Username, loginData.Password, ID);
                     break;
                 default:
                     break;
