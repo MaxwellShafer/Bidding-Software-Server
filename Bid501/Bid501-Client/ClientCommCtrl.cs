@@ -52,7 +52,6 @@ namespace Bid501_Client
 
         public void SendLoginInfo(LoginDTO model)
         {
-            Console.WriteLine("test");
             string body = model.Serialize();
             _ws.Send(body);
         }
@@ -76,7 +75,7 @@ namespace Bid501_Client
                 return;
             }
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
-            switch (response["Type"])
+            switch (response["Type"].ToString())
             {
                 case IDB.SerializeType:
                     IDB idb = IDB.Deserialize(e.Data);
