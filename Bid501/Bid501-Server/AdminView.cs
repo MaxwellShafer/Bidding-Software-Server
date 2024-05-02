@@ -50,7 +50,7 @@ namespace Bid501_Server
                     }
                     foreach(string client in _clients)
                     {
-                        uxConnectedClientsList.Items.Add(client);
+                        uxConnectedClientsList.Items.Add("Client " + client);
                     }
                     foreach(Product item in _newItems)
                     {
@@ -104,7 +104,7 @@ namespace Bid501_Server
                     if(newClient != null)
                     {
                         _clients.Add(newClient);
-                        uxConnectedClientsList.Items.Add(newClient);
+                        uxConnectedClientsList.Items.Add("Client " + newClient);
                     }
                     break;
                 default:
