@@ -19,11 +19,9 @@ namespace Bid501_Server
         /// <summary>
         /// Creates the product database
         /// </summary>
-        public ProductDB() 
+        public ProductDB(List<IProduct> products) 
         {
             Products = new List<IProduct>();
-            Products.Add(new Product("unga bunga", "bana", 1.0m, 10, false));
-            //Load these from an external file
         }
     }
 }

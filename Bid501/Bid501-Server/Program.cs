@@ -113,7 +113,7 @@ namespace Bid501_Server
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ProductDB productDB = new ProductDB();
+            ProductDB productDB = new ProductDB(new List<IProduct>());
             ServerController serverController = new ServerController(productDB); //Call to ServerController()
 
             
