@@ -120,10 +120,10 @@ namespace Bid501_Server
             if(isGood)
             {
                 IDB dto = new IDB();
-                List<Bid501_Shared.Product> products = new List<Bid501_Shared.Product>();
+                List<Bid501_Shared.ProductDTO> products = new List<Bid501_Shared.ProductDTO>();
                 foreach(Product p in db)
                 {
-                    products.Add(new Bid501_Shared.Product
+                    products.Add(new Bid501_Shared.ProductDTO
                         { Id = p.Id, BidCount = p.BidCount, IsExpired = p.IsExpired, MinBid = p.MinBid, Name = p.Name}
                     );
                 }
@@ -142,7 +142,7 @@ namespace Bid501_Server
         /// <param name="product"></param>
         public void SendProduct(IProduct product)
         {
-            Bid501_Shared.Product dto = new Bid501_Shared.Product { Id = product.Id, BidCount = product.BidCount, IsExpired = product.IsExpired, MinBid = product.MinBid, Name = product.Name };
+            Bid501_Shared.ProductDTO dto = new Bid501_Shared.ProductDTO { Id = product.Id, BidCount = product.BidCount, IsExpired = product.IsExpired, MinBid = product.MinBid, Name = product.Name };
             if(Sessions != null)
                 Sessions.Broadcast(dto.Serialize());
         }

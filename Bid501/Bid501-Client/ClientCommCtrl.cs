@@ -12,7 +12,7 @@ namespace Bid501_Client
 
     public delegate void BidUpdateDEL(BidResponseDTO bidResponse);
 
-    public delegate void NewProductDEL(Product p);
+    public delegate void NewProductDEL(ProductDTO p);
     
     public delegate void BidExpiredDEL(BidExpiredDTO bidExpiredDTO);
 
@@ -81,8 +81,8 @@ namespace Bid501_Client
                     IDB idb = IDB.Deserialize(e.Data);
                     _loginReturn(idb);
                     break;
-                case Product.SerializeType:
-                    Product p = Product.Deserialize(e.Data);
+                case ProductDTO.SerializeType:
+                    ProductDTO p = ProductDTO.Deserialize(e.Data);
                     _newProductDel(p);
                     break;
                 case BidResponseDTO.SerializeType:

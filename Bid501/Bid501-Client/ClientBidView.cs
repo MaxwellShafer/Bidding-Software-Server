@@ -21,7 +21,7 @@ namespace Bid501_Client
     {
         public PlaceBidDEL placeBid;
 
-        public ProductProxy product;
+        public ProductProxy Product;
 
         public ProductDbProxy database;
 
@@ -84,7 +84,7 @@ namespace Bid501_Client
 
                 case BidState.GoodBid:
 
-                    placeBid(product.Id,currentBid);
+                    placeBid(Product.Id,currentBid);
                     break;
 
 
@@ -127,14 +127,14 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-            MinBid.Text = "Minimum bid: $" + product.MinBid.ToString();
-            MinimumBid = product.MinBid;
-            NumBids.Text = $"({product.BidCount})";
+            MinBid.Text = "Minimum bid: $" + Product.MinBid.ToString();
+            MinimumBid = Product.MinBid;
+            NumBids.Text = $"({Product.BidCount})";
             
                 Status.Text = "Open";
             
             
-            name.Text = product.Name;
+            name.Text = Product.Name;
         }
 
 
@@ -143,7 +143,7 @@ namespace Bid501_Client
             productList.Items.Clear();
 
             // Iterate through the list of products
-            foreach (Product product in database.Products)
+            foreach (ProductDTO product in database.Products)
             {
                 
                 ListViewItem item = new ListViewItem(product.Name); 

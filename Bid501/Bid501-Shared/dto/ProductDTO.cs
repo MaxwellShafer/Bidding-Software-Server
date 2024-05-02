@@ -1,6 +1,6 @@
 ﻿namespace Bid501_Shared
 {
-    public class Product : DTO<Product>
+    public class ProductDTO : DTO<ProductDTO>
     {
         public const string SerializeType = "Product";
 

@@ -36,7 +36,7 @@ namespace Bid501_Client
 
         public void PlaceBid(string id, decimal price)
         {
-            if (price <= _productDb.SelectedProduct.MinBid)
+            if (price <= _productDb.SelectedProductDto.MinBid)
             {
                 _updateBidStateDel(BidState.BadBid);
             }
@@ -47,9 +47,9 @@ namespace Bid501_Client
             }
         }
 
-        public void NewProduct(Product product)
+        public void NewProduct(ProductDTO productDto)
         {
-            _productDb.HandleNewProduct(product);
+            _productDb.HandleNewProduct(productDto);
             _updateBidStateDel(BidState.NewProduct);
         }
 

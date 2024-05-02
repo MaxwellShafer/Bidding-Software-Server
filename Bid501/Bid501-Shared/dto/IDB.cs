@@ -10,6 +10,6 @@ namespace Bid501_Shared
         /// </summary>
         public string Type => SerializeType;
 
-        public List<Product> Products { get; set; }
+        public List<ProductDTO> Products { get; set; }
     }
 }
