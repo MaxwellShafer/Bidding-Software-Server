@@ -18,9 +18,9 @@ namespace Bid501_Server
     /// </summary>
     public class ServerCommCtrl : WebSocketBehavior
     {
-        public LoginAttemptDEL loginAttempt { get; set; }
+        public LoginAttemptDEL LoginAttemptDel { get; set; }
 
-        public NewBidDEL newBid { get; set; }
+        public NewBidDEL NewBid { get; set; }
 
         public GetIDFromUsername GetId;
 
@@ -29,8 +29,8 @@ namespace Bid501_Server
         /// </summary>
         public ServerCommCtrl(LoginAttemptDEL loginAttempt, NewBidDEL newBid, GetIDFromUsername getId)
         {
-            this.loginAttempt = loginAttempt;
-            this.newBid = newBid;
+            this.LoginAttemptDel = loginAttempt;
+            this.NewBid = newBid;
             this.GetId = getId;
         }
 
@@ -48,11 +48,11 @@ namespace Bid501_Server
             {
                 case PlaceBidDTO.SerializeType:
                     var bidData = PlaceBidDTO.Deserialize(e.Data);
-                    newBid(bidData.Bid, bidData.Id, ID);
+                    NewBid(bidData.Bid, bidData.Id, ID);
                     break;
                 case LoginDTO.SerializeType:
                     var loginData = LoginDTO.Deserialize(e.Data);
-                    loginAttempt(loginData.Username, loginData.Password, ID);
+                    LoginAttemptDel(loginData.Username, loginData.Password, ID);
                     break;
                 default:
                     break;
@@ -120,10 +120,10 @@ namespace Bid501_Server
             if(isGood)
             {
                 IDB dto = new IDB();
-                List<Bid501_Shared.Product> products = new List<Bid501_Shared.Product>();
+                List<Bid501_Shared.ProductDTO> products = new List<Bid501_Shared.ProductDTO>();
                 foreach(Product p in db)
                 {
-                    products.Add(new Bid501_Shared.Product
+                    products.Add(new Bid501_Shared.ProductDTO
                         { Id = p.Id, BidCount = p.BidCount, IsExpired = p.IsExpired, MinBid = p.MinBid, Name = p.Name}
                     );
                 }
@@ -142,7 +142,7 @@ namespace Bid501_Server
         /// <param name="product"></param>
         public void SendProduct(IProduct product)
         {
-            Bid501_Shared.Product dto = new Bid501_Shared.Product { Id = product.Id, BidCount = product.BidCount, IsExpired = product.IsExpired, MinBid = product.MinBid, Name = product.Name };
+            Bid501_Shared.ProductDTO dto = new Bid501_Shared.ProductDTO { Id = product.Id, BidCount = product.BidCount, IsExpired = product.IsExpired, MinBid = product.MinBid, Name = product.Name };
             if(Sessions != null)
                 Sessions.Broadcast(dto.Serialize());
         }

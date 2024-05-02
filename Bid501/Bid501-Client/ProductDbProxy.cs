@@ -9,9 +9,9 @@ namespace Bid501_Client
     {
         public List<ProductProxy> Products { get; }
         private int _selectedProductIdx;
-        public Product SelectedProduct => Products[_selectedProductIdx];
+        public ProductProxy SelectedProduct => Products[_selectedProductIdx];
 
-        public ProductDbProxy(List<Product> products)
+        public ProductDbProxy(List<ProductDTO> products)
         {
             this.Products = products.Select(p => new ProductProxy(p)).ToList();
         }
@@ -21,9 +21,9 @@ namespace Bid501_Client
             _selectedProductIdx = Products.IndexOf(p);
         }
 
-        public void HandleNewProduct(Product product)
+        public void HandleNewProduct(ProductDTO productDto)
         {
-            Products.Add(new ProductProxy(product));
+            Products.Add(new ProductProxy(productDto));
         }
 
         public void HandleProductExpired(BidExpiredDTO bidExpired)

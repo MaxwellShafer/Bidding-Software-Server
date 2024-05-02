@@ -3,9 +3,9 @@ using Bid501_Shared;
 
 namespace Bid501_Client
 {
-    public class ProductProxy : Product
+    public class ProductProxy : ProductDTO
     {
-        public ProductProxy(Product ch)
+        public ProductProxy(ProductDTO ch)
         {
             foreach (var prop in ch.GetType().GetProperties())
             {

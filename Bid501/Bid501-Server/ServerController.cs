@@ -13,10 +13,7 @@ namespace Bid501_Server
 {
     public class ServerController
     {
-        /// <summary>
-        /// current state of the server controller
-        /// </summary>
-        public ServerState State { get; set; }
+       
 
         /// <summary>
         /// delegate that we call to return the updated product and if they are winning and such
@@ -47,7 +44,7 @@ namespace Bid501_Server
         /// <summary>
         /// dictates what file the user information should be read/writen to
         /// </summary>
-        private string _userFilepath = "../../UserLoginInfo.json";
+        private string _userFilepath = "../../userLoginInfo.txt";
 
         /// <summary>
         /// a dictionary to load and check user logins
@@ -80,8 +77,9 @@ namespace Bid501_Server
             this.BidUpdateDEL = ServerCommCtrl.HandleBidUpdated;
             this.LoginReturnDEL = ServerCommCtrl.HandleLoginAttempt;
             this.GetClientDEL = ServerCommCtrl.GetClientIds;
+            
 
-            //_userLoginInfo = BuildDictonary(_userFilepath);
+            _userLoginInfo = BuildDictonary(_userFilepath);
             Application.Run(serverLoginView);
         }
 
@@ -98,6 +96,7 @@ namespace Bid501_Server
             {
                 _userIdPair.Add(username, clientID);
                 _userLoginInfo.Add(username, password); // add to dict
+               
                 WriteToJson(_userLoginInfo, _userFilepath); //overwrite with new dict
                 LoginReturnDEL(true, clientID, _productDB.Products);
                 UpdateStateDEL(AdminState.NEWCLIENT, _productDB, clientID);
@@ -198,8 +197,8 @@ namespace Bid501_Server
             AdminViewController adminViewController = new AdminViewController(_productDB);
             AdminView adminView = new AdminView(_productDB, GetClientDEL(), products, adminViewController.HandleAddProduct, adminViewController.HandleExpireProduct);
             adminViewController.addDels(ServerCommCtrl.SendProduct, adminView.DisplayState, ServerCommCtrl.HandleExpiringBid);
-            adminView.ShowDialog();
             this.UpdateStateDEL = adminView.DisplayState;
+            adminView.ShowDialog();
             
         }
 

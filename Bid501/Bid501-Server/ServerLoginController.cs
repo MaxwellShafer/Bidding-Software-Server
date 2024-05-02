@@ -14,12 +14,8 @@ namespace Bid501_Server
     /// <summary>
     /// The controller that handles the LogIn
     /// </summary>
-    internal class ServerLoginController
-    {
-        /// <summary>
-        /// a private field to hold a logInAttempt
-        /// </summary>
-        private LoginAttempt LoginAttempt;
+    public class ServerLoginController
+    {        
 
         /// <summary>
         /// A delegate that is called in the controller to invoke the method to update the state in the view
@@ -42,6 +38,9 @@ namespace Bid501_Server
         /// </summary>
         public LoginSuccessDEL LoginSuccessDEL { get; set; }
 
+        /// <summary>
+        /// constructor for login controller
+        /// </summary>
         public ServerLoginController()
         {
             
@@ -58,10 +57,19 @@ namespace Bid501_Server
         /// <param name="IsAdmin">True if the attempt is an admin</param>
         public void NewLoginAttempt(string username, string password)
         {
+            
           
-           if (_adminLoginInfo[username] == password)
+           if (_adminLoginInfo.TryGetValue(username, out var pw))
            {
-                LoginSuccessDEL();
+                if(pw == password)
+                {
+                    LoginSuccessDEL();
+                }
+                else
+                {
+                    MessageBox.Show("Wrong password idiot");
+                }
+                
            }
            else
            {
@@ -97,6 +105,11 @@ namespace Bid501_Server
         }
         
 
+        /// <summary>
+        /// sets delegates for cuurrent instance
+        /// </summary>
+        /// <param name="LoginSuccess">delegate to be set</param>
+        /// <param name="fetchState">delegate to be set</param>
         public void SetDEL(LoginSuccessDEL LoginSuccess, FetchStateDEL fetchState)
         {
             LoginSuccessDEL = LoginSuccess;

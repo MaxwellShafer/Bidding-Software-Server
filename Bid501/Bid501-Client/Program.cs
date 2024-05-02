@@ -30,7 +30,7 @@ namespace Bid501_Client
                 clientCommCtrl.SetBidUpdated(controller.BidUpdated);
                 clientCommCtrl.SetNewProduct(controller.NewProduct);
                 clientCommCtrl.SetBidExpired(controller.BidExpired);
-                var bidView = new ClientBidView(controller.FetchNewProduct);
+                var bidView = new ClientBidView(controller.FetchNewProduct,productsProxy);
                 controller.SetProxy(bidView.handleEvents);
                 bidView.setPlaceBid(controller.PlaceBid);
                 Application.Run(bidView);

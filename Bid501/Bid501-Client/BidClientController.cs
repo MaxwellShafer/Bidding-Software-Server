@@ -47,9 +47,9 @@ namespace Bid501_Client
             }
         }
 
-        public void NewProduct(Product product)
+        public void NewProduct(ProductDTO productDto)
         {
-            _productDb.HandleNewProduct(product);
+            _productDb.HandleNewProduct(productDto);
             _updateBidStateDel(BidState.NewProduct);
         }
 
