@@ -13,10 +13,7 @@ namespace Bid501_Server
 {
     public class ServerController
     {
-        /// <summary>
-        /// current state of the server controller
-        /// </summary>
-        public ServerState State { get; set; }
+       
 
         /// <summary>
         /// delegate that we call to return the updated product and if they are winning and such
@@ -200,8 +197,9 @@ namespace Bid501_Server
             AdminViewController adminViewController = new AdminViewController(_productDB);
             AdminView adminView = new AdminView(_productDB, GetClientDEL(), products, adminViewController.handleAddProduct, adminViewController.handleExpireProduct);
             adminViewController.addDels(ServerCommCtrl.SendProduct, adminView.DisplayState, ServerCommCtrl.HandleExpiringBid);
-            adminView.ShowDialog();
             this.UpdateStateDEL = adminView.DisplayState;
+            adminView.ShowDialog();
+            
             
         }
 
