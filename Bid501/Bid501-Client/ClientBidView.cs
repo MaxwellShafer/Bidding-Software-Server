@@ -126,7 +126,7 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-            MinBid.Text = "Minimum bid: $" + database.SelectedProduct.
+            MinBid.Text = "Minimum bid: $" + database.SelectedProduct.MinBid;
             MinimumBid = database.SelectedProduct.MinBid;
             NumBids.Text = $"({database.SelectedProduct.BidCount})";
             
@@ -145,7 +145,7 @@ namespace Bid501_Client
             foreach (ProductProxy product in database.Products)
             {
                 
-                ListViewItem item = new ListViewItem(product); 
+                ListViewItem item = new ListViewItem(product.Name); 
 
                 productList.Items.Add(item);
             }
