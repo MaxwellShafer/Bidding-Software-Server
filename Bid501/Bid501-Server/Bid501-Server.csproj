@@ -148,6 +148,7 @@
   <ItemGroup>
     <Content Include="adminLoginInfo.txt" />
     <Content Include="PreloadBids.txt" />
+    <Content Include="userLoginInfo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
