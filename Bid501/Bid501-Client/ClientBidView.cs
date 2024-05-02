@@ -20,9 +20,7 @@ namespace Bid501_Client
     public partial class ClientBidView : Form
     {
         public PlaceBidDEL placeBid;
-
-        public ProductProxy Product;
-
+        
         public ProductDbProxy database;
 
         public decimal MinimumBid;
@@ -32,10 +30,11 @@ namespace Bid501_Client
         public ChangeProdDEL changeproduct;
         
 
-        public ClientBidView(ChangeProdDEL cpd)
+        public ClientBidView(ChangeProdDEL cpd , ProductDbProxy db)
         {
             changeproduct = cpd;
-            
+            database = db;
+
             InitializeComponent();
 
             RefreshDisplay();
@@ -84,7 +83,7 @@ namespace Bid501_Client
 
                 case BidState.GoodBid:
 
-                    placeBid(Product.Id,currentBid);
+                    placeBid(database.SelectedProduct.Id,currentBid);
                     break;
 
 
@@ -127,14 +126,14 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-            MinBid.Text = "Minimum bid: $" + Product.MinBid.ToString();
-            MinimumBid = Product.MinBid;
-            NumBids.Text = $"({Product.BidCount})";
+            MinBid.Text = "Minimum bid: $" + database.SelectedProduct.
+            MinimumBid = database.SelectedProduct.MinBid;
+            NumBids.Text = $"({database.SelectedProduct.BidCount})";
             
                 Status.Text = "Open";
             
             
-            name.Text = Product.Name;
+            name.Text = database.SelectedProduct.Name;
         }
 
 
@@ -143,10 +142,10 @@ namespace Bid501_Client
             productList.Items.Clear();
 
             // Iterate through the list of products
-            foreach (ProductDTO product in database.Products)
+            foreach (ProductProxy product in database.Products)
             {
                 
-                ListViewItem item = new ListViewItem(product.Name); 
+                ListViewItem item = new ListViewItem(product); 
 
                 productList.Items.Add(item);
             }
@@ -179,15 +178,6 @@ namespace Bid501_Client
                     changeproduct(selectedProduct);
                 }
             }
-
-
-
-
-
-
-
-
-
         }
 
 

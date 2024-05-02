@@ -36,7 +36,7 @@ namespace Bid501_Client
 
         public void PlaceBid(string id, decimal price)
         {
-            if (price <= _productDb.SelectedProductDto.MinBid)
+            if (price <= _productDb.SelectedProduct.MinBid)
             {
                 _updateBidStateDel(BidState.BadBid);
             }

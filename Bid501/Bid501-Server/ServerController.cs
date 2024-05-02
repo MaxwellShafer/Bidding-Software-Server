@@ -200,7 +200,6 @@ namespace Bid501_Server
             this.UpdateStateDEL = adminView.DisplayState;
             adminView.ShowDialog();
             
-            
         }
 
         /// <summary>
