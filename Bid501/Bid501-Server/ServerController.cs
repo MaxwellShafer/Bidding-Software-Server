@@ -81,7 +81,7 @@ namespace Bid501_Server
             this.LoginReturnDEL = ServerCommCtrl.HandleLoginAttempt;
             this.GetClientDEL = ServerCommCtrl.GetClientIds;
 
-            _userLoginInfo = BuildDictonary(_userFilepath);
+            //_userLoginInfo = BuildDictonary(_userFilepath);
             Application.Run(serverLoginView);
         }
 
