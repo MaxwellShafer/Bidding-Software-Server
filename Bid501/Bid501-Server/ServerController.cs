@@ -47,7 +47,7 @@ namespace Bid501_Server
         /// <summary>
         /// dictates what file the user information should be read/writen to
         /// </summary>
-        private string _userFilepath = "../../UserLoginInfo.json";
+        private string _userFilepath = "../../userLoginInfo.txt";
 
         /// <summary>
         /// a dictionary to load and check user logins
@@ -80,8 +80,9 @@ namespace Bid501_Server
             this.BidUpdateDEL = ServerCommCtrl.HandleBidUpdated;
             this.LoginReturnDEL = ServerCommCtrl.HandleLoginAttempt;
             this.GetClientDEL = ServerCommCtrl.GetClientIds;
+            
 
-            //_userLoginInfo = BuildDictonary(_userFilepath);
+            _userLoginInfo = BuildDictonary(_userFilepath);
             Application.Run(serverLoginView);
         }
 
@@ -98,6 +99,7 @@ namespace Bid501_Server
             {
                 _userIdPair.Add(username, clientID);
                 _userLoginInfo.Add(username, password); // add to dict
+               
                 WriteToJson(_userLoginInfo, _userFilepath); //overwrite with new dict
                 LoginReturnDEL(true, clientID, _productDB.Products);
                 UpdateStateDEL(AdminState.NEWCLIENT, _productDB, clientID);
@@ -163,6 +165,7 @@ namespace Bid501_Server
                 {
                     if(p.MinBid < bid && !p.IsExpired)
                     {
+                        p.BidCount++;
                         p.MinBid = bid;
                         BidUpdateDEL(bid, productID, clientID); // comunicating back to the clients
                         UpdateStateDEL(AdminState.EXPIREDBID, _productDB, null);
@@ -189,9 +192,8 @@ namespace Bid501_Server
                 new Product("", "Blades of grass (5 pack)", 10000.0m, 0, false),
                 new Product("", "Electric Guitar", 400.0m, 0, false),
             };
-            WriteToJson(products, "../../PreloadBids.txt");
+            
 
-            List<Product> readInProducts = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("../../PreloadBids.txt"));
 
 
 

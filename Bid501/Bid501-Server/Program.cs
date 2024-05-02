@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Bid501_Shared;
+using Newtonsoft.Json;
 
 namespace Bid501_Server
 {
@@ -112,6 +113,8 @@ namespace Bid501_Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //List<Product> readInProducts = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("../../PreloadBids.txt"));
 
             ProductDB productDB = new ProductDB(new List<IProduct>());
             ServerController serverController = new ServerController(productDB); //Call to ServerController()
