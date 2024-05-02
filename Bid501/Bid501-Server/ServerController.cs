@@ -81,7 +81,7 @@ namespace Bid501_Server
             this.LoginReturnDEL = ServerCommCtrl.HandleLoginAttempt;
             this.GetClientDEL = ServerCommCtrl.GetClientIds;
 
-            _userLoginInfo = BuildDictonary(_userFilepath);
+            //_userLoginInfo = BuildDictonary(_userFilepath);
             Application.Run(serverLoginView);
         }
 
@@ -142,10 +142,10 @@ namespace Bid501_Server
         /// </summary>
         /// <param name="dict">the dictionary</param>
         /// <param name="filePath">the filepath</param>
-        private void WriteToJson(Dictionary<string, string> dict, string filePath)
+        private void WriteToJson(object obj, string filePath)
         {
-            string obj = JsonConvert.SerializeObject(dict);
-            File.WriteAllText(filePath, obj);
+            string objStr = JsonConvert.SerializeObject(obj);
+            File.WriteAllText(filePath, objStr);
         }
 
 
@@ -189,7 +189,12 @@ namespace Bid501_Server
                 new Product("", "Blades of grass (5 pack)", 10000.0m, 0, false),
                 new Product("", "Electric Guitar", 400.0m, 0, false),
             };
-            
+            WriteToJson(products, "../../PreloadBids.txt");
+
+            List<Product> readInProducts = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("../../PreloadBids.txt"));
+
+
+
             AdminViewController adminViewController = new AdminViewController(_productDB);
             AdminView adminView = new AdminView(_productDB, GetClientDEL(), products, adminViewController.handleAddProduct, adminViewController.handleExpireProduct);
             adminViewController.addDels(ServerCommCtrl.SendProduct, adminView.DisplayState, ServerCommCtrl.HandleExpiringBid);
@@ -221,5 +226,7 @@ namespace Bid501_Server
             else
                 return null;
         }
+
+        
     }
 }
