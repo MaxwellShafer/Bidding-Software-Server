@@ -102,8 +102,6 @@ namespace Bid501_Server
         private void uxPasswordEntry_TextChanged(object sender, EventArgs e)
         {
             DisplayState(LoginState.GOTPASSWORD);
-           
-           
         }
     }
 }
