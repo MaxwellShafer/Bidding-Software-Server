@@ -35,9 +35,9 @@ namespace Bid501_Server
         /// <summary>
         /// Constructor for the LoginView
         /// </summary>
-        public ServerLoginView(LoginClickDEL LoginClick)
+        public ServerLoginView(LoginClickDEL loginClick)
         {
-            LoginClickDEL = LoginClick;
+            LoginClickDEL = loginClick;
             InitializeComponent();
             uxLoginBtn.Enabled = false;
         }
