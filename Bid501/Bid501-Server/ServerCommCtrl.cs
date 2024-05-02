@@ -40,6 +40,7 @@ namespace Bid501_Server
         /// <param name="e"></param>
         protected override void OnMessage(MessageEventArgs e)
         {
+            Console.WriteLine("Received: " + e.Data);
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
             switch(response["Type"])
             {

@@ -72,7 +72,7 @@ namespace Bid501_Server
         public void handleAddProduct(IProduct product)
         {
             product.Id = GenerateUUID();
-            _productDB.Products.Add(product);
+            _productDB.Products.Add(new Product(product.Id, product.Name, product.MinBid, product.BidCount, product.IsExpired));
             UpdateStateDEL(AdminState.ADDEDNEW, _productDB, null);
             SendProductDEL(product);
         }
