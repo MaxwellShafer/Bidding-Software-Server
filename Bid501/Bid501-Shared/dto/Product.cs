@@ -2,7 +2,13 @@
 {
     public class Product : DTO<Product>
     {
-        public const string Type = "Product";
+        public const string SerializeType = "Product";
+
+        /// <summary>
+        /// The type string for data processing
+        /// </summary>
+        public string Type => SerializeType;
+
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal MinBid { get; set; }

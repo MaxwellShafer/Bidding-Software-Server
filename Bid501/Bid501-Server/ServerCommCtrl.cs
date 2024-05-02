@@ -40,15 +40,17 @@ namespace Bid501_Server
         /// <param name="e"></param>
         protected override void OnMessage(MessageEventArgs e)
         {
-            Console.WriteLine("Received: " + e.Data);
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
-            switch(response["Type"])
+            var type = response["Type"].ToString();
+            Console.WriteLine(type);
+            var isLogin = type == LoginDTO.SerializeType;
+            switch(type)
             {
-                case PlaceBidDTO.Type:
+                case PlaceBidDTO.SerializeType:
                     var bidData = PlaceBidDTO.Deserialize(e.Data);
                     newBid(bidData.Bid, bidData.Id, ID);
                     break;
-                case LoginDTO.Type:
+                case LoginDTO.SerializeType:
                     var loginData = LoginDTO.Deserialize(e.Data);
                     loginAttempt(loginData.Username, loginData.Password, ID);
                     break;
@@ -126,7 +128,8 @@ namespace Bid501_Server
                     );
                 }
                 dto.Products = products;
-                Sessions.SendTo(dto.Serialize(), clientID);
+                var serialized = dto.Serialize();
+                Sessions.SendTo(serialized, clientID);
             } else
             {
                 Sessions.SendTo("Unauthorized", clientID);

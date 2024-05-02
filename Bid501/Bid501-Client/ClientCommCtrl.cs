@@ -52,7 +52,6 @@ namespace Bid501_Client
 
         public void SendLoginInfo(LoginDTO model)
         {
-            Console.WriteLine("test");
             string body = model.Serialize();
             _ws.Send(body);
         }
@@ -76,21 +75,21 @@ namespace Bid501_Client
                 return;
             }
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
-            switch (response["Type"])
+            switch (response["Type"].ToString())
             {
-                case IDB.Type:
+                case IDB.SerializeType:
                     IDB idb = IDB.Deserialize(e.Data);
                     _loginReturn(idb);
                     break;
-                case Product.Type:
+                case Product.SerializeType:
                     Product p = Product.Deserialize(e.Data);
                     _newProductDel(p);
                     break;
-                case BidResponseDTO.Type:
+                case BidResponseDTO.SerializeType:
                     BidResponseDTO bidResponse = BidResponseDTO.Deserialize(e.Data);
                     _bidUpdated(bidResponse);
                     break;
-                case BidExpiredDTO.Type:
+                case BidExpiredDTO.SerializeType:
                     BidExpiredDTO bid = BidExpiredDTO.Deserialize(e.Data);
                     _bidExpired(bid);
                     break;

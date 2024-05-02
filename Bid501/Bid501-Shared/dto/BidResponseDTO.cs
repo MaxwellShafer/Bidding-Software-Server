@@ -8,10 +8,12 @@ namespace Bid501_Shared.dto
 {
     public class BidResponseDTO : DTO<BidResponseDTO>
     {
+        public const string SerializeType = "BidResponse";
         /// <summary>
         /// The type string for data processing
         /// </summary>
-        public const string Type = "BidResponse";
+        public string Type => SerializeType;
+
 
         /// <summary>
         /// The unique identifier for the product
