@@ -69,7 +69,7 @@ namespace Bid501_Server
         /// a method to handle when a product is added
         /// </summary>
         /// <param name="product">the product handled</param>
-        public void handleAddProduct(IProduct product)
+        public void HandleAddProduct(IProduct product)
         {
             product.Id = GenerateUUID();
             _productDB.Products.Add(new Product(product.Id, product.Name, product.MinBid, product.BidCount, product.IsExpired));
@@ -81,7 +81,7 @@ namespace Bid501_Server
         /// Handles expiring the bid
         /// </summary>
         /// <param name="product">The expiring product</param>
-        public void handleExpireProduct(IProduct product)
+        public void HandleExpireProduct(IProduct product)
         {
             foreach(IProduct p in _productDB.Products)
             {
