@@ -11,10 +11,11 @@ namespace Bid501_Shared.dto
     /// </summary>
     public class BidExpiredDTO : DTO<BidExpiredDTO>
     {
+        public const string SerializeType = "BidExpired";
         /// <summary>
         /// The type string for data processing
         /// </summary>
-        public const string Type = "BidExpired";
+        public string Type => SerializeType;
 
         /// <summary>
         /// The unique identifier for the product

@@ -163,6 +163,7 @@ namespace Bid501_Server
                 {
                     if(p.MinBid < bid && !p.IsExpired)
                     {
+                        p.BidCount++;
                         p.MinBid = bid;
                         BidUpdateDEL(bid, productID, clientID); // comunicating back to the clients
                         UpdateStateDEL(AdminState.EXPIREDBID, _productDB, null);
