@@ -34,6 +34,7 @@ namespace Bid501_Client
         {
             changeproduct = cpd;
             database = db;
+            
 
             InitializeComponent();
 
