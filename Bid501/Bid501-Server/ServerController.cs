@@ -189,9 +189,8 @@ namespace Bid501_Server
                 new Product("", "Blades of grass (5 pack)", 10000.0m, 0, false),
                 new Product("", "Electric Guitar", 400.0m, 0, false),
             };
-            WriteToJson(products, "../../PreloadBids.txt");
+            
 
-            List<Product> readInProducts = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("../../PreloadBids.txt"));
 
 
 
