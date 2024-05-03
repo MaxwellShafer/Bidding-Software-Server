@@ -35,7 +35,7 @@ namespace Bid501_Client
                 bidView.setPlaceBid(controller.PlaceBid);
                 //Application.Run(bidView);
                 // maybe use this instead...
-                bidView.Show();
+                bidView.ShowDialog();
             });
             Application.Run(view);
         }
