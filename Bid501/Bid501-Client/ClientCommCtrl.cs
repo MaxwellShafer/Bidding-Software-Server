@@ -52,7 +52,6 @@ namespace Bid501_Client
 
         public void SendLoginInfo(LoginDTO model)
         {
-            model.ClientId = ID;
             string body = model.Serialize();
             _ws.Send(body);
         }
@@ -63,7 +62,6 @@ namespace Bid501_Client
             {
                 Bid = price,
                 Id = id,
-                ClientId = ID
             };
             _ws.Send(dto.Serialize());
         }
