@@ -40,6 +40,11 @@ namespace Bid501_Server
         /// <param name="state"></param>
         public void DisplayState(AdminState state, ProductDB updatedDB, string newClient)
         {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() => DisplayState(state, updatedDB, newClient)));
+                return;
+            }
             _database = updatedDB;
             switch(state)
             {

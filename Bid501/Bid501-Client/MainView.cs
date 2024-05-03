@@ -8,11 +8,12 @@ namespace Bid501_Client
         public MainView()
         {
             InitializeComponent();
-            
+
             LoginDTO login = new LoginDTO();
             ClientLoginController loginController = new ClientLoginController(login);
             LoginForm view = new LoginForm(loginController.HandleEvents);
-            
+            MainView mv = new MainView();
+            mv.panel1 = new Panel();
 
             ClientCommCtrl clientCommCtrl = new ClientCommCtrl(loginController.HandleLoginReturn);
             loginController.SetupDels(view.DisplayState, clientCommCtrl.SendLoginInfo, (idb) =>
@@ -22,12 +23,13 @@ namespace Bid501_Client
                 clientCommCtrl.SetBidUpdated(controller.BidUpdated);
                 clientCommCtrl.SetNewProduct(controller.NewProduct);
                 clientCommCtrl.SetBidExpired(controller.BidExpired);
-                var bidView = new ClientBidView(controller.FetchNewProduct,productsProxy);
+                var bidView = new ClientBidView(controller.FetchNewProduct, productsProxy);
                 controller.SetProxy(bidView.handleEvents);
                 bidView.setPlaceBid(controller.PlaceBid);
-                bidView.ShowDialog();
+                mv.panel1.Controls.Clear();
+
             });
-            contentPanel.Controls.Add(view);
+            mv.panel1.Controls.Add(view);
         }
 
         public void SwitchToBidView()

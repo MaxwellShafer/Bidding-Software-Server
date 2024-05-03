@@ -102,7 +102,6 @@
     <Compile Include="ServerLoginView.Designer.cs">
       <DependentUpon>ServerLoginView.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginAttempt.cs" />
     <Compile Include="LoginState.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductDB.cs" />

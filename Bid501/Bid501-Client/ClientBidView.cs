@@ -118,26 +118,35 @@ namespace Bid501_Client
         /// </summary>
         public void RefreshDisplay()
         {
-            MinBid.Text = "Minimum bid: $" + database.SelectedProduct.MinBid;
-            MinimumBid = database.SelectedProduct.MinBid;
-            NumBids.Text = $"({database.SelectedProduct.BidCount})";
-            
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() => RefreshDisplay()));
+                return;
+            }
+                
+            if (database != null)
+            {
+                MinBid.Text = "Minimum bid: $" + database.SelectedProduct.MinBid;
+                MinimumBid = database.SelectedProduct.MinBid;
+                NumBids.Text = $"({database.SelectedProduct.BidCount})";
                 Status.Text = "Open";
-            
-            
-            name.Text = database.SelectedProduct.Name;
+                name.Text = database.SelectedProduct.Name;
+            }
         }
 
 
         public void RefreshList()
         {
-            listBox.Items.Clear();
-
-            // Iterate through the list of products
-            foreach (ProductProxy product in database.Products)
+            if (database != null)
             {
+                listBox.Items.Clear();
 
-                listBox.Items.Add(product);
+                // Iterate through the list of products
+                foreach (ProductProxy product in database.Products)
+                {
+
+                    listBox.Items.Add(product);
+                }
             }
         }
 
