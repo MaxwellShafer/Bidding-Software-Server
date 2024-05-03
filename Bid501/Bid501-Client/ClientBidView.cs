@@ -136,10 +136,8 @@ namespace Bid501_Client
             // Iterate through the list of products
             foreach (ProductProxy product in database.Products)
             {
-                
-                ListViewItem item = new ListViewItem(product.Name);
 
-                listBox.Items.Add(item);
+                listBox.Items.Add(product);
             }
         }
 
@@ -153,7 +151,7 @@ namespace Bid501_Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewProductClick(object sender, EventArgs e)
+        private void NewProductClickk(object sender, EventArgs e)
         {
             
 
@@ -176,6 +174,22 @@ namespace Bid501_Client
         public void setPlaceBid(PlaceBidDEL del)
         {
             placeBid = del;
+        }
+
+        private void NewProductClick(object sender, EventArgs e)
+        {
+
+            if (listBox.SelectedItems.Count > 0 && database != null)
+            {
+                int selectedIndex = listBox.SelectedIndices[0];
+
+                if (selectedIndex >= 0 && selectedIndex < database.Products.Count)
+                {
+                    ProductProxy selectedProduct = database.Products[selectedIndex];
+
+                    changeproduct(selectedProduct);
+                }
+            }
         }
     }
 }

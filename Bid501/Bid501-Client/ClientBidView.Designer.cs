@@ -121,6 +121,7 @@
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(276, 324);
             this.listBox.TabIndex = 9;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.NewProductClick);
             // 
             // ClientBidView
             // 

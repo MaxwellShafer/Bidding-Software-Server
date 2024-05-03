@@ -18,5 +18,13 @@ namespace Bid501_Client
         }
 
         public bool IsWinning { get; set; } = false;
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+
+
     }
 }
