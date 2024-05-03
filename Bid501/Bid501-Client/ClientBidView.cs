@@ -71,15 +71,15 @@ namespace Bid501_Client
             switch (state)
             {
                 case BidState.ChangeProduct:
-
                     RefreshList();
                     RefreshDisplay();
-
+                    break;
+                case BidState.NewProduct:
+                    RefreshList();
+                    RefreshDisplay();
                     break;
 
-
                 case BidState.PriceUpdated:
-
                     RefreshDisplay();
                     break;
 
@@ -88,23 +88,16 @@ namespace Bid501_Client
                     break;
                 case BidState.Win:
                             Status.Text = "won";
-
                     break;
 
                 case BidState.Lose:
-
                     Status.Text = "lost";
                     break;
-
-
-
-
 
                 case BidState.BadBid:
                     MessageBox.Show("Bad bid.");
                     break;
-
-
+                
                 default:
                     break;
             }
