@@ -64,6 +64,8 @@ namespace Bid501_Client
             {
                 handleEvents(BidState.BadBid);
             }
+
+            Bid.Text = "";
         }
 
         public void handleEvents(BidState state)
@@ -71,15 +73,15 @@ namespace Bid501_Client
             switch (state)
             {
                 case BidState.ChangeProduct:
-
                     RefreshList();
                     RefreshDisplay();
-
+                    break;
+                case BidState.NewProduct:
+                    RefreshList();
+                    RefreshDisplay();
                     break;
 
-
                 case BidState.PriceUpdated:
-
                     RefreshDisplay();
                     break;
 
@@ -88,23 +90,16 @@ namespace Bid501_Client
                     break;
                 case BidState.Win:
                             Status.Text = "won";
-
                     break;
 
                 case BidState.Lose:
-
                     Status.Text = "lost";
                     break;
-
-
-
-
 
                 case BidState.BadBid:
                     MessageBox.Show("Bad bid.");
                     break;
-
-
+                
                 default:
                     break;
             }
@@ -131,6 +126,16 @@ namespace Bid501_Client
                 NumBids.Text = $"({database.SelectedProduct.BidCount})";
                 Status.Text = "Open";
                 name.Text = database.SelectedProduct.Name;
+            }
+
+            if (database.SelectedProduct.IsExpired)
+            {
+                button1.Enabled = false;
+            }
+            else
+            {
+                button1.Enabled = true;
+
             }
         }
 
@@ -199,6 +204,7 @@ namespace Bid501_Client
                     changeproduct(selectedProduct);
                 }
             }
+            Bid.Text = "";
         }
     }
 }

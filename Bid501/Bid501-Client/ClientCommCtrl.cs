@@ -65,13 +65,12 @@ namespace Bid501_Client
                 Id = id,
             };
             _ws.Send(dto.Serialize());
-            MessageBox.Show(_ws.IsAlive.ToString());
         }
 
 
         private void OnMessage(object sender, MessageEventArgs e)
         {
-            MessageBox.Show("Message Received: " + e.Data);
+            Console.WriteLine("Message Recievied: " + e.Data);
             if(e.Data == "Unauthorized")
             {
                 _loginReturn(null);
