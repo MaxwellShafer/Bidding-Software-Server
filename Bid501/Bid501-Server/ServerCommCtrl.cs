@@ -64,7 +64,7 @@ namespace Bid501_Server
         /// <param name="p"></param>
         public void HandleExpiringBid(IProduct p)
         {
-            string clientId = GetId(((Product)p).User);
+            string clientId = ((Product)p).User;
             BidExpiredDTO dto = new BidExpiredDTO();
             dto.Id = p.Id;
             dto.IsWinning = true;
