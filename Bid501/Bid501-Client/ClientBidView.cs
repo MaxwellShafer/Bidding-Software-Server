@@ -64,6 +64,8 @@ namespace Bid501_Client
             {
                 handleEvents(BidState.BadBid);
             }
+
+            Bid.Text = "";
         }
 
         public void handleEvents(BidState state)
@@ -124,6 +126,16 @@ namespace Bid501_Client
                 NumBids.Text = $"({database.SelectedProduct.BidCount})";
                 Status.Text = "Open";
                 name.Text = database.SelectedProduct.Name;
+            }
+
+            if (database.SelectedProduct.IsExpired)
+            {
+                button1.Enabled = false;
+            }
+            else
+            {
+                button1.Enabled = true;
+
             }
         }
 
@@ -192,6 +204,7 @@ namespace Bid501_Client
                     changeproduct(selectedProduct);
                 }
             }
+            Bid.Text = "";
         }
     }
 }
