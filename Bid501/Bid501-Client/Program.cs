@@ -33,7 +33,7 @@ namespace Bid501_Client
                 var bidView = new ClientBidView(controller.FetchNewProduct,productsProxy);
                 controller.SetProxy(bidView.handleEvents);
                 bidView.setPlaceBid(controller.PlaceBid);
-                //Application.Run(bidView);
+                Application.Run(bidView);
                 // maybe use this instead...
                 bidView.ShowDialog();
             });
