@@ -35,8 +35,8 @@
             this.MinBid = new System.Windows.Forms.Label();
             this.NumBids = new System.Windows.Forms.Label();
             this.Status = new System.Windows.Forms.Label();
-            this.TimeLeft = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
+            this.TimeLeft = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -106,15 +106,6 @@
             this.Status.TabIndex = 6;
             this.Status.Text = "label4";
             // 
-            // TimeLeft
-            // 
-            this.TimeLeft.AutoSize = true;
-            this.TimeLeft.Location = new System.Drawing.Point(143, 182);
-            this.TimeLeft.Name = "TimeLeft";
-            this.TimeLeft.Size = new System.Drawing.Size(44, 16);
-            this.TimeLeft.TabIndex = 7;
-            this.TimeLeft.Text = "label5";
-            // 
             // name
             // 
             this.name.AutoSize = true;
@@ -123,6 +114,14 @@
             this.name.Size = new System.Drawing.Size(44, 16);
             this.name.TabIndex = 8;
             this.name.Text = "label6";
+            // 
+            // TimeLeft
+            // 
+            this.TimeLeft.AutoSize = true;
+            this.TimeLeft.Location = new System.Drawing.Point(143, 182);
+            this.TimeLeft.Name = "TimeLeft";
+            this.TimeLeft.Size = new System.Drawing.Size(0, 16);
+            this.TimeLeft.TabIndex = 7;
             // 
             // ClientBidView
             // 
@@ -154,7 +153,7 @@
         private System.Windows.Forms.Label MinBid;
         private System.Windows.Forms.Label NumBids;
         private System.Windows.Forms.Label Status;
-        private System.Windows.Forms.Label TimeLeft;
         private System.Windows.Forms.Label name;
+        private System.Windows.Forms.Label TimeLeft;
     }
 }

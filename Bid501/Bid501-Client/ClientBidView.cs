@@ -39,6 +39,7 @@ namespace Bid501_Client
             InitializeComponent();
 
             RefreshDisplay();
+            RefreshList();
 
         }
 
