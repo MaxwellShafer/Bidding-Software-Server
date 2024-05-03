@@ -117,9 +117,9 @@
             // 
             this.listBox.FormattingEnabled = true;
             this.listBox.ItemHeight = 16;
-            this.listBox.Location = new System.Drawing.Point(431, 105);
+            this.listBox.Location = new System.Drawing.Point(321, 105);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(166, 324);
+            this.listBox.Size = new System.Drawing.Size(276, 324);
             this.listBox.TabIndex = 9;
             // 
             // ClientBidView
