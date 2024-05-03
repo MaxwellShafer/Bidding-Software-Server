@@ -21,7 +21,7 @@ namespace Bid501_Server
         /// </summary>
         public ProductDB(List<IProduct> products) 
         {
-            Products = new List<IProduct>();
+            Products = products;
         }
     }
 }
