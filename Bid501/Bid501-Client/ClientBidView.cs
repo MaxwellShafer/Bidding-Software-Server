@@ -57,7 +57,7 @@ namespace Bid501_Client
 
             if(currentBid > MinimumBid)
             {
-
+                placeBid(database.SelectedProduct.Id, currentBid);
                 handleEvents(BidState.GoodBid);
             }
             else
@@ -84,16 +84,9 @@ namespace Bid501_Client
                     break;
 
                 case BidState.GoodBid:
-
-                    placeBid(database.SelectedProduct.Id,currentBid);
+                    RefreshDisplay();
                     break;
-
-
-                
-
                 case BidState.Win:
-
-                    
                             Status.Text = "won";
 
                     break;
@@ -108,10 +101,7 @@ namespace Bid501_Client
 
 
                 case BidState.BadBid:
-
-                    //display bad bid
-
-
+                    MessageBox.Show("Bad bid.");
                     break;
 
 

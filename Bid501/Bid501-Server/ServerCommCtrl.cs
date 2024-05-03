@@ -42,9 +42,6 @@ namespace Bid501_Server
         {
             var response = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(e.Data);
             var type = response["Type"].ToString();
-            MessageBox.Show(type);
-            Console.WriteLine(type);
-            var isLogin = type == LoginDTO.SerializeType;
             switch(type)
             {
                 case PlaceBidDTO.SerializeType:
