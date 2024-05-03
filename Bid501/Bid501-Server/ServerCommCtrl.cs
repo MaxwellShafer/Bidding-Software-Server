@@ -5,6 +5,7 @@ using Bid501_Shared.dto;
 //using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
 using WebSocketSharp;
@@ -68,6 +69,7 @@ namespace Bid501_Server
             dto.Id = p.Id;
             dto.IsWinning = true;
             dto.Bid = p.MinBid;
+            Console.WriteLine("Sessions: " + Sessions.Sessions);
             if (clientId != null)
             {
                 Sessions.SendTo(dto.Serialize(), clientId);
@@ -92,10 +94,12 @@ namespace Bid501_Server
         /// <param name="clientID"></param>
         public void HandleBidUpdated(decimal bid, string productID, string clientID)
         {
-            BidResponseDTO dto = new BidResponseDTO();
-            dto.Bid = bid;
-            dto.Id = productID;
-            dto.IsWinning = true;
+            BidResponseDTO dto = new BidResponseDTO
+            {
+                Bid = bid,
+                Id = productID,
+                IsWinning = true
+            };
             Sessions.SendTo(dto.Serialize(), clientID);
 
             dto.IsWinning = false;

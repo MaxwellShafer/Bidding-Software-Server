@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WebSocketSharp;
 using System.Text.Json;
+using System.Windows.Forms;
 using Bid501_Shared;
 using Bid501_Shared.dto;
 using WebSocketSharp.Server;
@@ -64,11 +65,13 @@ namespace Bid501_Client
                 Id = id,
             };
             _ws.Send(dto.Serialize());
+            MessageBox.Show(_ws.IsAlive.ToString());
         }
 
 
         private void OnMessage(object sender, MessageEventArgs e)
         {
+            MessageBox.Show("Message Received: " + e.Data);
             if(e.Data == "Unauthorized")
             {
                 _loginReturn(null);
