@@ -9,7 +9,11 @@ namespace Bid501_Client
         {
             foreach (var prop in ch.GetType().GetProperties())
             {
-                GetType().GetProperty(prop.Name)?.SetValue(this, prop.GetValue(ch, null), null);
+                var targetProp = GetType().GetProperty(prop.Name);
+                if (targetProp?.CanWrite == true)
+                {
+                    targetProp.SetValue(this, prop.GetValue(ch, null), null);
+                }
             }
         }
 
