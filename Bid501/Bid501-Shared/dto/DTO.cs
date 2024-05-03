@@ -8,6 +8,7 @@ namespace Bid501_Shared
     /// <typeparam name="T">T should be the name of the class (i.e. MyData : DTO<MyData>)</typeparam>
     public class DTO<T> where T : class
     {
+        public string ClientId { get; set; }
         public string Serialize()
         {
             return JsonSerializer.Serialize<T>(this as T);

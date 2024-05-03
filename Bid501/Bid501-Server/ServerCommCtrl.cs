@@ -46,11 +46,11 @@ namespace Bid501_Server
             {
                 case PlaceBidDTO.SerializeType:
                     var bidData = PlaceBidDTO.Deserialize(e.Data);
-                    NewBid(bidData.Bid, bidData.Id, ID);
+                    NewBid(bidData.Bid, bidData.Id, bidData.ClientId);
                     break;
                 case LoginDTO.SerializeType:
                     var loginData = LoginDTO.Deserialize(e.Data);
-                    LoginAttemptDel(loginData.Username, loginData.Password, ID);
+                    LoginAttemptDel(loginData.Username, loginData.Password, loginData.ClientId);
                     break;
                 default:
                     break;
