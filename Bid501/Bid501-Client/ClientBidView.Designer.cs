@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.productList = new System.Windows.Forms.ListView();
             this.Bid = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.MinBid = new System.Windows.Forms.Label();
@@ -37,6 +36,7 @@
             this.Status = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
             this.TimeLeft = new System.Windows.Forms.Label();
+            this.listBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -49,16 +49,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Products";
             this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // productList
-            // 
-            this.productList.HideSelection = false;
-            this.productList.Location = new System.Drawing.Point(402, 108);
-            this.productList.Name = "productList";
-            this.productList.Size = new System.Drawing.Size(190, 330);
-            this.productList.TabIndex = 1;
-            this.productList.UseCompatibleStateImageBehavior = false;
-            this.productList.SelectedIndexChanged += new System.EventHandler(this.NewProductClick);
             // 
             // Bid
             // 
@@ -123,11 +113,21 @@
             this.TimeLeft.Size = new System.Drawing.Size(0, 16);
             this.TimeLeft.TabIndex = 7;
             // 
+            // listBox
+            // 
+            this.listBox.FormattingEnabled = true;
+            this.listBox.ItemHeight = 16;
+            this.listBox.Location = new System.Drawing.Point(431, 105);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(166, 324);
+            this.listBox.TabIndex = 9;
+            // 
             // ClientBidView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 450);
+            this.Controls.Add(this.listBox);
             this.Controls.Add(this.name);
             this.Controls.Add(this.TimeLeft);
             this.Controls.Add(this.Status);
@@ -135,7 +135,6 @@
             this.Controls.Add(this.MinBid);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Bid);
-            this.Controls.Add(this.productList);
             this.Controls.Add(this.label1);
             this.Name = "ClientBidView";
             this.Text = "ClientBidView";
@@ -147,7 +146,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView productList;
         private System.Windows.Forms.TextBox Bid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label MinBid;
@@ -155,5 +153,6 @@
         private System.Windows.Forms.Label Status;
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label TimeLeft;
+        private System.Windows.Forms.ListBox listBox;
     }
 }

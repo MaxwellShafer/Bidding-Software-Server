@@ -141,15 +141,15 @@ namespace Bid501_Client
 
         public void RefreshList()
         {
-            productList.Items.Clear();
+            listBox.Items.Clear();
 
             // Iterate through the list of products
             foreach (ProductProxy product in database.Products)
             {
                 
-                ListViewItem item = new ListViewItem(product.Name); 
+                ListViewItem item = new ListViewItem(product.Name);
 
-                productList.Items.Add(item);
+                listBox.Items.Add(item);
             }
         }
 
@@ -169,9 +169,9 @@ namespace Bid501_Client
 
 
 
-            if (productList.SelectedItems.Count > 0 && database != null)
+            if (listBox.SelectedItems.Count > 0 && database != null)
             {
-                int selectedIndex = productList.SelectedIndices[0];
+                int selectedIndex = listBox.SelectedIndices[0];
 
                 if (selectedIndex >= 0 && selectedIndex < database.Products.Count)
                 {
