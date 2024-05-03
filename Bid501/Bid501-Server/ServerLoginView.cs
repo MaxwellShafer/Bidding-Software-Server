@@ -20,10 +20,7 @@ namespace Bid501_Server
         /// </summary>
         public LoginState State { get; set; }
 
-        /// <summary>
-        /// A property to hold each login attempt
-        /// </summary>
-        public LoginAttempt LoginAttempt { get; set; }
+       
 
         /// <summary>
         /// A delgate that is called when the user attempts to log in
